@@ -6,14 +6,21 @@ import { useState } from 'react';
 
 
 
-function Navbar({ Toggle }) {
+function Navbar({ Toggle}) {
   
-    const [showDropdown, setShowDropdown] = useState(false); // State to manage dropdown visibility
+    // const [showDropdown, setShowDropdown] = useState(false); // State to manage dropdown visibility
   
     // Function to toggle dropdown visibility
-    const toggleDropdown = () => {
-      setShowDropdown(!showDropdown);
-    }
+    // const toggleDropdown = () => {
+    //   setShowDropdown(!showDropdown);
+    // }
+
+    const [isOpen, setIsOpen]= useState(true);
+    const toggleProfile=()=>{
+      console.log("profile clicked");
+      setIsOpen(!isOpen);
+    };
+    console.log("isOpen",isOpen);
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-transparent"> 
@@ -21,13 +28,48 @@ function Navbar({ Toggle }) {
           {/* Move the toggle button to the sidebar */}
           <i className="bi bi-justify-left fs-4 sidebar-toggle" onClick={Toggle}></i>
           <div className='m-3'>
-            <Link to = '/calendar'>
+            <Link to = '/doctor'>
                 <i className='bi bi-bootstrap-fill me-3 fs-4'></i>
                 <span className='brand-name fs-4'>HIS</span>
             </Link>
           </div>
           
-          {/* <div> */}
+          
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li className="nav-item dropdown">
+                {/* <Link className="nav-link dropdown-toggle" to="" role="button"
+                  data-bs-toggle="dropdown" aria-expanded="false"> */}
+                   <div className="dropdown" style={{position:'relative'}}>
+                  <img src={process.env.PUBLIC_URL+'images/product_100.png'} alt = 'profile image' className='profile-image' onClick={toggleProfile}/>
+                  {/* <div style={{width:'500px', height:'50px', backgroundColor:'blue'}}></div> */}
+                  {isOpen && (
+                            <div className="dropdown-menu" style={{ position: 'absolute', top: '100%', right: '0', width: '200px', background: '#fff', zIndex: 1000 }}>
+                                <div style={{ height: '100vh', width: '200px' }}>
+                                    {/* Add your content here */}
+                                     <p>This is a dropdown content</p>
+                                    <p>It opens on clicking the profile picture</p>
+                                </div>
+                            </div>
+                        )}  
+                {/* </Link> */}
+                </div>
+               
+              </li>
+            </ul>
+          </div>
+          
+        </div>
+      </nav>
+    </>
+  );
+}
+export default Navbar;
+
+
+
+
+{/* <div> */}
           {/* <div style={{ display: 'flex', alignItems: 'center' }}>
       <img
         src="/images/profile-picture.jpg" // Replace this with the path to your profile picture
@@ -49,26 +91,10 @@ function Navbar({ Toggle }) {
     </div>
     </div> 
            */}
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item dropdown">
-                <Link className="nav-link dropdown-toggle" to="" role="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src='/images/product_100.png' alt = 'profile image' className='profile-image' />
-                </Link>
-                <ul className="dropdown-menu">
-                  <li><Link className="dropdown-item" to="/doctor">Profile</Link></li>
-                  <li><Link className="dropdown-item" to="/doctor">Setting</Link></li>
-                  <li><Link className="dropdown-item" to="/doctor">Logout</Link></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          
-        </div>
-      </nav>
-    </>
-  );
-}
 
-export default Navbar;
+
+            {/* <ul className="dropdown-menu">
+                  <li><Link className="dropdown-item" to="/profile">Profile</Link></li>
+                  <li><Link className="dropdown-item" to="/setting">Setting</Link></li>
+                  <li><Link className="dropdown-item" to="/logout">Logout</Link></li>
+                </ul> */}

@@ -12,6 +12,8 @@ import Navbar from './components/doctor/Navbar1';
 import profile from './components/doctor/profilePhoto'
 // import Navbar from './components/Navbar';
 import calendar from './components/doctor/Cal';
+import Cal1 from './components/doctor/Cal1';
+import PInfo from './components/doctor/PInfo';
 
 function App() {
   return (
@@ -29,7 +31,8 @@ function App() {
           <Route path='/doctor' element={<Doctor/>}></Route>
         <Route path='/profile' element={<profile/>}></Route>
         <Route path='/calendar' element={<calendar/>}></Route>
-       
+        <Route path='/cal1' element={<Cal1/>}></Route>
+       <Route path='/PInfo' element={<PInfo/>}></Route>
           {/* <Route path='/Sidebar' */}
         </Routes>
        

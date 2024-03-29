@@ -65,7 +65,7 @@ export default function Home() {
     </form>
   </div>
 </nav>
-<div className="background-image" ></div> {/* This will be the background image */}
+<div className="background-image" style={{backgroundImage:`url(${process.env.PUBLIC_URL}/images/14.jpg)`}}></div> {/* This will be the background image */}
 <footer className="footer">
   <div className="team-members">
     <p>

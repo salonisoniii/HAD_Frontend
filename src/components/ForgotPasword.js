@@ -2,12 +2,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 // import Login from "./Login";
 import { Link } from "react-router-dom";
-import backgroundImage from '../images/his1.jpg';
+// import backgroundImage from '${}./images/his1.jpg';
 
 
 const ForgotPassword = () => {
     const styles = {
-        backgroundImage:`url(${backgroundImage})` ,
+        backgroundImage:`url(${process.env.PUBLIC_URL}/images/his1.jpg)` ,
         display: 'flex', alignItems: 'center', height: '100vh', margin: '0px'
     }
     

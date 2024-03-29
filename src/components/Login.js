@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import backgroundImage from '../images/his1.jpg';
+import axios from 'axios';
+// import backgroundImage from '././images/his1.jpg';
 import { login } from "../services/login_service";
 
 
 
 const Login = () => {
     const styles = {
-        backgroundImage:`url(${backgroundImage})` ,
+        backgroundImage:`url(${process.env.PUBLIC_URL}/images/his1.jpg)` ,
         display: 'flex', alignItems: 'center', height: '105vh', margin: '0px'
     }
     const[username,usernameUpdate]=useState('');
@@ -20,7 +21,7 @@ const Login = () => {
     let a="saloni";
     let b="1234";
 
-    const ProceedLogin=(e)=>{
+    const ProceedLogin=async(e)=>{
         e.preventDefault();
         login(e).then((resp)=>{
             console.log(resp)
@@ -31,6 +32,12 @@ const Login = () => {
         })
 
         if(validate()){
+            // const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/authenticate', {
+            //     username: username,
+            //     password: password,
+            //     role: role
+            // });
+            // console.log("API response: "+JSON.stringify(response.data));
             if(username===a && password===b){
             console.log("proceed");
             console.log(JSON.stringify({ username, password, role}));

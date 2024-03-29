@@ -35,7 +35,7 @@
   }
   
   .profile-image {
-    width: 40px; /* Adjust the width and height as needed*/
+    width: 40px; 
     height: 40px;
      border-radius: 50%; /*To make it circular */
      margin-right: auto;

@@ -30,7 +30,7 @@ function Sidebar({ Toggle }) {
                     <i className='bi bi-speedometer2 fs-5 me-4'></i>
                     <span >DashBoard</span>
                 </Link>
-                <Link to='/stafflist' className='list-group-item py-2'>
+                <Link to='' className='list-group-item py-2'>
                     <i className='bi bi-clipboard-data-fill fs-5 me-4'></i>
                     <span >Patient List</span>
                 </Link>
