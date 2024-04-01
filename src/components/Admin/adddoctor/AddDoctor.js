@@ -4,6 +4,7 @@ import Navbar2 from "../Navbar2";
 import "../adddoctor/AddDoctor.css";
 import Sidebar2 from "../Sidebar2";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function AddDoctorForm() {
   const [toggle, setToggle] = useState(true);
@@ -36,23 +37,25 @@ function AddDoctorForm() {
   const handleSubmit = async(e) => {
     e.preventDefault();
 
-    const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser/DOCTOR', {
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          phone: phone,
-          gender: gender,
-          bloodGroup: bloodGroup,
-          specialization: specialization ,
-          experience: experience,
-          photo: photo,
-          address: address
-                
-            });
-            console.log("API response: "+JSON.stringify(response.data));
+    try{
+    const userobj = new FormData();
+    userobj.append('firstName',userobj.firstName);
+    userobj.append('lastName',userobj.lastName);
+    userobj.append('email',userobj.email);
+    userobj.append('phone',userobj.phone);
+    userobj.append('gender',userobj.gender);
+    userobj.append('bloodGroup',userobj.bloodGroup);
+    userobj.append('specialization',userobj.specialization);
+    userobj.append('experience',userobj.experience);
+    userobj.append('photo',userobj.photo);
+    userobj.append('address',userobj.address);
+
+    const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser/DOCTOR',userobj);
+
+    console.log("API Response"+JSON.stringify(response.data));
 
     // You can handle form submission here, e.g., send data to backend
-    console.log(formData);
+    // console.log(formData);
     // Reset form after submission
     setFormData({
       firstName: "",
@@ -66,6 +69,11 @@ function AddDoctorForm() {
       photo: "",
       address: "",
     });
+    toast.success('doctor added successfully');
+  }catch(error){
+    console.log("Error",error);
+    toast.error("Error adding doctor. Please try again.");
+  }
   };
 
   return (

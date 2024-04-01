@@ -2,6 +2,9 @@ import React , {useState} from 'react'
 import Navbar2 from '../Navbar2';
 import '../AddPharmacist/AddPharmacist.css'
 import Sidebar2 from '../Sidebar2';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
 
 function AddPharmacist() {
     const [toggle, setToggle] = useState(true);
@@ -28,8 +31,23 @@ function AddPharmacist() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
+
+        try{
+            const userobj = new FormData();
+            userobj.append('firstName',userobj.firstName);
+            userobj.append('lastName',userobj.lastName);
+            userobj.append('email',userobj.email);
+            userobj.append('phone',userobj.phone);
+            userobj.append('gender',userobj.gender);
+            userobj.append('bloodGroup',userobj.bloodGroup);
+            userobj.append('photo',userobj.photo);
+            userobj.append('address',userobj.address);
+        
+            const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser/PHARMACIST',userobj);
+        
+            console.log("API Response"+JSON.stringify(response.data));
         // You can handle form submission here, e.g., send data to backend
         console.log(formData);
         // Reset form after submission
@@ -43,6 +61,11 @@ function AddPharmacist() {
             photo: '',
             address: ''
         });
+        toast.success('PHARMACIST added successfully');
+    }catch(error){
+      console.log("Error",error);
+      toast.error("Error adding PHARMACIST. Please try again.");
+    }
     };
   return (
     <div>
