@@ -1,0 +1,68 @@
+/* .row.sal{
+    background-image:url(${process.env.PUBLIC_URL}/images/his1.jpg) ;
+        display: flex; align-items: center; height: 105vh; margin: 0px;
+}
+
+
+
+.container-styles {
+    height: 80vh;
+    margin-top: 150px;
+    background-color: transparent;
+}
+
+.card-styles {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+}
+
+.card-header h2 {
+    margin-bottom: 0;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.select-role {
+    background: transparent;
+}
+
+.user-name-input {
+    background: transparent;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.password-input {
+    background: transparent;
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} */
+.saloni{
+    /* background-image: url('..) !important ; */
+    display: flex !important;
+    align-items: center !important;height: 100vh;
+    background-size: cover;
+    
+}
+/* .card{
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    height: 100%;
+    width: 100vw;
+    margin-top: -20px;
+    margin-bottom: -20px;
+    margin-left: -20px;
+} */
+h2 {
+    text-align: center;
+    font-size: calc(1.325rem + .9vw);
+}
+.form-group input{
+    background: transparent !important;border-color: rgba(0, 0, 0, 0.2);
+}

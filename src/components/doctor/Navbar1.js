@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 
 
-function Navbar({ Toggle}) {
+function Navbar1({ Toggle}) {
   
     // const [showDropdown, setShowDropdown] = useState(false); // State to manage dropdown visibility
   
@@ -64,7 +64,7 @@ function Navbar({ Toggle}) {
     </>
   );
 }
-export default Navbar;
+export default Navbar1;
 
 
 

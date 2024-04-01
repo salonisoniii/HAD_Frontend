@@ -1,0 +1,73 @@
+
+
+  
+
+.card .header {
+    background-color: #817d7d;
+    padding: 10px;
+    border-bottom: 1px solid #070707;
+}
+
+.card .body {
+    padding: 10px;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+    margin: 0;
+}
+
+.nav-tabs .nav-item {
+    margin-bottom: -1px;
+}
+
+.nav-tabs .nav-link {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    color: #333;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #fff;
+    border-color: #ddd #ddd #fff;
+}
+
+.xl-slategray {
+    margin-top: 1rem;
+    padding: 0rem;
+    background-color: #acaeb1; 
+    border-radius: 0.10rem;
+}
+
+.xl-slategray .body {
+    margin-top: 0rem;
+  }
+  
+  .xl-slategray .row.text-center > div {
+    padding: 0.4rem;
+  }
+  
+  
+  .nav-tabs .nav-link:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  }
+
+/* Tab Content */
+.tab-content {
+    padding: 15px;
+}
+
+
+
+/* Text Center */
+.text-center {
+    text-align: center;
+}
+
+
+
+
+
+

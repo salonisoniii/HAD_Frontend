@@ -1,0 +1,65 @@
+
+.category-details{
+    margin-left: 10px;
+    margin:20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 80px;
+    margin-right: -10px;
+}
+
+.category-details > *{
+    margin-right: 10px;
+}
+
+.role-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Arrange items vertically */
+    align-items: center; /* Center items horizontally */
+  }
+  /* want to images size decrease in the card */
+  @media only screen and (max-width: 600px) {
+      .role-card img {
+          width: 75%;
+      }
+  }
+  
+/* Add some spacing around items in the card */
+.role-card :not(:first-child) {
+    margin-top: 30px;
+}
+
+.role-title {
+    font-size: 24px;
+    color: #3a3b3c;
+}
+
+.role-description {
+    text-align: center;
+    max-width: 90%;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #7e7d7f; 
+}
+  /* .role-card img {
+    width: 60px; 
+    height: auto;
+  } */
+    /* height: 60px; 
+    border-radius: 50%; 
+    margin-bottom: 10px; 
+  } */
+  
+  .role-details {
+    text-align: center; /* Center text */
+    margin-bottom: 10px; /* Add space below text */
+  }
+  
+  .role-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }

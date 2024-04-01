@@ -1,0 +1,17 @@
+/* StaffList.css */
+
+.navbar-nav .nav-item1 {
+    margin-right: 50px; /* Adjust the margin between links */
+    margin-left: 50px;
+    font-weight: 500;
+    font-size: 20px;
+  }
+  
+  /* Optionally, you can adjust padding as well */
+  .navbar-nav .nav-link {
+    padding-right: 15px; /* Adjust the padding between link text and border */
+    padding-left: 15px; /* Adjust the padding between link text and border */
+  }
+  
+  
+  

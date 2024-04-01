@@ -1,0 +1,58 @@
+/* CSS for AddStaff component */
+
+.card {
+    max-width: 750px;
+    margin: 0 auto;
+    margin-top: 40px;
+    height: auto; /* Change height to auto to accommodate varying content */
+    padding: 20px; /* Add padding for better spacing */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+  }
+  
+  .card-title {
+    text-align: center;
+    font-weight: bold;
+  }
+  
+  .button-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .button-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .button, .button-link {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 200px; 
+    margin-right: 10px; /* Add margin for spacing between buttons */
+    text-align: center; /* Align button text in the center */
+  }
+  .button-container .button:first-child {
+    margin-right: 50px;
+  }
+  
+  .button:hover, .button-link:hover {
+    background-color: #0056b3;
+  }
+  .button-container2 {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  .button-container2 .button:first-child {
+    margin-right: 50px; /* Add margin to the right of the first button */
+}

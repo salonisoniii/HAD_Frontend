@@ -3,6 +3,7 @@ import Sidebar from './Sidebar';
 import './doctor.css';
 import Navbar from './Navbar1';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { Link } from 'react-router-dom';
 
 export default function PInfo() {
     const [toggle, setToggle] = useState(true);
@@ -56,7 +57,7 @@ export default function PInfo() {
                       <p style={{minWidth: '100px',marginRight:'50px'}}>Blood group:</p> 
                       <p>B+</p>
                   </div>
-                  <button>Add Diagonosis</button>
+                 <Link to='/AddDiag'> <button style={{color:'blue'}}>Add Diagonosis</button></Link>
                   
               </div>
               {/* {/* <div style={{position: 'relative', marginLeft: 'auto', marginRight: '50px'}}> */}

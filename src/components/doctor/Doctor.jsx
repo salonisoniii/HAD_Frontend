@@ -6,6 +6,7 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 // import Calendar from 'react-calendar';
 import ReactCalendar from './Cal';
 import Patients from './Patients';
+import Navbar1 from './Navbar1';
 // import Test from './Test'
 
 
@@ -48,7 +49,7 @@ export default function Doctor() {
           )}
           {toggle && <div className='col-4 col-md-2'></div>}
           <div className='col'>
-            <Navbar Toggle={Toggle}  />
+            <Navbar1 Toggle={Toggle}  />
             
               {isOpen && (
                 <div className="dropdown-menu" style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0, 0, 0, 0.5)', zIndex: 9999 }}>
@@ -63,7 +64,7 @@ export default function Doctor() {
             <div >
               <Patients patients={patients} />   
             </div>
-            <div className="calendar-container" style={{position: 'absolute',top: '0',right: '0',marginTop: '20px',marginRight: '0px'}}>
+            <div className="calendar-container" style={{position: 'absolute',top: '0',right: '0',marginTop: '20px',marginRight: '15px'}}>
         <ReactCalendar/> 
         
         

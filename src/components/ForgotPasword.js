@@ -39,10 +39,10 @@ const ForgotPassword = () => {
         // <h1>forgotPassword</h1>
 
         <div className="row" style={styles}> 
-            <div className="offset-lg-3 col-lg-6">
-            <form  className="container">
-                <div className="card" style={{backgroundColor:'transparent'}}>
-                    <div className="card-header">
+            {/* <div className="offset-lg-3 col-lg-6"> */}
+            <form  className="container" style={{width:'30%',backgroundColor:'transparent'}}>
+                <div className="card" style={{backgroundColor:'transparent',border: '1px solid rgba(0, 0, 0, 0)'}}>
+                    <div className="card-header" style={{ backgroundColor: 'rgba(255, 255, 255, 0)'}}>
                         <h2>Reset Password</h2>
                     </div>
                     <div className="card-body">
@@ -53,7 +53,7 @@ const ForgotPassword = () => {
                         </div>
                        
                     </div>
-                    <div className="card-footer">
+                    <div className="card-footer" style={{ backgroundColor: 'rgba(255, 255, 255, 0)'}}>
                         <button type="submit" className="btn btn-primary" onClick={ProceedLogin} style={{marginRight:"10px"}}>Reset Password</button>
                         <button type="submit" className="btn btn-primary" ><Link to='/login' style={{color:"white", textDecoration:"none"}}>Login</Link></button>
                         {/* <Link to='/login'>Login</Link> */}
@@ -61,7 +61,7 @@ const ForgotPassword = () => {
                 </div>
 
             </form>
-            </div>
+            {/* </div> */}
 
         </div>
 
