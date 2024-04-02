@@ -19,10 +19,10 @@ function AddDoctorForm() {
     email: "",
     phone: "",
     gender: "",
-    bloodGroup: "",
+    blood: "",
     specialization: "",
     experience: "",
-    photo: "",
+    profileImage: "",
     address: "",
   });
 
@@ -38,24 +38,21 @@ function AddDoctorForm() {
     e.preventDefault();
 
     try{
-    const userobj = new FormData();
-    userobj.append('firstName',userobj.firstName);
-    userobj.append('lastName',userobj.lastName);
-    userobj.append('email',userobj.email);
-    userobj.append('phone',userobj.phone);
-    userobj.append('gender',userobj.gender);
-    userobj.append('bloodGroup',userobj.bloodGroup);
-    userobj.append('specialization',userobj.specialization);
-    userobj.append('experience',userobj.experience);
-    userobj.append('photo',userobj.photo);
-    userobj.append('address',userobj.address);
+   
+    const userobj = {...formData};
+    userobj["role"]="Doctor";
+    const req = {
+      "personal":userobj
+    };
+    // console.log(personal);
+    console.log(req);
+    // req["personal"] = userobj;
 
-    const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser/DOCTOR',userobj);
-
+    const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser',req);
     console.log("API Response"+JSON.stringify(response.data));
 
     // You can handle form submission here, e.g., send data to backend
-    // console.log(formData);
+    // console.log(JSON.stringify(req));
     // Reset form after submission
     setFormData({
       firstName: "",
@@ -63,10 +60,10 @@ function AddDoctorForm() {
       email: "",
       phone: "",
       gender: "",
-      bloodGroup: "",
+      blood: "",
       specialization: "",
       experience: "",
-      photo: "",
+      profileImage: "",
       address: "",
     });
     toast.success('doctor added successfully');
@@ -168,15 +165,15 @@ function AddDoctorForm() {
                     </select>
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label htmlFor="bloodGroup" className="form-label">
+                    <label htmlFor="blood" className="form-label">
                       Blood Group
                     </label>
                     <input
                       type="text"
                       className="form-control"
                       id="bloodGroup"
-                      name="bloodGroup"
-                      value={formData.bloodGroup}
+                      name="blood"
+                      value={formData.blood}
                       onChange={handleChange}
                       required
                     />
@@ -210,14 +207,14 @@ function AddDoctorForm() {
                     />
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label htmlFor="photo" className="form-label">
+                    <label htmlFor="profileImage" className="form-label">
                       Photo
                     </label>
                     <input
                       type="file"
                       className="form-control"
                       id="photo"
-                      name="photo"
+                      name="profileImage"
                       accept="image/*"
                       onChange={handleChange}
                       required

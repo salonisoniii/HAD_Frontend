@@ -38,19 +38,26 @@ function AddNurseForm() {
     e.preventDefault();
 
     try{
-        const userobj = new FormData();
-        userobj.append('firstName',userobj.firstName);
-        userobj.append('lastName',userobj.lastName);
-        userobj.append('email',userobj.email);
-        userobj.append('phone',userobj.phone);
-        userobj.append('gender',userobj.gender);
-        userobj.append('bloodGroup',userobj.bloodGroup);
-        userobj.append('specialization',userobj.specialization);
-        userobj.append('experience',userobj.experience);
-        userobj.append('photo',userobj.photo);
-        userobj.append('address',userobj.address);
+        // const userobj = new FormData();
+        // userobj.append('firstName',userobj.firstName);
+        // userobj.append('lastName',userobj.lastName);
+        // userobj.append('email',userobj.email);
+        // userobj.append('phone',userobj.phone);
+        // userobj.append('gender',userobj.gender);
+        // userobj.append('bloodGroup',userobj.bloodGroup);
+        // userobj.append('specialization',userobj.specialization);
+        // userobj.append('experience',userobj.experience);
+        // userobj.append('photo',userobj.photo);
+        // userobj.append('address',userobj.address);
+
+        const userobj = {...formData};
+        userobj["role"]="Nurse";
+    const req = {
+      "personal":userobj
+    };
+    console.log(req);
     
-        const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser/NURSE',userobj);
+        const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser',req);
     
         console.log("API Response"+JSON.stringify(response.data));
     // You can handle form submission here, e.g., send data to backend
