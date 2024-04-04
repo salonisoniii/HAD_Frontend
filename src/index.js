@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// bootstrap bundle css 
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import ContextProvider from './components/Admin/Context/Context';

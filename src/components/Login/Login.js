@@ -44,7 +44,8 @@ const Login = () => {
             passwordUpdate('');
             roleUpdate('');
             toast.success('Login Successful');
-            usenavigate('/Admin')
+            usenavigate('/Receptionists')
+
             sessionStorage.setItem('username',username);
         }else{
             toast.error("please enter correct username and password")

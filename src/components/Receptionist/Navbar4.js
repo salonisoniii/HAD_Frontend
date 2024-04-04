@@ -1,13 +1,13 @@
-import React from 'react';
-import './style2.css'
+import React from 'react'
 import { Link } from 'react-router-dom';
-import p1 from '../Admin/Assets/product_1.jpg'
+import p2 from '../Admin/Assets/product_2.jpg'
+import './style4.css'
 
+function Navbar4({ Toggle,handleSignOut }) {
 
-function Navbar2({ Toggle,handleSignOut }) {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-transparent">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-transparent" style={{padding:0}}>
         <div className="container-fluid">
           {/* Move the toggle button to the sidebar */}
           <i className="bi bi-justify-left fs-4 sidebar-toggle" onClick={Toggle}></i>
@@ -24,10 +24,10 @@ function Navbar2({ Toggle,handleSignOut }) {
               <li className="nav-item dropdown">
                 <Link className="nav-link dropdown-toggle" href="#" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src={p1} alt='profile image' className='profile-image' />
+                  <img src={p2} alt='profile image' className='profile-image' />
                 </Link>
                 <ul className="dropdown-menu ">
-                  <img src={p1} alt='profile image' className='profile-image' style={{ width: '70px', height: '70px', padding: '10px', marginLeft: '70px' }} />
+                  <img src={p2} alt='profile image' className='profile-image' style={{ width: '70px', height: '70px', padding: '10px', marginLeft: '70px' }} />
                   <li className='dropdown-item'>
                     <table>
                       <tbody>
@@ -60,7 +60,7 @@ function Navbar2({ Toggle,handleSignOut }) {
         </div>
       </nav>
     </>
-  );
+  )
 }
 
-export default Navbar2;
+export default Navbar4;
