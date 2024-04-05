@@ -1,12 +1,9 @@
-import React, { useState } from 'react'
-import Navbar2 from '../Navbar2';
-import '../AddReceptionist/AddReceptionist.css'
-import Sidebar2 from '../Sidebar2';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import React,{useState} from 'react'
+import Sidebar4 from '../Sidebar4';
+import Navbar4 from '../Navbar4';
+import '../Newpatient/Newpatient.css'
 
-
-function AddReceptionist() {
+function Newpatient() {
     const [toggle, setToggle] = useState(true);
 
     const Toggle = () => {
@@ -17,8 +14,11 @@ function AddReceptionist() {
         lastName: '',
         email: '',
         phone: '',
+        birthdate: '',
         gender: '',
         bloodGroup: '',
+        adharid: '',
+
         photo: '',
         address: ''
     });
@@ -33,27 +33,25 @@ function AddReceptionist() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // try {
+        //     // const userobj = new FormData();
+        //     // userobj.append('firstName',userobj.firstName);
+        //     // userobj.append('lastName',userobj.lastName);
+        //     // userobj.append('email',userobj.email);
+        //     // userobj.append('phone',userobj.phone);
+        //     // userobj.append('gender',userobj.gender);
+        //     // userobj.append('bloodGroup',userobj.bloodGroup);
+        //     // userobj.append('photo',userobj.photo);
+        //     // userobj.append('address',userobj.address);
+        //     const userobj = { ...formData };
+        //     const req = {
+        //         "personal": userobj
+        //     };
+        //     console.log(req);
 
-        try {
-            // const userobj = new FormData();
-            // userobj.append('firstName',userobj.firstName);
-            // userobj.append('lastName',userobj.lastName);
-            // userobj.append('email',userobj.email);
-            // userobj.append('phone',userobj.phone);
-            // userobj.append('gender',userobj.gender);
-            // userobj.append('bloodGroup',userobj.bloodGroup);
-            // userobj.append('photo',userobj.photo);
-            // userobj.append('address',userobj.address);
-            const userobj = { ...formData };
-            userobj["role"] = "DOCTOR";
-            const req = {
-                "personal": userobj
-            };
-            console.log(req);
+        //     const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser', req);
 
-            const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser', req);
-
-            console.log("API Response" + JSON.stringify(response.data));
+        //     console.log("API Response" + JSON.stringify(response.data));
             // You can handle form submission here, e.g., send data to backend
             console.log(formData);
             // Reset form after submission
@@ -62,16 +60,18 @@ function AddReceptionist() {
                 lastName: '',
                 email: '',
                 phone: '',
+                birthdate: '',
                 gender: '',
-                blood: '',
-                profileImage: '',
+                bloodGroup: '',
+                adharid: '',
+                photo: '',
                 address: ''
             });
-            toast.success('RECEPTIONIST added successfully');
-        } catch (error) {
-            console.log("Error", error);
-            toast.error("Error adding RECEPTIONIST. Please try again.");
-        }
+            // toast.success('RECEPTIONIST added successfully');
+        // } catch (error) {
+        //     console.log("Error", error);
+        //     toast.error("Error adding RECEPTIONIST. Please try again.");
+        // }
     };
     return (
         <div>
@@ -79,12 +79,12 @@ function AddReceptionist() {
                 <div className='row'>
                     {toggle && (
                         <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>
-                            <Sidebar2 Toggle={Toggle} />
+                            <Sidebar4 Toggle={Toggle} />
                         </div>
                     )}
                     {toggle && <div className='col-4 col-md-2'></div>}
                     <div className='col'>
-                        <Navbar2 Toggle={Toggle} />
+                        <Navbar4 Toggle={Toggle} />
 
 
                         <div className="card1">
@@ -108,6 +108,17 @@ function AddReceptionist() {
                                             <label htmlFor="phone" className="form-label">Phone</label>
                                             <input type="tel" className="form-control" id="phone" name="phone" value={formData.phone} onChange={handleChange} required />
                                         </div>
+                                        {/* add classname of birthdate */}
+                                        <div className="col-md-6 mb-3">
+                                            <label htmlFor="birthdate" className="form-label">Birthdate</label>
+                                            <input type="date" className="form-control" id="birthdate" name="birthdate" value={formData.birthdate} onChange={handleChange} required />
+                                        </div>
+                                        <div className="col-md-6 mb-3">
+                                            <label htmlFor="adharid" className="form-label">Aadhar ID</label>
+                                            <input type="text" className="form-control" id="adharid" name="adharid" value={formData.adharid} onChange={handleChange} required />
+                                        </div>
+
+
                                         <div className="col-md-6 mb-3">
                                             <label htmlFor="gender" className="form-label">Gender</label>
                                             <select className="form-select" id="gender" name="gender" value={formData.gender} onChange={handleChange} required>
@@ -130,7 +141,7 @@ function AddReceptionist() {
                                             <label htmlFor="address" className="form-label">Address</label>
                                             <textarea className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} required></textarea>
                                         </div>
-                                        <button type="submit" className="btn btn-primary" style={{ width: '30%', marginLeft: '30%' }}>Submit</button>
+                                        <button type='submit' className="submit-btn">Submit</button>
                                     </div>
                                 </form>
                             </div>
@@ -139,8 +150,7 @@ function AddReceptionist() {
                 </div>
             </div>
         </div>
-
-    );
+    )
 }
 
-export default AddReceptionist
+export default Newpatient

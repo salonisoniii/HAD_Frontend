@@ -17,7 +17,7 @@ import PInfo from './components/doctor/PInfo';
 import AddDiagnosis from './components/doctor/AddDiagnosis';
 import { useState,useEffect } from 'react';
 import axios from "axios";
-import Newpatient from './components/Receptionist/Newpatient/Newpatient';
+
 
 
 import Admin from './components/Admin/Admin';
@@ -34,11 +34,8 @@ import Deactivate from './components/Admin/Deactivate/Deactivate';
 
 import Navbar4 from './components/Receptionist/Navbar4';
 import Rdashboard from './components/Receptionist/Rdashboard/Rdashboard';
+import Newpatient from './components/Receptionist/Newpatient/Newpatient';
 // import { Button } from 'react-bootstrap';
-
-import AddPatient from './Nurse/AddPatient/AddPatient';
-import PatientList from './Nurse/PatientList/PatientList';
-import NurseSchedule from './Nurse/NurseSchedule/NurseSchedule';
 
 
 
@@ -123,7 +120,6 @@ function App() {
               <Route path='/avail_nurses' element={<Category role='NURSE' Toggle={Toggle}/>} />
               <Route path='/avail_receptionist' element={<Category role='RECEPTIONIST' Toggle={Toggle}/>} />
               <Route path='/avail_pharmacist' element={<Category role='PHARMACIST' Toggle={Toggle}/>} />
-             
               <Route path='/deactivate' element={<Deactivate/>} />
               <Route path='/ms' element={<ModifySchedule/>} /> 
            
@@ -132,13 +128,7 @@ function App() {
           <Route path='/Navbar4' element={<Navbar4/>} />
           <Route path='/rdashboard' element={<Rdashboard/>} />
 
-
-           {/* Routes for Nurse */}
-           <Route path='/nurse' element={<Nurse/>} /> 
-            <Route path='/AddPatient' element={<AddPatient/>} />
-            <Route path='/PatientList' element={<PatientList/>}/>
-            <Route path='/NurseSchedule' element={<NurseSchedule/>}/>
-            <Route path = '/newpatient' element={<Newpatient/>} />
+          <Route path = '/newpatient' element={<Newpatient/>} />
         </Routes>
        
       </BrowserRouter>

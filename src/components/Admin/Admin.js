@@ -24,7 +24,7 @@ export default function Admin() {
   };
   return (
     <div>
-      <div className='container-fluid bg-secondary min-vh-100'>
+      <div className='container-fluid  min-vh-100' style={{backgroundColor:'#ECE3F0' }} >
         <div className='row'>
           {toggle && (
             <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>

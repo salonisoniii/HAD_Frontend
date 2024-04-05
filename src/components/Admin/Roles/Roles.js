@@ -4,16 +4,19 @@ const Roles = (props) => {
     return (
         <>
         <div className='item'>
-            <img src={props.image}   alt='' />
-            <p> {props.name} </p>
-            <div className='item-specialization'>
+            {/* <img src={props.image}   alt='' /> */}
+            <p> {props.firstName} </p>
+            {/* <div className='item-specialization'>
                 {props.specialization}
+            </div> */}
+            <div className='item-gender'>
+                {props.gender}
             </div>
             <div className='item-email'>
                 {props.email}
             </div>
             <div className='item-number'>
-                {props.no}
+                {props.phone}
             </div>    
         </div>
         </>
