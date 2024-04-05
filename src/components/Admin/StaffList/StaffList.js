@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar2 from '../Navbar2';
 import '../StaffList/StaffList.css';
 import { Link } from 'react-router-dom';
 import Sidebar2 from '../Sidebar2';
+import axios from 'axios';
 
 function StaffList() {
   const [toggle, setToggle] = useState(true);
+  const[staffData,setStaffData]=useState([]);
 
   const Toggle = () => {
     setToggle(!toggle);
   };
+
+  // useEffect(()=>{
+  //   const fetchData = async () =>{
+  //     try{
+  //       const response = await axios.get("https://present-neat-mako.ngrok-free.app/his/admin/getUser")
+  //       setStaffData(response.data);
+  //     }catch(error){
+  //       console.log('Error Fetching Data:',error);
+  //     }
+  //     }
+  //   }
+  // })
 
   const [menu,setMenu] = useState("category");
   return (

@@ -45,6 +45,7 @@ function AddReceptionist() {
             // userobj.append('photo',userobj.photo);
             // userobj.append('address',userobj.address);
             const userobj = {...formData};
+            userobj["role"] = "DOCTOR";
             const req = {
               "personal":userobj
             };
@@ -62,8 +63,8 @@ function AddReceptionist() {
             email: '',
             phone: '',
             gender: '',
-            bloodGroup: '',
-            photo: '',
+            blood: '',
+            profileImage: '',
             address: ''
         });
         toast.success('RECEPTIONIST added successfully');
@@ -129,7 +130,7 @@ function AddReceptionist() {
                                 <label htmlFor="address" className="form-label">Address</label>
                                 <textarea className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} required></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn btn-primary" style={{width:'30%', marginLeft:'30%'}}>Submit</button>
                         </div>
                     </form>
                 </div>

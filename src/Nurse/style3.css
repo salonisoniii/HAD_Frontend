@@ -1,0 +1,38 @@
+.sidebar {
+    width: 220px; 
+    height: 100%; 
+    padding: 20px;
+  }
+  
+  .sidebar-toggle {
+    cursor: pointer;
+    padding-right: 10px; 
+  }
+  
+  .sidebar-closed-icon {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    background-color: #fff;
+    border-right: 1px solid #ddd; 
+    cursor: pointer;
+  }
+.list-group a:hover {
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .profile-image {
+    width: 40px; /* Adjust the width and height as needed */
+    height: 40px;
+    border-radius: 50%; /* To make it circular */
+  }
+  
+  .navbar .dropdown-menu{
+    margin-left: -80px;
+    padding: 0px;
+    /* width: 200px; */
+  }

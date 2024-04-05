@@ -46,13 +46,12 @@ const Login = () => {
             passwordUpdate('');
             roleUpdate('');
             toast.success('Login Successful');
-             // Swal.fire({
+            // Swal.fire({
             //     title: "Successfully Login",
             //     text: "Press OK to Continue",
             //     icon: "success"
             // });
-            usenavigate('/Admin')
-
+            usenavigate('/nurse')
             sessionStorage.setItem('username',username);
         }else{
             toast.error("please enter correct username and password")

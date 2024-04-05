@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 // import { Form, Button } from 'react-bootstrap';
-import Navbar2 from "../Navbar2";
-import "../adddoctor/AddDoctor.css";
-import Sidebar2 from "../Sidebar2";
+import Navbar3 from "../Navbar3";
+import './addPatient.css';
+import Sidebar3 from "../Sidebar3";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -13,6 +13,7 @@ function AddDoctorForm() {
     setToggle(!toggle);
   };
 
+  const [checked, setChecked] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -20,8 +21,8 @@ function AddDoctorForm() {
     phone: "",
     gender: "",
     blood: "",
-    specialization: "",
-    experience: "",
+    Reason: "",
+    doctor: "",
     profileImage: "",
     address: "",
   });
@@ -36,11 +37,14 @@ function AddDoctorForm() {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    const confirmed = window.confirm("Do you want to share your Data?");
+    
+    if (confirmed){
 
     try{
    
     const userobj = {...formData};
-    userobj["role"]="Doctor";
+    userobj["role"]="Nurse";
     const req = {
       "personal":userobj
     };
@@ -61,16 +65,17 @@ function AddDoctorForm() {
       phone: "",
       gender: "",
       blood: "",
-      specialization: "",
-      experience: "",
+      Reason: "",
+      doctor: "",
       profileImage: "",
       address: "",
     });
+
     toast.success('doctor added successfully');
   }catch(error){
     console.log("Error",error);
     toast.error("Error adding doctor. Please try again.");
-  }
+  }}
   };
 
   return (
@@ -78,16 +83,16 @@ function AddDoctorForm() {
       <div className="row">
         {toggle && (
           <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-            <Sidebar2 Toggle={Toggle} />
+            <Sidebar3 Toggle={Toggle} />
           </div>
         )}
         {toggle && <div className="col-4 col-md-2"></div>}
         <div className="col">
-          <Navbar2 Toggle={Toggle} />
+          <Navbar3 Toggle={Toggle} />
 
           <div className="card1">
             <div className="card1-body">
-              <h5 className="card1-title">Add New Doctor</h5>
+              <h5 className="card1-title">Add Emergency Patient</h5>
               <form onSubmit={handleSubmit}>
                 <div className="row">
                   <div className="col-md-6 mb-3">
@@ -179,29 +184,29 @@ function AddDoctorForm() {
                     />
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label htmlFor="specialization" className="form-label">
-                      Specialization
+                    <label htmlFor="Reason" className="form-label">
+                      Reason for seeing Doctor
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="specialization"
-                      name="specialization"
-                      value={formData.specialization}
+                      id="Reason"
+                      name="Reason"
+                      value={formData.Reason}
                       onChange={handleChange}
                       required
                     />
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label htmlFor="experience" className="form-label">
-                      Experience (in years)
+                    <label htmlFor="doctor" className="form-label">
+                      Doctor Consulted
                     </label>
                     <input
-                      type="number"
+                      type="text"
                       className="form-control"
-                      id="experience"
-                      name="experience"
-                      value={formData.experience}
+                      id="doctor"
+                      name="doctor"
+                      value={formData.doctor}
                       onChange={handleChange}
                       required
                     />
@@ -233,6 +238,45 @@ function AddDoctorForm() {
                       required
                     ></textarea>
                   </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="Aadhar" className="form-label">
+                      Aadhar ID
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="Aadhar"
+                      name="Aadhar"
+                      value={formData.Aadhar}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                  <label htmlFor="DOB" className="form-label">
+                    Date of Birth
+                  </label>
+                  <input
+                    type="date"
+                    className="form-control"
+                    id="DOB"
+                    name="DOB"
+                    value={formData.DOB}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                  <div className="col-md-6 mb-3">
+                    <input
+                        type="checkbox"
+                        className="form1-check-input"
+                        id="exampleCheck1"
+                        checked={checked}
+                        onChange={(e) => setChecked(e.target.checked)}
+                        required
+                    />
+                    <label className="form1-check-label" htmlFor="exampleCheck1">Do you Want to share your Data?</label>
+                </div>
                   <button type="submit" className="btn btn-primary" style={{width:'30%', marginLeft:'30%'}}>
                     Submit
                   </button>

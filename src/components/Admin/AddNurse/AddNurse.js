@@ -69,10 +69,10 @@ function AddNurseForm() {
       email: "",
       phone: "",
       gender: "",
-      bloodGroup: "",
+      blood: "",
       specialization: "",
       experience: "",
-      photo: "",
+      profileImage: "",
       address: "",
     });
     toast.success('NURSE added successfully');
@@ -243,7 +243,7 @@ function AddNurseForm() {
                         required
                       ></textarea>
                     </div>
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary" style={{width:'30%', marginLeft:'30%'}}>
                       Submit
                     </button>
                   </div>

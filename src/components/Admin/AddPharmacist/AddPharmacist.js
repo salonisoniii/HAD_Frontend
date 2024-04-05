@@ -18,8 +18,8 @@ function AddPharmacist() {
         email: '',
         phone: '',
         gender: '',
-        bloodGroup: '',
-        photo: '',
+        blood: '',
+        profileImage: '',
         address: ''
     });
 
@@ -35,17 +35,25 @@ function AddPharmacist() {
         e.preventDefault();
 
         try{
-            const userobj = new FormData();
-            userobj.append('firstName',userobj.firstName);
-            userobj.append('lastName',userobj.lastName);
-            userobj.append('email',userobj.email);
-            userobj.append('phone',userobj.phone);
-            userobj.append('gender',userobj.gender);
-            userobj.append('bloodGroup',userobj.bloodGroup);
-            userobj.append('photo',userobj.photo);
-            userobj.append('address',userobj.address);
+            // const userobj = new FormData();
+            // userobj.append('firstName',userobj.firstName);
+            // userobj.append('lastName',userobj.lastName);
+            // userobj.append('email',userobj.email);
+            // userobj.append('phone',userobj.phone);
+            // userobj.append('gender',userobj.gender);
+            // userobj.append('bloodGroup',userobj.bloodGroup);
+            // userobj.append('photo',userobj.photo);
+            // userobj.append('address',userobj.address);
+
+            
+        const userobj = {...formData};
+        userobj['role']="Pharmacist";
+        const req = {
+          "personal":userobj
+        };
+        console.log(req);
         
-            const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser/PHARMACIST',userobj);
+            const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser',req);
         
             console.log("API Response"+JSON.stringify(response.data));
         // You can handle form submission here, e.g., send data to backend
@@ -57,8 +65,8 @@ function AddPharmacist() {
             email: '',
             phone: '',
             gender: '',
-            bloodGroup: '',
-            photo: '',
+            blood: '',
+            profileImage: '',
             address: ''
         });
         toast.success('PHARMACIST added successfully');
@@ -112,19 +120,19 @@ function AddPharmacist() {
                                 </select>
                             </div>
                             <div className="col-md-6 mb-3">
-                                <label htmlFor="bloodGroup" className="form-label">Blood Group</label>
-                                <input type="text" className="form-control" id="bloodGroup" name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} required />
+                                <label htmlFor="blood" className="form-label">Blood Group</label>
+                                <input type="text" className="form-control" id="bloodGroup" name="blood" value={formData.bloodGroup} onChange={handleChange} required />
                             </div>
                             
                             <div className="col-md-6 mb-3">
-                                <label htmlFor="photo" className="form-label">Photo</label>
-                                <input type="file" className="form-control" id="photo" name="photo" accept="image/*" onChange={handleChange} required />
+                                <label htmlFor="profileImage" className="form-label">Photo</label>
+                                <input type="file" className="form-control" id="photo" name="profileImage" accept="image/*" onChange={handleChange} required />
                             </div>
                             <div className="col-md-6 mb-3">
                                 <label htmlFor="address" className="form-label">Address</label>
                                 <textarea className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} required></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary">Submit</button>
+                            <button type="submit" className="btn btn-primary" style={{width:'30%', marginLeft:'30%'}}>Submit</button>
                         </div>
                     </form>
                 </div>
