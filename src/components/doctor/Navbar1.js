@@ -23,7 +23,7 @@ function Navbar1({ Toggle}) {
     console.log("isOpen",isOpen);
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-transparent"> 
+      <nav className="navbar navbar-expand-lg " style={{background:'linear-gradient(red, yellow, green)'}}> 
         <div className="container-fluid">
           {/* Move the toggle button to the sidebar */}
           <i className="bi bi-justify-left fs-4 sidebar-toggle" onClick={Toggle}></i>

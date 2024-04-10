@@ -157,7 +157,7 @@ function Navbar3({ Toggle, handleSignOut }) {
                     className="profile-image"
                   />
                 </Link>
-                <ul className="dropdown-menu ">
+                <ul className="dropdown-menu " style={{marginLeft:'-75px'}}>
                   <img
                     src={process.env.PUBLIC_URL + "images/product_100.png"}
                     alt="profile image"
@@ -169,24 +169,10 @@ function Navbar3({ Toggle, handleSignOut }) {
                       marginLeft: "70px",
                     }}
                   />
-                  <li className="dropdown-item">
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>John Doe</td>
-                        </tr>
-                        <tr>
-                          <td>john.doe@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>9126543458</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </li>
-                  {/* <li><Link className="dropdown-item" to="/profile">John Doe</Link></li>
+                  
+                  <li><Link className="dropdown-item" to="/profile">John Doe</Link></li>
                   <li><Link className="dropdown-item" to="/profile">john.doe@example.com</Link></li>
-                  <li><Link className="dropdown-item" to="/profile">9126543458</Link></li> */}
+                  <li><Link className="dropdown-item" to="/profile">9126543458</Link></li>
                   <li>
                     <Link className="dropdown-item" to="/change-password">
                       Change Password

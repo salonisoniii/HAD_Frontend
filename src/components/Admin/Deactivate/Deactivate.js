@@ -28,7 +28,7 @@ const Deactivate = () => {
 
     return (
         <div>
-        <div className='container-fluid bg-secondary min-vh-100' >
+        <div className='container-fluid min-vh-100' style={{backgroundColor:'#ECE3F0' }}>
           <div className='row'>
             {toggle && (
               <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>
@@ -73,7 +73,7 @@ const Deactivate = () => {
                     />
                     <label className="form1-check-label" htmlFor="exampleCheck1">Check me out</label>
                 </div>
-                <button type="submit" className="btn btn1-primary">Check</button>
+                <button type="submit" className="btn btn-primary" style={{width:'30%'}}>Check</button>
             </form>
             {submitted && (
                 <div className="card">
@@ -81,6 +81,7 @@ const Deactivate = () => {
                         <h5 className="card-title">Information</h5>
                         <p className="card-text">Name: {name}</p>
                         <p className="card-text">Email: {email}</p>
+                    <button type="submit" className="btn btn-primary" style={{width:'30%'}}>Confirm</button>
                     </div>
                 </div>
                 

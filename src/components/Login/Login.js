@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import Swal from 'sweetalert2'
 import axios from 'axios';
 // import backgroundImage from '././images/his1.jpg';
-import { login } from "../../services/login_service";
+
 
 import '../Login/login.css'
 import { getSwitchUtilityClass } from "@mui/material";
@@ -13,50 +13,101 @@ const Login = () => {
     // const styles = {
 
     // }
-    const[username,usernameUpdate]=useState('');
-    const[password,passwordUpdate]=useState('');
-    const[role,roleUpdate]=useState('');
+    const[username,setUsername]=useState('');
+    const[password,setPassword]=useState('');
+    const[role,setRole]=useState('');
 
     const usenavigate=useNavigate();
 
-    let a="saloni";
-    let b="1234";
+    // let a="saloni";
+    // let b="1234";
 
     const ProceedLogin=async(e)=>{
         e.preventDefault();
-        login(e).then((resp)=>{
-            console.log(resp)
-            console.log("success log")
-        }).catch((error)=>{
-            console.log(error)
+
+        try{
+            if(validate()){
+        const responsee = await axios.post('https://present-neat-mako.ngrok-free.app/his/authenticate', {
+                username: username,
+                password: password,
+                role: role
+            });
+            localStorage.setItem('role',role);
+            setUsername('');
+            setPassword('');
+            setRole('');
+            const{userId,token, response} = responsee.data;
+            console.log(responsee);
+
+            localStorage.setItem('userId',userId);
+            localStorage.setItem('token',token);
+
+
+            switch(role){
+                case 'ADMIN' :
+                    usenavigate('/Admin');
+                    break;
+                case 'NURSE':
+                    usenavigate('/nurse');
+                    break;
+                case 'DOCTOR':
+                    usenavigate('/doctor');
+                    break;
+                case 'PHARMACIST':
+                    usenavigate('/pharmacist')
+                    break;
+                case 'RECEPTIONIST':
+                    usenavigate('/Receptionists');
+                    break;
+                default:
+                    usenavigate('/');
+            }
+
+        // login(e).then((resp)=>{
+        //     console.log(resp)
+        //     console.log("success log")
+        // }).catch((error)=>{
+        //     console.log(error)
             
-        })
+        // })
+        }}catch(error){
+            console.log(error);
+            if(error.responsee){
+                toast.error(error.responsee.data.error);
+            }else if (error.request) {
+                // The request was made but no response was received
+                toast.error('No response received from the server. Please try again later.');
+            }
+            else{
+                toast.error("Failed to login, Please try again later");
+            }
+           
+        }
+        // if(validate()){
+        //     // const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/authenticate', {
+        //     //     username: username,
+        //     //     password: password,
+        //     //     role: role
+        //     // });
+        //     // console.log("API response: "+JSON.stringify(response.data));
+        //     if(username===a && password===b){
+        //     console.log("proceed");
+        //     console.log(JSON.stringify({ username, password, role}));
+        //     usernameUpdate('');
+        //     passwordUpdate('');
+        //     roleUpdate('');
+        //     toast.success('Login Successful');
+        //      // Swal.fire({
+        //     //     title: "Successfully Login",
+        //     //     text: "Press OK to Continue",
+        //     //     icon: "success"
+        //     // });
+        //     usenavigate('/admin')
 
-        if(validate()){
-            // const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/authenticate', {
-            //     username: username,
-            //     password: password,
-            //     role: role
-            // });
-            // console.log("API response: "+JSON.stringify(response.data));
-            if(username===a && password===b){
-            console.log("proceed");
-            console.log(JSON.stringify({ username, password, role}));
-            usernameUpdate('');
-            passwordUpdate('');
-            roleUpdate('');
-            toast.success('Login Successful');
-             // Swal.fire({
-            //     title: "Successfully Login",
-            //     text: "Press OK to Continue",
-            //     icon: "success"
-            // });
-            usenavigate('/Admin')
-
-            sessionStorage.setItem('username',username);
-        }else{
-            toast.error("please enter correct username and password")
-        }}
+        //     sessionStorage.setItem('username',username);
+        // }else{
+        //     toast.error("please enter correct username and password")
+        // }}
     }
     const validate=()=>{
         let result=true;
@@ -85,22 +136,22 @@ const Login = () => {
                     <div className="card-body">
                         <div className="form-group" >
                         {/* <label for="role">Select Role:</label> */}
-                            <select style={{marginBottom:'10px', background: 'transparent'}} id="role" name="role" value={role} onChange={(e)=>roleUpdate(e.target.value)}>
+                            <select style={{marginBottom:'10px', background: 'transparent'}} id="role" name="role" value={role} onChange={(e)=>setRole(e.target.value)}>
                             <option value="" disabled selected>Select Role</option>
-                            <option value="admin">Admin</option>
-                            <option value="nurse">Nurse</option>
-                            <option value="doctor">Doctor</option>
-                            <option value="pharmacist">Pharmacist</option>
-                            <option value="receptionist">Receptionist</option>
+                            <option value="ADMIN">Admin</option>
+                            <option value="NURSE">Nurse</option>
+                            <option value="DOCTOR">Doctor</option>
+                            <option value="PHARMACIST">Pharmacist</option>
+                            <option value="RECEPTIONSIT">Receptionist</option>
                             </select>
                         </div>
                         <div className="form-group" style={{ background: 'transparent' }}>
                             <label >User Name <span className="errmsg">*</span></label>
-                            <input className="form-control"  value={username} onChange={e=>usernameUpdate(e.target.value)}></input>
+                            <input className="form-control"  value={username} onChange={e=>setUsername(e.target.value)}></input>
                         </div>
                         <div className="form-group">
                             <label >Password <span className="errmsg">*</span></label>
-                            <input type="password" className="form-control"  value={password} onChange={e=>passwordUpdate(e.target.value)}></input>
+                            <input type="password" className="form-control"  value={password} onChange={e=>setPassword(e.target.value)}></input>
                         </div>
                     </div>
                     <div className="card-footer" style={{ backgroundColor: 'rgba(255, 255, 255, 0)'}}>

@@ -29,7 +29,7 @@ function Home1({ Toggle }) {
                                 <h3 className='fs-2'>100</h3>
                                 <p className='fs-5'>Nurses</p>
                             </div>
-                            <i className='bi bi-person-nurse-fill p-3 fs-1'></i>
+                            <i className='bi bi-person-fill p-3 fs-1'></i>
 
                         </div>
 

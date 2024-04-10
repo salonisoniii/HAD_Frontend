@@ -39,7 +39,7 @@ function Category({ Toggle = false, ...props }) {
 
   return (
     <div>
-      <div className="container-fluid bg-secondary min-vh-100">
+      <div className="container-fluid  min-vh-100" style={{backgroundColor:'#ECE3F0' }}>
         <div className="row">
           {toggle1 && (
             <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
@@ -49,7 +49,7 @@ function Category({ Toggle = false, ...props }) {
           {toggle1 && <div className="col-4 col-md-2"></div>}
           <div className="col">
             <Navbar2 Toggle={Toggle1} />
-            <h1 className="viewh">Details of Doctors</h1>
+            {/* <h1 className="viewh">Details of Doctors</h1> */}
             {/* <thead>
               <tr>
                 <th scope="col">Index</th>

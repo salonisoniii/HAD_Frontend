@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Patients = ({ patients }) => {
   return (
-    <div style={{marginLeft:'50px'}}>
+    <div style={{marginRight:'500px'}}>
       {/* <h2 >List of Patients</h2>
       <ul className="patients-list" style={{listStyle: 'none',padding: 0,margin: 0}}>
         {patients.map((patient) => (
@@ -18,8 +18,8 @@ const Patients = ({ patients }) => {
         ))}
       </ul> */}
       
-      <h2>List of Patients</h2>
-      <table >
+      <h2 style={{marginLeft:'-380px'}}>List of Patients</h2>
+      <table style={{margin:'0px'}}>
         <thead style={{paddingBottom:'30px'}}> 
           <tr>
             <th style={{paddingRight:'20px'}}>Profile Picture</th>

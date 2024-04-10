@@ -1,11 +1,15 @@
 import React,{useState} from 'react'
-import Sidebar3 from '../Sidebar3'
-import Navbar3 from '../Navbar3'
-import DataGridDemo from './ShowList';
+
+
+import DataGridDemo1 from './RecpShowList';
+
+import Sidebar4 from '../Sidebar4';
+import Navbar4 from '../Navbar4';
+import DataGridDemo2 from './RecpShowList';
 
 
 
-export default function PatientList() {
+export default function RecpPatientList() {
     const [toggle,setToggle] = useState(true);
     const Toggle = () =>{
         setToggle(!toggle);
@@ -17,13 +21,13 @@ export default function PatientList() {
         <div className="row">
           {toggle && (
             <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-              <Sidebar3 Toggle={Toggle} />
+              <Sidebar4 Toggle={Toggle} />
             </div>
           )}
           {toggle && <div className="col-4 col-md-2"></div>}
           <div className="col">
-            <Navbar3 Toggle={Toggle} />
-            <DataGridDemo/>
+            <Navbar4 Toggle={Toggle} />
+            <DataGridDemo2/>
 </div>
 </div>
 </div>

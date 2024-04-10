@@ -5,6 +5,132 @@ import "../adddoctor/AddDoctor.css";
 import Sidebar2 from "../Sidebar2";
 import axios from "axios";
 import { toast } from "react-toastify";
+// import {readFile} from "fs";
+
+
+// function AddDoctorForm() {
+//   const [toggle, setToggle] = useState(true);
+
+//   const Toggle = () => {
+//     setToggle(!toggle);
+//   };
+
+//   const [formData, setFormData] = useState({
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     phone: "",
+//     gender: "",
+//     blood: "",
+//     specialization: "",
+//     experience: "",
+//     profileImage: "",
+//     address: "",
+//   });
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData({
+//       ...formData,
+//       [name]: value,
+//     });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     try {
+
+//       const userId = localStorage.getItem('userId');
+//       const token = localStorage.getItem('token');
+
+//       const imageFileToBase64 = async (imageFile) => {
+//         return new Promise((resolve, reject) => {
+//             // Create a new FileReader instance
+//             const reader = new FileReader();
+    
+//             // Define onload event handler
+//             reader.onload = () => {
+//                 // Resolve the promise with the base64 string
+//                 resolve(reader.result.split(',')[1]);
+//             };
+    
+//             // Define onerror event handler
+//             reader.onerror = (error) => {
+//                 // Reject the promise with the error
+//                 reject(error);
+//             };
+    
+//             // Read the image file as data URL
+//             reader.readAsDataURL(imageFile);
+//         });
+//     };
+
+//     const imageFile = formData.profileImage; // Assuming formData.profileImage is the image file
+//     imageFileToBase64(imageFile)
+//     .then(base64Data => {
+//         // Construct newuserObj with base64 image and userobj
+//         const newuserObj = {
+//             'image': base64Data,
+//             'request': {
+//                 ...userobj
+//             }
+//         };
+
+//         // Now you can use newuserObj
+//         console.log(newuserObj);
+//     })
+//     .catch(error => {
+//         console.error("Error converting image to base64:", error);
+//     });
+
+
+
+//       const headers ={
+//         'userId':userId,
+//         'Authorization': `Bearer ${token}`
+//       }
+
+//       const userobj = { ...formData };
+//       userobj["role"] = "DOCTOR";
+
+//       // const newuserObj = {
+//       //   'image': formData.profileImage,
+//       //   'request':{
+//       //     ...userobj
+//       //   }
+//       // }
+//       console.log(JSON.stringify(newuserObj));
+     
+//       const response = await axios.post(
+//         "http://present-neat-mako.ngrok-free.app/his/admin/addUser",
+//         newuserObj,{
+//           headers :headers
+//         }
+//       );
+//       console.log("API Response: " + JSON.stringify(response.data));
+      
+
+      
+//       setFormData({
+//         firstName: "",
+//         lastName: "",
+//         email: "",
+//         phone: "",
+//         gender: "",
+//         blood: "",
+//         specialization: "",
+//         experience: "",
+//         profileImage: "",
+
+//         address: "",
+//       });
+//       toast.success("doctor added successfully");
+//     } catch (error) {
+//       console.log("Error", error);
+//       toast.error("Error adding doctor. Please try again.");
+//     }
+//   };
 
 function AddDoctorForm() {
   const [toggle, setToggle] = useState(true);
@@ -22,59 +148,99 @@ function AddDoctorForm() {
     blood: "",
     specialization: "",
     experience: "",
-    profileImage: "",
+    profileImage: null, // Updated to null
     address: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    if (name === 'profileImage') {
+        setFormData({
+            ...formData,
+            [name]: e.target.files[0] // Updated to handle file input
+        });
+    } else {
+        setFormData({
+            ...formData,
+            [name]: value,
+        });
+    }
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-   
-    const userobj = {...formData};
-    userobj["role"]="Doctor";
-    const req = {
-      "personal":userobj
-    };
-    // console.log(personal);
-    console.log(req);
-    // req["personal"] = userobj;
+    try {
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
 
-    const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser',req);
-    console.log("API Response"+JSON.stringify(response.data));
+      // Convert image file to base64
+      const base64Data = await imageFileToBase64(formData.profileImage);
 
-    // You can handle form submission here, e.g., send data to backend
-    // console.log(JSON.stringify(req));
-    // Reset form after submission
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      gender: "",
-      blood: "",
-      specialization: "",
-      experience: "",
-      profileImage: "",
-      address: "",
-    });
-    toast.success('doctor added successfully');
-  }catch(error){
-    console.log("Error",error);
-    toast.error("Error adding doctor. Please try again.");
-  }
+      // Construct newuserObj with base64 image and userobj
+      const newuserObj = {
+        'image': base64Data,
+        'request': {
+          ...formData
+        }
+      };
+
+      const headers ={
+        'userId':userId,
+        'Authorization': `Bearer ${token}`
+      }
+      console.log(newuserObj);
+
+      const response = await axios.post(
+        "http://present-neat-mako.ngrok-free.app/his/admin/addUser",
+        newuserObj,{
+          headers :headers
+        }
+      );
+      console.log("API Response: " + JSON.stringify(response.data));
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        gender: "",
+        blood: "",
+        specialization: "",
+        experience: "",
+        profileImage: null, // Reset the file input
+        address: "",
+      });
+      toast.success("Doctor added successfully");
+    } catch (error) {
+      console.log("Error", error);
+      toast.error("Error adding doctor. Please try again.");
+    }
   };
 
+  // Function to convert image file to base64
+  const imageFileToBase64 = (imageFile) => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            resolve(reader.result.split(',')[1]);
+        };
+
+        reader.onerror = (error) => {
+            reject(error);
+        };
+
+        reader.readAsDataURL(imageFile);
+    });
+  };
+
+
   return (
-    <div className="container-fluid bg-secondary min-vh-100">
+    <div
+      className="container-fluid  min-vh-100"
+      style={{ backgroundColor: "#ECE3F0" }}
+    >
       <div className="row">
         {toggle && (
           <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
@@ -220,6 +386,7 @@ function AddDoctorForm() {
                       required
                     />
                   </div>
+
                   <div className="col-md-6 mb-3">
                     <label htmlFor="address" className="form-label">
                       Address
@@ -233,7 +400,11 @@ function AddDoctorForm() {
                       required
                     ></textarea>
                   </div>
-                  <button type="submit" className="btn btn-primary" style={{width:'30%', marginLeft:'30%'}}>
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    style={{ width: "30%", marginLeft: "30%" }}
+                  >
                     Submit
                   </button>
                 </div>

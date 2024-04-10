@@ -26,26 +26,12 @@ function Navbar4({ Toggle,handleSignOut }) {
                   data-bs-toggle="dropdown" aria-expanded="false">
                   <img src={p2} alt='profile image' className='profile-image' />
                 </Link>
-                <ul className="dropdown-menu ">
+                <ul className="dropdown-menu " style={{marginLeft:'-75px'}}>
                   <img src={p2} alt='profile image' className='profile-image' style={{ width: '70px', height: '70px', padding: '10px', marginLeft: '70px' }} />
-                  <li className='dropdown-item'>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>John Doe</td>
-                        </tr>
-                        <tr>
-                          <td>john.doe@example.com</td>
-                        </tr>
-                        <tr>
-                          <td>9126543458</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </li>
-                  {/* <li><Link className="dropdown-item" to="/profile">John Doe</Link></li>
+                  
+                  <li><Link className="dropdown-item" to="/profile">John Doe</Link></li>
                   <li><Link className="dropdown-item" to="/profile">john.doe@example.com</Link></li>
-                  <li><Link className="dropdown-item" to="/profile">9126543458</Link></li> */}
+                  <li><Link className="dropdown-item" to="/profile">9126543458</Link></li>
                   <li><Link className="dropdown-item" to="/change-password">Change Password</Link></li>
                   <li><Link className="dropdown-item" to="/settings">Settings</Link></li>
                   <li><Link className="dropdown-item" to="/edit-profile">Edit Profile</Link></li>

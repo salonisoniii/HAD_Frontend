@@ -23,21 +23,21 @@ const localizer = dateFnsLocalizer({
 
 const events = [
     {
-        title: "Big Meeting",
+        title: "10:00-12:00",
         allDay: true,
-        start: new Date(2024, 2, 27),
-        end: new Date(2024, 2, 28),
+        start: new Date(2024, 4, 6),
+        end: new Date(2024, 4 , 12),
     },
-    {
-        title: "Vacation",
-        start: new Date(2021, 2, 28),
-        end: new Date(2021, 2, 30),
-    },
-    {
-        title: "Conference",
-        start: new Date(2021, 2, 12),
-        end: new Date(2021, 2, 23),
-    },
+    // {
+    //     title: "Vacation",
+    //     start: new Date(2021, 4, 9),
+    //     end: new Date(2021, 4, 10),
+    // },
+    // {
+    //     title: "Conference",
+    //     start: new Date(2021, 4, 12),
+    //     end: new Date(2021, 4, 23),
+    // },
 ];
 
 function Cal1() {
