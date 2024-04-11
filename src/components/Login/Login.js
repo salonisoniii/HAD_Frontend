@@ -40,7 +40,7 @@ const Login = () => {
             console.log(responsee);
 
             localStorage.setItem('userId',userId);
-            localStorage.setItem('token',token);
+            localStorage.setItem('token',"Bearer "+token);
 
 
             switch(role){

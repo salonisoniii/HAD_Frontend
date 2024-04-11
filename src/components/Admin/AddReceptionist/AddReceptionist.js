@@ -12,6 +12,22 @@ function AddReceptionist() {
     const Toggle = () => {
         setToggle(!toggle);
     };
+
+    const [birthDate, setBirthdate] = useState('');
+  
+    function handleBlur(event) {
+      const dateValue = event.target.value;
+      const date = new Date(dateValue);
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+      const formattedDate = `${year}-${month}-${day}`;
+      setBirthdate(formattedDate);
+      console.log(birthDate);
+    }
+
+  const [jayImage, setJayImage] = useState(null);
+
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -20,43 +36,57 @@ function AddReceptionist() {
         gender: '',
         bloodGroup: '',
         photo: '',
-        address: ''
+        address: '',
+        role: "",
+        birthDate: ""
     });
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === 'profileImage') {
+            setJayImage(e.target.files[0]);
+          } else {
         setFormData({
             ...formData,
             [name]: value
         });
+    }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            // const userobj = new FormData();
-            // userobj.append('firstName',userobj.firstName);
-            // userobj.append('lastName',userobj.lastName);
-            // userobj.append('email',userobj.email);
-            // userobj.append('phone',userobj.phone);
-            // userobj.append('gender',userobj.gender);
-            // userobj.append('bloodGroup',userobj.bloodGroup);
-            // userobj.append('photo',userobj.photo);
-            // userobj.append('address',userobj.address);
-            const userobj = { ...formData };
-            userobj["role"] = "DOCTOR";
-            const req = {
-                "personal": userobj
+            const userId = localStorage.getItem('userId');
+            const token = localStorage.getItem('token');
+      
+            
+            formData["role"] = "RECEPTIONIST";
+            formData["birthDate"]=birthDate;
+           
+            const newuserObj = {
+              'image': jayImage,
+              'request':
+                JSON.stringify(formData)
+      
             };
-            console.log(req);
-
-            const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser', req);
-
-            console.log("API Response" + JSON.stringify(response.data));
-            // You can handle form submission here, e.g., send data to backend
-            console.log(formData);
-            // Reset form after submission
+      
+            const headers = {
+              'userId': userId,
+              'Authorization': token,
+              'ngrok-skip-browser-warning': "true",
+              'Content-Type': 'multipart/form-data'
+            }
+            console.log(newuserObj);
+      
+            // const response = await axios.post(
+            //   "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
+            //   newuserObj, {
+            //   headers: headers
+            // }
+            // );
+            // console.log("API Response: " + JSON.stringify(response.data));
+      
             setFormData({
                 firstName: '',
                 lastName: '',
@@ -65,7 +95,9 @@ function AddReceptionist() {
                 gender: '',
                 blood: '',
                 profileImage: '',
-                address: ''
+                address: '',
+                role: '',
+                birthDate:''
             });
             toast.success('RECEPTIONIST added successfully');
         } catch (error) {
@@ -112,14 +144,24 @@ function AddReceptionist() {
                                             <label htmlFor="gender" className="form-label">Gender</label>
                                             <select className="form-select" id="gender" name="gender" value={formData.gender} onChange={handleChange} required>
                                                 <option value="">Select Gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="other">Other</option>
+                                                <option value="MALE">Male</option>
+                                                <option value="FEMALE">Female</option>
+                                                <option value="OTHER">Other</option>
                                             </select>
                                         </div>
                                         <div className="col-md-6 mb-3">
                                             <label htmlFor="bloodGroup" className="form-label">Blood Group</label>
-                                            <input type="text" className="form-control" id="bloodGroup" name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} required />
+                                            <select type="text" className="form-control" id="bloodGroup" name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} required >
+                                            <option value="">Select BloodGroup</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="A-">A-</option>
+                      <option value="A+">A+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="O-">O-</option>
+                      <option value="O+">O+</option>
+                      </select> 
                                         </div>
 
                                         <div className="col-md-6 mb-3">
@@ -130,6 +172,10 @@ function AddReceptionist() {
                                             <label htmlFor="address" className="form-label">Address</label>
                                             <textarea className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} required></textarea>
                                         </div>
+                                        <div className="col-md-6 mb-3">
+                    <label htmlFor="birthdate">Birth Date:</label>
+                    <input type="date" id="birthdate" name="birthDate" onBlur={handleBlur} required/>
+                  </div>
                                         <button type="submit" className="btn btn-primary" style={{ width: '30%', marginLeft: '30%' }}>Submit</button>
                                     </div>
                                 </form>

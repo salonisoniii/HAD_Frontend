@@ -1,5 +1,6 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes,Redirect } from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login/Login";
 import { ToastContainer } from "react-toastify";
@@ -42,6 +43,47 @@ import Nurse from "./Nurse/Nurse";
 //DOCTOR
 import DocPatientList from "./components/doctor/docPatientList/DocPatientList";
 import RecpPatientList from "./components/Receptionist/RecpPatientList/RecpPatientList";
+
+
+
+
+
+function AdminRoute({ children }) {
+  const userRole = localStorage.getItem('role');
+
+  if (userRole !== 'ADMIN') {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
+}
+function DoctorRoute({ children }) {
+  const userRole = localStorage.getItem('role');
+
+  if (userRole !== 'DOCTOR') {
+    return <Navigate to="/login" />;
+    
+  
+  }
+
+  return children;
+}
+function NurseRoute({ children }) {
+  const userRole = localStorage.getItem('role');
+
+  if (userRole !== 'NURSE') {
+    return <Navigate to="/login" />;
+    
+  
+  }
+
+  return children;
+}
+
+
+
+
+
 
 function App() {
   const [toggle, setToggle] = useState(true);
@@ -96,60 +138,64 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
           <Route path="/receptionist" element={<Receptionist />}></Route>
-          <Route path="/Navbar1" element={<Navbar1 />}></Route>
-          <Route path="/Navbar2" element={<Navbar2 />}></Route>
-          <Route path="/doctor" element={<Doctor />}></Route>
+
+
+          {/* ADMIN */}
+          <Route path="/Navbar2" element={<AdminRoute><Navbar2 /></AdminRoute>}></Route>
           <Route path="/profile" element={<profile />}></Route>
           <Route path="/calendar" element={<calendar />}></Route>
-          <Route path="/cal1" element={<Cal1 />}></Route>
-          <Route path="/PInfo" element={<PInfo />}></Route>
-          <Route path="/AddDiag" element={<AddDiagnosis />}></Route>
-
-          <Route path="/Admin" element={<Admin />}></Route>
-          <Route path="/add-staff" element={<AddStaff />} />
-          <Route path="/add-doctor" element={<AddDoctor />} />
-          <Route path="/add-nurse" element={<AddNurse />} />
-          <Route path="/add-pharmacist" element={<AddPharmacist />} />
-          <Route path="/add-receptionist" element={<AddReceptionist />} />
-          <Route path="/stafflist" element={<StaffList Toggle={Toggle} />} />
+          <Route path="/Admin" element={<AdminRoute><Admin /></AdminRoute>}></Route>
+          <Route path="/add-staff" element={<AdminRoute><AddStaff /></AdminRoute>} />
+          <Route path="/add-doctor" element={<AdminRoute><AddDoctor /></AdminRoute>} />
+          <Route path="/add-nurse" element={<AdminRoute><AddNurse /></AdminRoute>} />
+          <Route path="/add-pharmacist" element={<AdminRoute><AddPharmacist /></AdminRoute>} />
+          <Route path="/add-receptionist" element={<AdminRoute><AddReceptionist /></AdminRoute>} />
+          <Route path="/stafflist" element={<AdminRoute><StaffList Toggle={Toggle} /></AdminRoute>} />
 
           <Route
             path="/avail_doctors"
-            element={<Category role="DOCTOR" Toggle={Toggle} />}
+            element={<AdminRoute><Category role="DOCTOR" Toggle={Toggle} /></AdminRoute>}
           />
 
           <Route
             path="/avail_nurses"
-            element={<Category role="NURSE" Toggle={Toggle} />}
+            element={<AdminRoute><Category role="NURSE" Toggle={Toggle} /></AdminRoute>}
           />
           <Route
             path="/avail_receptionist"
-            element={<Category role="RECEPTIONIST" Toggle={Toggle} />}
+            element={<AdminRoute><Category role="RECEPTIONIST" Toggle={Toggle} /></AdminRoute>}
           />
           <Route
             path="/avail_pharmacist"
-            element={<Category role="PHARMACIST" Toggle={Toggle} />}
+            element={<AdminRoute><Category role="PHARMACIST" Toggle={Toggle} /></AdminRoute>}
           />
 
-          <Route path="/deactivate" element={<Deactivate />} />
-          <Route path="/ms" element={<ModifySchedule />} />
+          <Route path="/deactivate" element={<AdminRoute><Deactivate /></AdminRoute>} />
+          <Route path="/ms" element={<AdminRoute><ModifySchedule /></AdminRoute>} />
 
           {/* <Route path='/Sidebar' */}
           <Route path="/Receptionists" element={<Receptionist />} />
           <Route path="/Navbar4" element={<Navbar4 />} />
           <Route path="/rdashboard" element={<Rdashboard />} />
 
+
           {/* Routes for Nurse */}
-          <Route path="/nurse" element={<Nurse />} />
-          <Route path="/AddPatient" element={<AddPatient />} />
-          <Route path="/PatientList" element={<PatientList />} />
-          <Route path="/NurseSchedule" element={<NurseSchedule />} />
-          <Route path="/newpatient" element={<Newpatient />} />
+          <Route path="/nurse" element={<NurseRoute><Nurse /></NurseRoute>} />
+          <Route path="/AddPatient" element={<NurseRoute><AddPatient /></NurseRoute>} />
+          <Route path="/PatientList" element={<NurseRoute><PatientList /></NurseRoute>} />
+          <Route path="/NurseSchedule" element={<NurseRoute><NurseSchedule /></NurseRoute>} />
 
           {/* DOCTOR */}
-          <Route path="/DocPatientList" element={<DocPatientList />} />
+          <Route path="/AddDiag" element={<DoctorRoute><AddDiagnosis /></DoctorRoute>}></Route>
+          <Route path="/PInfo" element={<DoctorRoute><PInfo /></DoctorRoute>}></Route>
+          <Route path="/cal1" element={<DoctorRoute><Cal1 /></DoctorRoute>}></Route>
+          <Route path="/doctor" element={<DoctorRoute><Doctor /></DoctorRoute>}></Route>
+          <Route path="/DocPatientList" element={<DoctorRoute><DocPatientList /></DoctorRoute>} />
+          <Route path="/Navbar1" element={<DoctorRoute><Navbar1 /></DoctorRoute>}></Route>
+
 
           {/* Receptionist */}
+          <Route path="/newpatient" element={<Newpatient />} />
           <Route path="/RecpPatientList" element={<RecpPatientList />} />
 
           

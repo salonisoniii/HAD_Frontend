@@ -13,6 +13,21 @@ function AddNurseForm() {
     setToggle(!toggle);
   };
 
+  const [birthDate, setBirthdate] = useState('');
+  
+  function handleBlur(event) {
+    const dateValue = event.target.value;
+    const date = new Date(dateValue);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2);
+    const day = ('0' + date.getDate()).slice(-2);
+    const formattedDate = `${year}-${month}-${day}`;
+    setBirthdate(formattedDate);
+    console.log(birthDate);
+  }
+
+  const [checked,setChecked] = useState(false);
+const [jayImage, setJayImage] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -24,45 +39,60 @@ function AddNurseForm() {
     experience: "",
     photo: "",
     address: "",
+    role: "",
+    birthDate: "",
+    isHead:""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'profileImage') {
+      setJayImage(e.target.files[0]);
+    } else {
     setFormData({
       ...formData,
       [name]: value,
     });
+  }
   };
 
   const handleSubmit = async(e) => {
     e.preventDefault();
 
     try{
-        // const userobj = new FormData();
-        // userobj.append('firstName',userobj.firstName);
-        // userobj.append('lastName',userobj.lastName);
-        // userobj.append('email',userobj.email);
-        // userobj.append('phone',userobj.phone);
-        // userobj.append('gender',userobj.gender);
-        // userobj.append('bloodGroup',userobj.bloodGroup);
-        // userobj.append('specialization',userobj.specialization);
-        // userobj.append('experience',userobj.experience);
-        // userobj.append('photo',userobj.photo);
-        // userobj.append('address',userobj.address);
 
-        const userobj = {...formData};
-        userobj["role"]="Nurse";
-    const req = {
-      "personal":userobj
-    };
-    console.log(req);
-    
-        const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser',req);
-    
-        console.log("API Response"+JSON.stringify(response.data));
-    // You can handle form submission here, e.g., send data to backend
-    console.log(formData);
-    // Reset form after submission
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+
+      
+      formData["role"] = "NURSE";
+      formData["birthDate"]=birthDate;
+      formData["isHead"]=checked;
+     
+      const newuserObj = {
+        'image': jayImage,
+        'request':
+          JSON.stringify(formData)
+
+      };
+
+      const headers = {
+        'userId': userId,
+        'Authorization': token,
+        'ngrok-skip-browser-warning': "true",
+        'Content-Type': 'multipart/form-data'
+      }
+      console.log(newuserObj);
+
+      const response = await axios.post(
+        "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
+        newuserObj, {
+        headers: headers
+      }
+      );
+      console.log("API Response: " + JSON.stringify(response.data));
+
+       
     setFormData({
       firstName: "",
       lastName: "",
@@ -74,6 +104,9 @@ function AddNurseForm() {
       experience: "",
       profileImage: "",
       address: "",
+      role: "",
+        birthDate:"",
+        isHead:""
     });
     toast.success('NURSE added successfully');
   }catch(error){
@@ -169,9 +202,9 @@ function AddNurseForm() {
                         required
                       >
                         <option value="">Select Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="OTHER">Other</option>
                       </select>
                     </div>
                     <div className="col-md-6 mb-3">
@@ -192,7 +225,7 @@ function AddNurseForm() {
                       <label htmlFor="specialization" className="form-label">
                         Specialization
                       </label>
-                      <input
+                      <select
                         type="text"
                         className="form-control"
                         id="specialization"
@@ -200,11 +233,21 @@ function AddNurseForm() {
                         value={formData.specialization}
                         onChange={handleChange}
                         required
-                      />
+                      >
+                      <option value="">Select BloodGroup</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="A-">A-</option>
+                      <option value="A+">A+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="O-">O-</option>
+                      <option value="O+">O+</option>
+                      </select>
                     </div>
                     <div className="col-md-6 mb-3">
                       <label htmlFor="experience" className="form-label">
-                        Experience (in years)
+                        Experience (in months)
                       </label>
                       <input
                         type="number"
@@ -213,6 +256,7 @@ function AddNurseForm() {
                         name="experience"
                         value={formData.experience}
                         onChange={handleChange}
+                        min="0"
                         required
                       />
                     </div>
@@ -243,6 +287,20 @@ function AddNurseForm() {
                         required
                       ></textarea>
                     </div>
+                    <div className="col-md-6 mb-3">
+                    <label htmlFor="birthdate">Birth Date:</label>
+                    <input type="date" id="birthdate" name="birthDate" onBlur={handleBlur} required/>
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <input
+                        type="checkbox"
+                        className="form1-check-input"
+                        id="exampleCheck1"
+                        checked={checked}
+                        onChange={(e) => setChecked(e.target.checked)}
+                    />
+                    <label className="form1-check-label" htmlFor="exampleCheck1">Is Head Nurse?</label>
+                </div>
                     <button type="submit" className="btn btn-primary" style={{width:'30%', marginLeft:'30%'}}>
                       Submit
                     </button>

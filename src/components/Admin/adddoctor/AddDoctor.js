@@ -48,19 +48,19 @@ import { toast } from "react-toastify";
 //         return new Promise((resolve, reject) => {
 //             // Create a new FileReader instance
 //             const reader = new FileReader();
-    
+
 //             // Define onload event handler
 //             reader.onload = () => {
 //                 // Resolve the promise with the base64 string
 //                 resolve(reader.result.split(',')[1]);
 //             };
-    
+
 //             // Define onerror event handler
 //             reader.onerror = (error) => {
 //                 // Reject the promise with the error
 //                 reject(error);
 //             };
-    
+
 //             // Read the image file as data URL
 //             reader.readAsDataURL(imageFile);
 //         });
@@ -101,7 +101,7 @@ import { toast } from "react-toastify";
 //       //   }
 //       // }
 //       console.log(JSON.stringify(newuserObj));
-     
+
 //       const response = await axios.post(
 //         "http://present-neat-mako.ngrok-free.app/his/admin/addUser",
 //         newuserObj,{
@@ -109,9 +109,9 @@ import { toast } from "react-toastify";
 //         }
 //       );
 //       console.log("API Response: " + JSON.stringify(response.data));
-      
 
-      
+
+
 //       setFormData({
 //         firstName: "",
 //         lastName: "",
@@ -139,6 +139,22 @@ function AddDoctorForm() {
     setToggle(!toggle);
   };
 
+  
+    const [birthDate, setBirthdate] = useState('');
+  
+    function handleBlur(event) {
+      const dateValue = event.target.value;
+      const date = new Date(dateValue);
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+      const formattedDate = `${year}-${month}-${day}`;
+      setBirthdate(formattedDate);
+      console.log(birthDate);
+    }
+
+  const [jayImage, setJayImage] = useState(null);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -150,20 +166,19 @@ function AddDoctorForm() {
     experience: "",
     profileImage: null, // Updated to null
     address: "",
+    role: "",
+    birthDate: ""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (name === 'profileImage') {
-        setFormData({
-            ...formData,
-            [name]: e.target.files[0] // Updated to handle file input
-        });
+      setJayImage(e.target.files[0]);
     } else {
-        setFormData({
-            ...formData,
-            [name]: value,
-        });
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
     }
   };
 
@@ -174,30 +189,32 @@ function AddDoctorForm() {
       const userId = localStorage.getItem('userId');
       const token = localStorage.getItem('token');
 
-      // Convert image file to base64
-      const base64Data = await imageFileToBase64(formData.profileImage);
-
-      // Construct newuserObj with base64 image and userobj
+      
+      formData["role"] = "DOCTOR";
+      formData["birthDate"]=birthDate;
+     
       const newuserObj = {
-        'image': base64Data,
-        'request': {
-          ...formData
-        }
+        'image': jayImage,
+        'request':
+          JSON.stringify(formData)
+
       };
 
-      const headers ={
-        'userId':userId,
-        'Authorization': `Bearer ${token}`
+      const headers = {
+        'userId': userId,
+        'Authorization': token,
+        'ngrok-skip-browser-warning': "true",
+        'Content-Type': 'multipart/form-data'
       }
       console.log(newuserObj);
 
-      const response = await axios.post(
-        "http://present-neat-mako.ngrok-free.app/his/admin/addUser",
-        newuserObj,{
-          headers :headers
-        }
-      );
-      console.log("API Response: " + JSON.stringify(response.data));
+      // const response = await axios.post(
+      //   "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
+      //   newuserObj, {
+      //   headers: headers
+      // }
+      // );
+      // console.log("API Response: " + JSON.stringify(response.data));
 
       setFormData({
         firstName: "",
@@ -210,6 +227,8 @@ function AddDoctorForm() {
         experience: "",
         profileImage: null, // Reset the file input
         address: "",
+        role: "",
+        birthDate:""
       });
       toast.success("Doctor added successfully");
     } catch (error) {
@@ -218,22 +237,7 @@ function AddDoctorForm() {
     }
   };
 
-  // Function to convert image file to base64
-  const imageFileToBase64 = (imageFile) => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-
-        reader.onload = () => {
-            resolve(reader.result.split(',')[1]);
-        };
-
-        reader.onerror = (error) => {
-            reject(error);
-        };
-
-        reader.readAsDataURL(imageFile);
-    });
-  };
+ 
 
 
   return (
@@ -325,24 +329,33 @@ function AddDoctorForm() {
                       required
                     >
                       <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
+                      <option value="MALE">Male</option>
+                      <option value="FEMALE">Female</option>
+                      <option value="OTHER">Other</option>
                     </select>
                   </div>
                   <div className="col-md-6 mb-3">
                     <label htmlFor="blood" className="form-label">
                       Blood Group
                     </label>
-                    <input
-                      type="text"
+                    <select
                       className="form-control"
                       id="bloodGroup"
                       name="blood"
                       value={formData.blood}
                       onChange={handleChange}
                       required
-                    />
+                    >
+                      <option value="">Select BloodGroup</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="A-">A-</option>
+                      <option value="A+">A+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="O-">O-</option>
+                      <option value="O+">O+</option>
+                    </select>
                   </div>
                   <div className="col-md-6 mb-3">
                     <label htmlFor="specialization" className="form-label">
@@ -360,7 +373,7 @@ function AddDoctorForm() {
                   </div>
                   <div className="col-md-6 mb-3">
                     <label htmlFor="experience" className="form-label">
-                      Experience (in years)
+                      Experience (in months)
                     </label>
                     <input
                       type="number"
@@ -369,6 +382,7 @@ function AddDoctorForm() {
                       name="experience"
                       value={formData.experience}
                       onChange={handleChange}
+                      min="0"
                       required
                     />
                   </div>
@@ -381,7 +395,9 @@ function AddDoctorForm() {
                       className="form-control"
                       id="photo"
                       name="profileImage"
+                      value={formData.profileImage}
                       accept="image/*"
+
                       onChange={handleChange}
                       required
                     />
@@ -400,6 +416,12 @@ function AddDoctorForm() {
                       required
                     ></textarea>
                   </div>
+
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="birthdate">Birth Date:</label>
+                    <input type="date" id="birthdate" name="birthDate" onBlur={handleBlur} required/>
+                  </div>
+
                   <button
                     type="submit"
                     className="btn btn-primary"
