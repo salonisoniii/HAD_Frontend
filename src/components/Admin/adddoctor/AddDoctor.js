@@ -167,7 +167,8 @@ function AddDoctorForm() {
     profileImage: null, // Updated to null
     address: "",
     role: "",
-    birthDate: ""
+    birthDate: "",
+    department: ""
   });
 
   const handleChange = (e) => {
@@ -228,7 +229,8 @@ function AddDoctorForm() {
         profileImage: null, // Reset the file input
         address: "",
         role: "",
-        birthDate:""
+        birthDate:"",
+        department:""
       });
       toast.success("Doctor added successfully");
     } catch (error) {
@@ -367,6 +369,20 @@ function AddDoctorForm() {
                       id="specialization"
                       name="specialization"
                       value={formData.specialization}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
+                    <label htmlFor="department" className="form-label">
+                      Department
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="department"
+                      name="department"
+                      value={formData.department}
                       onChange={handleChange}
                       required
                     />
