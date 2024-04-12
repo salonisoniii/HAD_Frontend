@@ -35,6 +35,7 @@ import Deactivate from './components/Admin/Deactivate/Deactivate';
 import Navbar4 from './components/Receptionist/Navbar4';
 import Rdashboard from './components/Receptionist/Rdashboard/Rdashboard';
 import Newpatient from './components/Receptionist/Newpatient/Newpatient';
+import ChangePassword from '../src/components/ChangePassword/ChangePassword';
 // import { Button } from 'react-bootstrap';
 
 
@@ -129,6 +130,7 @@ function App() {
           <Route path='/rdashboard' element={<Rdashboard/>} />
 
           <Route path = '/newpatient' element={<Newpatient/>} />
+          <Route path='/change-password' element={<ChangePassword />} />
         </Routes>
        
       </BrowserRouter>

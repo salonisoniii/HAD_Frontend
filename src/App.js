@@ -43,6 +43,7 @@ import Nurse from "./Nurse/Nurse";
 //DOCTOR
 import DocPatientList from "./components/doctor/docPatientList/DocPatientList";
 import RecpPatientList from "./components/Receptionist/RecpPatientList/RecpPatientList";
+import ChangePassword from "./components/ChangePassword/ChangePassword";
 
 
 
@@ -197,6 +198,9 @@ function App() {
           {/* Receptionist */}
           <Route path="/newpatient" element={<Newpatient />} />
           <Route path="/RecpPatientList" element={<RecpPatientList />} />
+
+          {/* Change Password */}
+          <Route path="/change-password" element={<ChangePassword/>} />
 
           
         </Routes>
