@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import "../Pages/CSS/Category.css";
-import { Context } from "../Context/Context";
+
 import Roles from "../Roles/Roles";
 import Navbar2 from "../Navbar2";
 import Sidebar2 from "../Sidebar2";
@@ -16,9 +16,9 @@ function Category({ Toggle = false, ...props }) {
     setToggle1(!toggle1);
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   const fetchData = async () => {
     try {
@@ -35,7 +35,7 @@ function Category({ Toggle = false, ...props }) {
       setLoading(false); // Set loading to false
     }
   };
-  
+  fetchData();
 
   return (
     <div>

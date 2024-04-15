@@ -50,7 +50,6 @@ function Navbar2({ Toggle,handleSignOut }) {
                   <li><Link className="dropdown-item" to="/profile">john.doe@example.com</Link></li>
                   <li><Link className="dropdown-item" to="/profile">9126543458</Link></li>
                   <li><Link className="dropdown-item" to="/change-password">Change Password</Link></li>
-                  <li><Link className="dropdown-item" to="/settings">Settings</Link></li>
                   <li><Link className="dropdown-item" to="/edit-profile">Edit Profile</Link></li>
                   <li><hr className="dropdown-divider" /></li>
                   <li className="text-center"> {/* Center the Sign Out button */}

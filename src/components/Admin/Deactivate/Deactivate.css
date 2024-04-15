@@ -1,38 +1,54 @@
-.dropdown{
+.info-card{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    width: 70%;
     margin-left: 150px;
+    background-color: #ffffff42;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.dropdown-info{
+    margin-left: 100px;
     padding: 20px;
+    background-color: transparent;
+}
+ .dropdown-menu {
+    background-color: #17a2b8; /* Customize the background color */
+  }
+  
+
+  
+  .dropdown-menu .dropdown-item:hover {
+    background-color: #385168; /* Customize the background color on hover */
+  }
+
+.info-card .btn-secondary {
+    
+    width:30%;
+    margin-top: -40px;
+    margin-left: -110px;
+    padding: 10px;
 }
 
-.btn-secondary {
-    background-color: rgb(214, 88, 214);
-    width:100px;
-    margin-top: 10px;
-}
+
 
 /* Deactivate.css */
 
-.form1-label {
+.info-card.form1-label {
     padding: 10px;
     font-weight: bold;
     margin-left: 500px;
 }
 
-.form1-control {
+.info-card .form1-control {
     padding: 10px;
     margin-top: 10px;
     width: 50%;
     margin-left: 500px;
 }
 
-.form1-text {
-    margin-left: 500px;
-}/* .form-mb-3{
-    margin-left: 10px;
-} */
 
-.form1-check .form1-check-input {
-    margin-left: 480px;
-}
 
 .form1-check .form1-check-label {
     margin-left: 10px;
@@ -47,10 +63,33 @@
 
 
 
-.email-form {
+.email-form1 {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding-right: 100px; /* Adjust as needed */
     margin-top:-60px; /* Add space between navbar and form */
+}
+
+.user-card{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 20px;
+    width: 70%;
+    margin-left: 155px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.btn-deactivate {
+   
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 320px;
+}
+
+.btn-deactivate:hover {
+    background-color: #cc2c2c; /* Darker red color on hover */
 }

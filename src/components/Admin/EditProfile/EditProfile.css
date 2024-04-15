@@ -1,0 +1,70 @@
+/* EditProfile.css */
+
+
+
+/* Style for the info card */
+.edit-card {
+    margin-top: 30px;
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-top: 10px;
+    width: 70%;
+    margin-left: 150px;
+    background-color: #f7f6f6;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for form labels */
+.edit-label {
+    font-weight: bold;
+}
+.edit-profile-input {
+    margin-bottom: 15px;
+}
+
+/* Style for form input fields */
+.form-control {
+    margin-top: 10px;
+}
+.edit-profile-textarea {
+    margin-top: 10px;
+    resize: vertical;
+    height: 40px; /* Adjust the height here */
+    width: 100%;
+}
+
+/* Style for form textarea */
+
+
+/* Style for error message */
+.alert-danger {
+    margin-top: 15px;
+}
+
+/* Style for submit button */
+/* .btn-edit {
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 160px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+} */
+
+/* Style for submit button on hover */
+
+
+.edit-btn  {
+    width: 40%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    border: none;
+    color: #1a1717;
+    cursor: pointer;
+    margin-left: 200px;
+}
+

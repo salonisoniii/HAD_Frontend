@@ -14,19 +14,19 @@ function AddReceptionist() {
     };
 
     const [birthDate, setBirthdate] = useState('');
-  
+
     function handleBlur(event) {
-      const dateValue = event.target.value;
-      const date = new Date(dateValue);
-      const year = date.getFullYear();
-      const month = ('0' + (date.getMonth() + 1)).slice(-2);
-      const day = ('0' + date.getDate()).slice(-2);
-      const formattedDate = `${year}-${month}-${day}`;
-      setBirthdate(formattedDate);
-      console.log(birthDate);
+        const dateValue = event.target.value;
+        const date = new Date(dateValue);
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        const formattedDate = `${year}-${month}-${day}`;
+        setBirthdate(formattedDate);
+        console.log(birthDate);
     }
 
-  const [jayImage, setJayImage] = useState(null);
+    const [jayImage, setJayImage] = useState(null);
 
     const [formData, setFormData] = useState({
         firstName: '',
@@ -45,12 +45,12 @@ function AddReceptionist() {
         const { name, value } = e.target;
         if (name === 'profileImage') {
             setJayImage(e.target.files[0]);
-          } else {
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    }
+        } else {
+            setFormData({
+                ...formData,
+                [name]: value
+            });
+        }
     };
 
     const handleSubmit = async (e) => {
@@ -59,26 +59,26 @@ function AddReceptionist() {
         try {
             const userId = localStorage.getItem('userId');
             const token = localStorage.getItem('token');
-      
-            
+
+
             formData["role"] = "RECEPTIONIST";
-            formData["birthDate"]=birthDate;
-           
+            formData["birthDate"] = birthDate;
+
             const newuserObj = {
-              'image': jayImage,
-              'request':
-                JSON.stringify(formData)
-      
+                'image': jayImage,
+                'request':
+                    JSON.stringify(formData)
+
             };
-      
+
             const headers = {
-              'userId': userId,
-              'Authorization': token,
-              'ngrok-skip-browser-warning': "true",
-              'Content-Type': 'multipart/form-data'
+                'userId': userId,
+                'Authorization': token,
+                'ngrok-skip-browser-warning': "true",
+                'Content-Type': 'multipart/form-data'
             }
             console.log(newuserObj);
-      
+
             // const response = await axios.post(
             //   "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
             //   newuserObj, {
@@ -86,7 +86,7 @@ function AddReceptionist() {
             // }
             // );
             // console.log("API Response: " + JSON.stringify(response.data));
-      
+
             setFormData({
                 firstName: '',
                 lastName: '',
@@ -97,7 +97,7 @@ function AddReceptionist() {
                 profileImage: '',
                 address: '',
                 role: '',
-                birthDate:''
+                birthDate: ''
             });
             toast.success('RECEPTIONIST added successfully');
         } catch (error) {
@@ -107,7 +107,7 @@ function AddReceptionist() {
     };
     return (
         <div>
-            <div className='container-fluid  min-vh-100' style={{backgroundColor:'#ECE3F0' }} >
+            <div className='container-fluid  min-vh-100' style={{ backgroundColor: '#ECE3F0' }} >
                 <div className='row'>
                     {toggle && (
                         <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>
@@ -152,16 +152,16 @@ function AddReceptionist() {
                                         <div className="col-md-6 mb-3">
                                             <label htmlFor="bloodGroup" className="form-label">Blood Group</label>
                                             <select type="text" className="form-control" id="bloodGroup" name="bloodGroup" value={formData.bloodGroup} onChange={handleChange} required >
-                                            <option value="">Select BloodGroup</option>
-                      <option value="B+">B+</option>
-                      <option value="B-">B-</option>
-                      <option value="A-">A-</option>
-                      <option value="A+">A+</option>
-                      <option value="AB-">AB-</option>
-                      <option value="AB+">AB+</option>
-                      <option value="O-">O-</option>
-                      <option value="O+">O+</option>
-                      </select> 
+                                                <option value="">Select BloodGroup</option>
+                                                <option value="B+">B+</option>
+                                                <option value="B-">B-</option>
+                                                <option value="A-">A-</option>
+                                                <option value="A+">A+</option>
+                                                <option value="AB-">AB-</option>
+                                                <option value="AB+">AB+</option>
+                                                <option value="O-">O-</option>
+                                                <option value="O+">O+</option>
+                                            </select>
                                         </div>
 
                                         <div className="col-md-6 mb-3">
@@ -172,10 +172,13 @@ function AddReceptionist() {
                                             <label htmlFor="address" className="form-label">Address</label>
                                             <textarea className="form-control" id="address" name="address" value={formData.address} onChange={handleChange} required></textarea>
                                         </div>
+                                        <div className="col-md-3 mb-3">
+                                            <label htmlFor="birthdate" className='form-label'>Birth Date:</label>
+                                            <input type="date" id="birthdate" className='form-control-birth' name="birthDate" onBlur={handleBlur} required />
+                                        </div>
                                         <div className="col-md-6 mb-3">
-                    <label htmlFor="birthdate">Birth Date:</label>
-                    <input type="date" id="birthdate" name="birthDate" onBlur={handleBlur} required/>
-                  </div>
+                                            
+                                        </div>
                                         <button type="submit" className="btn btn-primary" style={{ width: '30%', marginLeft: '30%' }}>Submit</button>
                                     </div>
                                 </form>

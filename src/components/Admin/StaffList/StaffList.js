@@ -58,9 +58,10 @@ function StaffList() {
                   </ul>
                 </div>
               </div>
+              
             </nav>
             {/* Wrap the `<h1>` elements within separate `Route` components */}
-
+            
           </div>
         </div>
       </div>

@@ -69,5 +69,14 @@
   .btn-primary:hover {
       background-color: #0056b3;
   }
+  .form-control-birth {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
   
     

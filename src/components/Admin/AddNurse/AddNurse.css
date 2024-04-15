@@ -50,6 +50,19 @@
       border-color: #80bdff;
       box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
+    .form-select{
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .form-control-birth {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
     
     .btn-primary {
       width: 50%;
@@ -69,5 +82,18 @@
   .btn-primary:hover {
       background-color: #0056b3;
   }
+
+/* Style for the checkbox input */
+.form1-check-input {
+  margin-right: 0.5rem; /* Add some space between the checkbox and the label */
+  margin-left: 250px;
+  padding: 10px;
+}
+
+/* Style for the checkbox label */
+.form1-check-label {
+  font-weight: 500; /* Make the label text bold */
+}
+
   
     

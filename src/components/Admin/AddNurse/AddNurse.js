@@ -14,7 +14,7 @@ function AddNurseForm() {
   };
 
   const [birthDate, setBirthdate] = useState('');
-  
+
   function handleBlur(event) {
     const dateValue = event.target.value;
     const date = new Date(dateValue);
@@ -26,8 +26,8 @@ function AddNurseForm() {
     console.log(birthDate);
   }
 
-  const [checked,setChecked] = useState(false);
-const [jayImage, setJayImage] = useState(null);
+  const [checked, setChecked] = useState(false);
+  const [jayImage, setJayImage] = useState(null);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -41,7 +41,7 @@ const [jayImage, setJayImage] = useState(null);
     address: "",
     role: "",
     birthDate: "",
-    isHead:""
+    isHead: ""
   });
 
   const handleChange = (e) => {
@@ -49,26 +49,26 @@ const [jayImage, setJayImage] = useState(null);
     if (name === 'profileImage') {
       setJayImage(e.target.files[0]);
     } else {
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
+    try {
 
       const userId = localStorage.getItem('userId');
       const token = localStorage.getItem('token');
 
-      
+
       formData["role"] = "NURSE";
-      formData["birthDate"]=birthDate;
-      formData["isHead"]=checked;
-     
+      formData["birthDate"] = birthDate;
+      formData["isHead"] = checked;
+
       const newuserObj = {
         'image': jayImage,
         'request':
@@ -84,40 +84,40 @@ const [jayImage, setJayImage] = useState(null);
       }
       console.log(newuserObj);
 
-      const response = await axios.post(
-        "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
-        newuserObj, {
-        headers: headers
-      }
-      );
-      console.log("API Response: " + JSON.stringify(response.data));
+      // const response = await axios.post(
+      //   "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
+      //   newuserObj, {
+      //   headers: headers
+      // }
+      // );
+      // console.log("API Response: " + JSON.stringify(response.data));
 
-       
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      gender: "",
-      blood: "",
-      specialization: "",
-      experience: "",
-      profileImage: "",
-      address: "",
-      role: "",
-        birthDate:"",
-        isHead:""
-    });
-    toast.success('NURSE added successfully');
-  }catch(error){
-    console.log("Error",error);
-    toast.error("Error adding NURSE. Please try again.");
-  }
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        gender: "",
+        blood: "",
+        specialization: "",
+        experience: "",
+        profileImage: "",
+        address: "",
+        role: "",
+        birthDate: "",
+        isHead: ""
+      });
+      toast.success('NURSE added successfully');
+    } catch (error) {
+      console.log("Error", error);
+      toast.error("Error adding NURSE. Please try again.");
+    }
   };
 
   return (
     <div>
-      <div className="container-fluid  min-vh-100" style={{backgroundColor:'#ECE3F0' }}>
+      <div className="container-fluid  min-vh-100" style={{ backgroundColor: '#ECE3F0' }}>
         <div className="row">
           {toggle && (
             <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
@@ -208,24 +208,10 @@ const [jayImage, setJayImage] = useState(null);
                       </select>
                     </div>
                     <div className="col-md-6 mb-3">
-                      <label htmlFor="bloodGroup" className="form-label">
-                        Blood Group
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="bloodGroup"
-                        name="bloodGroup"
-                        value={formData.bloodGroup}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
                       <label htmlFor="specialization" className="form-label">
                         Specialization
                       </label>
-                      <select
+                      <input
                         type="text"
                         className="form-control"
                         id="specialization"
@@ -233,16 +219,30 @@ const [jayImage, setJayImage] = useState(null);
                         value={formData.specialization}
                         onChange={handleChange}
                         required
+                      />
+                    </div>
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="bloodGroup" className="form-label">
+                        Blood Group
+                      </label>
+                      <select
+                        type="text"
+                        className="form-select"
+                        id="bloodGroup"
+                        name="bloodGroup"
+                        value={formData.bloodGroup}
+                        onChange={handleChange}
+                        required
                       >
-                      <option value="">Select BloodGroup</option>
-                      <option value="B+">B+</option>
-                      <option value="B-">B-</option>
-                      <option value="A-">A-</option>
-                      <option value="A+">A+</option>
-                      <option value="AB-">AB-</option>
-                      <option value="AB+">AB+</option>
-                      <option value="O-">O-</option>
-                      <option value="O+">O+</option>
+                        <option value="">Select BloodGroup</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="A-">A-</option>
+                        <option value="A+">A+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="O-">O-</option>
+                        <option value="O+">O+</option>
                       </select>
                     </div>
                     <div className="col-md-6 mb-3">
@@ -287,21 +287,21 @@ const [jayImage, setJayImage] = useState(null);
                         required
                       ></textarea>
                     </div>
+                    <div className="col-md-3 mb-3">
+                      <label htmlFor="birthdate" className="form-label">Birth Date:</label>
+                      <input type="date" id="birthdate" name="birthDate" className="form-control-birth" onBlur={handleBlur} required />
+                    </div>
                     <div className="col-md-6 mb-3">
-                    <label htmlFor="birthdate">Birth Date:</label>
-                    <input type="date" id="birthdate" name="birthDate" onBlur={handleBlur} required/>
-                  </div>
-                  <div className="col-md-6 mb-3">
-                    <input
+                      <input
                         type="checkbox"
                         className="form1-check-input"
                         id="exampleCheck1"
                         checked={checked}
                         onChange={(e) => setChecked(e.target.checked)}
-                    />
-                    <label className="form1-check-label" htmlFor="exampleCheck1">Is Head Nurse?</label>
-                </div>
-                    <button type="submit" className="btn btn-primary" style={{width:'30%', marginLeft:'30%'}}>
+                      />
+                      <label className="form1-check-label" htmlFor="exampleCheck1">Is Head Nurse?</label>
+                    </div>
+                    <button type="submit" className="btn btn-primary" style={{ width: '30%', marginLeft: '30%' }}>
                       Submit
                     </button>
                   </div>

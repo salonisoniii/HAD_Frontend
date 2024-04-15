@@ -2,23 +2,54 @@ import React, { useState } from 'react'
 // import Navbar4 from '../Navbar4'
 import '../Rdashboard/Rdashboard.css'
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 function Rdashboard() {
-    // const [toggle,setToggle] = useState(true);
-    // const Toggle = () => {
-    //     setToggle(!toggle);
-    // }
+    
     const [patients, setPatients] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const Newpatient = () => {
-        // Logic to open a modal or a form to input patient details
-        // After submitting the form, add the patient to the patients state
-       
+    
+    const handleSearch = async(e) => {
+        const query = e.target.value.toLowerCase();
+        
+        // setSearchQuery(e.target.value);
+        let body = {};
+        body['aadhaar'] = searchQuery;
+        
+        try {
+            // const userId = localStorage.getItem('userId');
+            const token = localStorage.getItem('token');
+            console.log("API Body: "+JSON.stringify(body));
+            const response = await axios.post(
+                `https://summary-gnu-equally.ngrok-free.app/his/reception/isPatientPresent`,body,{
+                headers : {
+                    'Authorization': token,
+                    'ngrok-skip-browser-warning': "true"
+                }
+            });
+            
+            // Assuming the response data contains an array of patients matching the search query
+            const patientDetails = response.data.response;
+            console.log("Resp: "+JSON.stringify(patientDetails));
+            setPatients(patientDetails);
+
+            // if (Array.isArray(patientDetails)) {
+            // } else {
+            //     console.error('Fetched data is not an array:', patientDetails);
+            // }
+            setSearchQuery('');
+            
+            // Update the patients state with the fetched patient details
+            
+        } catch (error) {
+            console.error('Error fetching patient details:', error);
+            // Handle error (e.g., display an error message)
+        }
+   
     };
-    const handleSearch = (e) => {
+    const handleChange = (e) => {
         setSearchQuery(e.target.value);
-        // Logic to filter patients based on the search query
     };
 
 
@@ -72,44 +103,7 @@ function Rdashboard() {
                         </div>
 
                     </div>
-                    {/* <div className='col-md-3 p-1'>
-                        <button className='add-patient-btn' onClick={addPatient}>Add Patient</button>
-                    </div> */}
-                    {/* Search Bar */}
-                    {/* <div className='col-md-12 p-1'>
-                        <input
-                            type='text'
-                            className='form-control'
-                            placeholder='Search by Aadhar ID...'
-                            value={searchQuery}
-                            onChange={handleSearch}
-                        />
-                        <button className='search-btn' onClick={handleSearch}>Search</button>
-                    </div> */}
-                    {/* Table to display patients */}
-                    {/* <div className='col-md-12 p-1'>
-                        <table className='table'>
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Aadhar ID</th> */}
-                                    {/* Add other table headers as needed */}
-                                {/* </tr>
-                            </thead>
-                            <tbody> */}
-                                {/* Loop through the patients array and display each patient */}
-                                {/* {patients.map((patient, index) => (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{patient.name}</td>
-                                        <td>{patient.aadharId}</td> */}
-                                        {/* Add other table data as needed */}
-                                    {/* </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div> */}
+                    
                     <div className='col-md-12 p-1'>
                         <Link to="/newpatient" className='add-patient-btn'>New Patient</Link>
                     </div>
@@ -124,7 +118,7 @@ function Rdashboard() {
                                                 className='form-control' 
                                                 placeholder='Search by Aadhar ID...' 
                                                 value={searchQuery} 
-                                                onChange={handleSearch} 
+                                                onChange={handleChange} 
                                             />
                                             <button className='search-btn' onClick={handleSearch}>Search</button>
                                         </div>
@@ -132,7 +126,8 @@ function Rdashboard() {
                                 </tr>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
+                                    <th>FirstName</th>
+                                    <th>LastName</th>
                                     <th>Aadhar ID</th>
                                     {/* Add other table headers as needed */}
                                 </tr>
@@ -142,8 +137,9 @@ function Rdashboard() {
                                 {patients.map((patient, index) => (
                                     <tr key={index}>
                                         <td>{index + 1}</td>
-                                        <td>{patient.name}</td>
-                                        <td>{patient.aadharId}</td>
+                                        <td>{patient.firstName}</td>
+                                        <td>{patient.lastName}</td>
+                                        <td>{patient.aadhaar}</td>
                                         {/* Add other table data as needed */}
                                     </tr>
                                 ))}

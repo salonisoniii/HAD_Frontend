@@ -44,9 +44,7 @@ import Nurse from "./Nurse/Nurse";
 import DocPatientList from "./components/doctor/docPatientList/DocPatientList";
 import RecpPatientList from "./components/Receptionist/RecpPatientList/RecpPatientList";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
-
-
-
+import EditProfile from "./components/Admin/EditProfile/EditProfile";
 
 
 function AdminRoute({ children }) {
@@ -201,6 +199,9 @@ function App() {
 
           {/* Change Password */}
           <Route path="/change-password" element={<ChangePassword/>} />
+
+          {/*  */}
+          <Route path="/edit-profile" element={<EditProfile/>} />
 
           
         </Routes>

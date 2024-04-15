@@ -27,7 +27,7 @@ const Login = () => {
 
         try{
             if(validate()){
-        const responsee = await axios.post('https://present-neat-mako.ngrok-free.app/his/authenticate', {
+        const responsee = await axios.post('https://summary-gnu-equally.ngrok-free.app/his/authenticate', {
                 username: username,
                 password: password,
                 role: role
@@ -142,7 +142,7 @@ const Login = () => {
                             <option value="NURSE">Nurse</option>
                             <option value="DOCTOR">Doctor</option>
                             <option value="PHARMACIST">Pharmacist</option>
-                            <option value="RECEPTIONSIT">Receptionist</option>
+                            <option value="RECEPTIONIST">Receptionist</option>
                             </select>
                         </div>
                         <div className="form-group" style={{ background: 'transparent' }}>

@@ -433,9 +433,9 @@ function AddDoctorForm() {
                     ></textarea>
                   </div>
 
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="birthdate">Birth Date:</label>
-                    <input type="date" id="birthdate" name="birthDate" onBlur={handleBlur} required/>
+                  <div className="col-md-3 mb-3">
+                    <label htmlFor="birthdate" className="form-label">Birth Date:</label>
+                    <input type="date" id="birthdate" className="form-control-birth" name="birthDate" onBlur={handleBlur} required/>
                   </div>
 
                   <button
