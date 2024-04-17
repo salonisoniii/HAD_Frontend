@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import { Form, Button } from 'react-bootstrap';
 import Navbar2 from "../Navbar2";
 import "../AddNurse/AddNurse.css";
@@ -13,14 +14,14 @@ function AddNurseForm() {
     setToggle(!toggle);
   };
 
-  const [birthDate, setBirthdate] = useState('');
+  const [birthDate, setBirthdate] = useState("");
 
   function handleBlur(event) {
     const dateValue = event.target.value;
     const date = new Date(dateValue);
     const year = date.getFullYear();
-    const month = ('0' + (date.getMonth() + 1)).slice(-2);
-    const day = ('0' + date.getDate()).slice(-2);
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
     const formattedDate = `${year}-${month}-${day}`;
     setBirthdate(formattedDate);
     console.log(birthDate);
@@ -41,12 +42,12 @@ function AddNurseForm() {
     address: "",
     role: "",
     birthDate: "",
-    isHead: ""
+    isHead: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'profileImage') {
+    if (name === "profileImage") {
       setJayImage(e.target.files[0]);
     } else {
       setFormData({
@@ -60,38 +61,33 @@ function AddNurseForm() {
     e.preventDefault();
 
     try {
-
-      const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
-
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
 
       formData["role"] = "NURSE";
       formData["birthDate"] = birthDate;
       formData["isHead"] = checked;
 
       const newuserObj = {
-        'image': jayImage,
-        'request':
-          JSON.stringify(formData)
-
+        image: jayImage,
+        request: JSON.stringify(formData),
       };
 
       const headers = {
-        'userId': userId,
-        'Authorization': token,
-        'ngrok-skip-browser-warning': "true",
-        'Content-Type': 'multipart/form-data'
-      }
+        userId: userId,
+        Authorization: token,
+        "ngrok-skip-browser-warning": "true",
+        "Content-Type": "multipart/form-data",
+      };
       console.log(newuserObj);
 
-      // const response = await axios.post(
-      //   "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
-      //   newuserObj, {
-      //   headers: headers
-      // }
-      // );
-      // console.log("API Response: " + JSON.stringify(response.data));
-
+      const response = await axios.post(
+        "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
+        newuserObj, {
+        headers: headers
+      }
+      );
+      console.log("API Response: " + JSON.stringify(response.data));
 
       setFormData({
         firstName: "",
@@ -106,18 +102,28 @@ function AddNurseForm() {
         address: "",
         role: "",
         birthDate: "",
-        isHead: ""
+        isHead: "",
       });
-      toast.success('NURSE added successfully');
+      toast.success("NURSE added successfully");
     } catch (error) {
       console.log("Error", error);
       toast.error("Error adding NURSE. Please try again.");
     }
   };
+  const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  useEffect(() => {
+    if (isLoggedIn === null) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div>
-      <div className="container-fluid  min-vh-100" style={{ backgroundColor: '#ECE3F0' }}>
+      <div
+        className="container-fluid  min-vh-100"
+        style={{ backgroundColor: "#ECE3F0" }}
+      >
         <div className="row">
           {toggle && (
             <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
@@ -288,8 +294,17 @@ function AddNurseForm() {
                       ></textarea>
                     </div>
                     <div className="col-md-3 mb-3">
-                      <label htmlFor="birthdate" className="form-label">Birth Date:</label>
-                      <input type="date" id="birthdate" name="birthDate" className="form-control-birth" onBlur={handleBlur} required />
+                      <label htmlFor="birthdate" className="form-label">
+                        Birth Date:
+                      </label>
+                      <input
+                        type="date"
+                        id="birthdate"
+                        name="birthDate"
+                        className="form-control-birth"
+                        onBlur={handleBlur}
+                        required
+                      />
                     </div>
                     <div className="col-md-6 mb-3">
                       <input
@@ -299,9 +314,18 @@ function AddNurseForm() {
                         checked={checked}
                         onChange={(e) => setChecked(e.target.checked)}
                       />
-                      <label className="form1-check-label" htmlFor="exampleCheck1">Is Head Nurse?</label>
+                      <label
+                        className="form1-check-label"
+                        htmlFor="exampleCheck1"
+                      >
+                        Is Head Nurse?
+                      </label>
                     </div>
-                    <button type="submit" className="btn btn-primary" style={{ width: '30%', marginLeft: '30%' }}>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      style={{ width: "30%", marginLeft: "30%" }}
+                    >
                       Submit
                     </button>
                   </div>

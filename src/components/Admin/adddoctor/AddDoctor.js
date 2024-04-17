@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 // import { Form, Button } from 'react-bootstrap';
 import Navbar2 from "../Navbar2";
 import "../adddoctor/AddDoctor.css";
@@ -6,7 +7,6 @@ import Sidebar2 from "../Sidebar2";
 import axios from "axios";
 import { toast } from "react-toastify";
 // import {readFile} from "fs";
-
 
 // function AddDoctorForm() {
 //   const [toggle, setToggle] = useState(true);
@@ -84,8 +84,6 @@ import { toast } from "react-toastify";
 //         console.error("Error converting image to base64:", error);
 //     });
 
-
-
 //       const headers ={
 //         'userId':userId,
 //         'Authorization': `Bearer ${token}`
@@ -109,8 +107,6 @@ import { toast } from "react-toastify";
 //         }
 //       );
 //       console.log("API Response: " + JSON.stringify(response.data));
-
-
 
 //       setFormData({
 //         firstName: "",
@@ -139,19 +135,18 @@ function AddDoctorForm() {
     setToggle(!toggle);
   };
 
-  
-    const [birthDate, setBirthdate] = useState('');
-  
-    function handleBlur(event) {
-      const dateValue = event.target.value;
-      const date = new Date(dateValue);
-      const year = date.getFullYear();
-      const month = ('0' + (date.getMonth() + 1)).slice(-2);
-      const day = ('0' + date.getDate()).slice(-2);
-      const formattedDate = `${year}-${month}-${day}`;
-      setBirthdate(formattedDate);
-      console.log(birthDate);
-    }
+  const [birthDate, setBirthdate] = useState("");
+
+  function handleBlur(event) {
+    const dateValue = event.target.value;
+    const date = new Date(dateValue);
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const formattedDate = `${year}-${month}-${day}`;
+    setBirthdate(formattedDate);
+    console.log(birthDate);
+  }
 
   const [jayImage, setJayImage] = useState(null);
 
@@ -168,12 +163,12 @@ function AddDoctorForm() {
     address: "",
     role: "",
     birthDate: "",
-    department: ""
+    department: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'profileImage') {
+    if (name === "profileImage") {
       setJayImage(e.target.files[0]);
     } else {
       setFormData({
@@ -187,35 +182,32 @@ function AddDoctorForm() {
     e.preventDefault();
 
     try {
-      const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
 
-      
       formData["role"] = "DOCTOR";
-      formData["birthDate"]=birthDate;
-     
-      const newuserObj = {
-        'image': jayImage,
-        'request':
-          JSON.stringify(formData)
+      formData["birthDate"] = birthDate;
 
+      const newuserObj = {
+        image: jayImage,
+        request: JSON.stringify(formData),
       };
 
       const headers = {
-        'userId': userId,
-        'Authorization': token,
-        'ngrok-skip-browser-warning': "true",
-        'Content-Type': 'multipart/form-data'
-      }
+        userId: userId,
+        Authorization: token,
+        "ngrok-skip-browser-warning": "true",
+        "Content-Type": "multipart/form-data",
+      };
       console.log(newuserObj);
 
-      // const response = await axios.post(
-      //   "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
-      //   newuserObj, {
-      //   headers: headers
-      // }
-      // );
-      // console.log("API Response: " + JSON.stringify(response.data));
+      const response = await axios.post(
+        "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
+        newuserObj, {
+        headers: headers
+      }
+      );
+      console.log("API Response: " + JSON.stringify(response.data));
 
       setFormData({
         firstName: "",
@@ -229,8 +221,8 @@ function AddDoctorForm() {
         profileImage: null, // Reset the file input
         address: "",
         role: "",
-        birthDate:"",
-        department:""
+        birthDate: "",
+        department: "",
       });
       toast.success("Doctor added successfully");
     } catch (error) {
@@ -238,9 +230,13 @@ function AddDoctorForm() {
       toast.error("Error adding doctor. Please try again.");
     }
   };
-
- 
-
+  const navigate = useNavigate();
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  useEffect(() => {
+    if (isLoggedIn === null) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div
@@ -413,7 +409,6 @@ function AddDoctorForm() {
                       name="profileImage"
                       value={formData.profileImage}
                       accept="image/*"
-
                       onChange={handleChange}
                       required
                     />
@@ -434,8 +429,17 @@ function AddDoctorForm() {
                   </div>
 
                   <div className="col-md-3 mb-3">
-                    <label htmlFor="birthdate" className="form-label">Birth Date:</label>
-                    <input type="date" id="birthdate" className="form-control-birth" name="birthDate" onBlur={handleBlur} required/>
+                    <label htmlFor="birthdate" className="form-label">
+                      Birth Date:
+                    </label>
+                    <input
+                      type="date"
+                      id="birthdate"
+                      className="form-control-birth"
+                      name="birthDate"
+                      onBlur={handleBlur}
+                      required
+                    />
                   </div>
 
                   <button

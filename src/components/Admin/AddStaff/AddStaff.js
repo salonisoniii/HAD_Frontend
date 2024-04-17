@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar2 from "../Navbar2";
 import "../AddStaff/AddStaff.css";
@@ -10,6 +11,16 @@ function AddStaff() {
   const Toggle = () => {
     setToggle(!toggle);
   };
+
+  const navigate = useNavigate();
+  const isLoggedIn=localStorage.getItem('isLoggedIn');
+  useEffect(()=>{
+   
+    if(isLoggedIn==='false')
+    {
+    navigate('/login');
+    }
+  },[])
   return (
     <div>
       <div className="container-fluid min-vh-100" style={{backgroundColor:'#ECE3F0' }}>

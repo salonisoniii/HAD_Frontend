@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import "./doctor.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -6,6 +6,10 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import ReactCalendar from "./Cal";
 import Patients from "./Patients";
 import Navbar1 from "./Navbar1";
+import DataGridDemo2 from "./docPatientList/docInPatientList";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 // import Test from './Test'
 
 export default function Doctor() {
@@ -15,28 +19,72 @@ export default function Doctor() {
     setIsOpen(!isOpen);
   };
   console.log("isOpen", isOpen);
-  const patients = [
-    {
-      id: 1,
-      name: "John Doe",
-      profilePhoto: process.env.PUBLIC_URL + "images/product_100.png",
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      profilePhoto: process.env.PUBLIC_URL + "images/product_100.png",
-    },
-    // Add more patient objects as needed
-  ];
+
+  // const patients = [
+  //   {
+  //     id: 1,
+  //     name: "John Doe",
+  //     profilePhoto: process.env.PUBLIC_URL + "images/product_100.png",
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Jane Smith",
+  //     profilePhoto: process.env.PUBLIC_URL + "images/product_100.png",
+  //   },
+  //   // Add more patient objects as needed
+  // ];
 
   const [toggle, setToggle] = useState(true);
 
   const Toggle = () => {
     setToggle(!toggle);
   };
+
+  const [IpCount, setIpCount] = useState(0);
+  const [OpCount, setOpCount] = useState(0);
+
+  const fetchdoc = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+
+      const headers = {
+        Authorization: token,
+        "ngrok-skip-browser-warning": "true",
+      };
+
+      const response = await axios.get(
+        "https://present-neat-mako.ngrok-free.app/his/doc/home?userId=" +
+          userId,
+        {
+          headers: headers,
+        }
+      );
+
+      // Check if response status is successful before setting state
+      if (response.status === 200) {
+        setOpCount(response.data.opPatient);
+        setIpCount(response.data.ipPatient);
+      } else {
+        throw new Error("Failed to fetch data");
+      }
+    } catch (error) {
+      console.log("Hello123")
+      console.log("Error here", error);
+      toast.error("Error from Doctor. Please try again.");
+    }
+  };
+
+  useEffect(() => {
+    fetchdoc();
+  }, []);
+
   return (
     <div>
-      <div className="container-fluid  min-vh-100" >
+      <div
+        className="container-fluid  min-vh-100"
+        style={{ backgroundColor: "#ECE3F0" }}
+      >
         <div className="row">
           {toggle && (
             <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
@@ -45,9 +93,33 @@ export default function Doctor() {
           )}
           {toggle && <div className="col-4 col-md-2"></div>}
           <div className="col">
-            <Navbar1 Toggle={Toggle}  />
+            <Navbar1 Toggle={Toggle} />
 
-            {isOpen && (
+            <div class="container">
+              <div class="row">
+                <div class="col-md my-.5">
+                  <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                      <h3 class="fs-2">{IpCount}</h3>
+                      <p class="fs-5">In Patient</p>
+                    </div>
+                    <i class="bi bi-person-circle p-3 fs-1"></i>
+                  </div>
+                </div>
+                <div class="col-md my-.5">
+                  <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                    <div>
+                      <h3 class="fs-2">{OpCount}</h3>
+                      <p class="fs-5">Out Patient</p>
+                    </div>
+                    <i class="bi bi-person-circle p-3 fs-1"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <DataGridDemo2 />
+
+            {/* {isOpen && (
               <div
                 className="dropdown-menu"
                 style={{
@@ -84,8 +156,8 @@ export default function Doctor() {
             )}
             <div>
               <Patients patients={patients} />
-            </div>
-            <div
+            </div> */}
+            {/* <div
               className="calendar-container"
               style={{
                 position: "absolute",
@@ -96,7 +168,7 @@ export default function Doctor() {
               }}
             >
               <ReactCalendar />
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

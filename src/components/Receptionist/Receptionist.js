@@ -1,4 +1,4 @@
-import {React , useState} from 'react'
+import {React , useState,useEffect,useNavigate} from 'react'
 import Sidebar4 from './Sidebar4'
 import Rdashboard from './Rdashboard/Rdashboard';
 import Navbar4 from './Navbar4';
@@ -8,6 +8,15 @@ function Receptionist() {
     const Toggle = () => {
       setToggle(!toggle);
     };
+  //   const navigate = useNavigate();
+  // const isLoggedIn=localStorage.getItem('isLoggedIn');
+  // useEffect(()=>{
+   
+  //   if(isLoggedIn==='false')
+  //   {
+  //   navigate('/login');
+  //   }
+  // },[])
   return (
     <div>
       <div className='container-fluid  min-vh-100' style={{backgroundColor:'#ECE3F0' }}>

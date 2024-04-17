@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect,useNavigate } from "react";
 // import { Form, Button } from 'react-bootstrap';
 import Navbar3 from "../Navbar3";
 import './addPatient.css';
@@ -77,6 +77,15 @@ function AddDoctorForm() {
     toast.error("Error adding doctor. Please try again.");
   }}
   };
+  // const navigate = useNavigate();
+  // const isLoggedIn=localStorage.getItem('isLoggedIn');
+  // useEffect(()=>{
+   
+  //   if(isLoggedIn==='false')
+  //   {
+  //   navigate('/login');
+  //   }
+  // },[])
 
   return (
     <div className="container-fluid  min-vh-100" style={{backgroundColor:'#ECE3F0' }}>

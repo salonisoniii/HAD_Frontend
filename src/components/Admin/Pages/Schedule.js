@@ -1,9 +1,17 @@
-import React from 'react';
+import React,{useState,useEffect,useNavigate} from 'react';
 
 const Schedule = () => {
     // Sample schedule data
     const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
+    // const navigate = useNavigate();
+    // const isLoggedIn=localStorage.getItem('isLoggedIn');
+    // useEffect(()=>{
+     
+    //   if(isLoggedIn==='false')
+    //   {
+    //   navigate('/login');
+    //   }
+    // },[])
     return (
         <div className="schedule">
             <h3>Days Schedule</h3>

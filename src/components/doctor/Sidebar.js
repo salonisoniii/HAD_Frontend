@@ -34,11 +34,11 @@ function Sidebar({ Toggle }) {
                     <i className='bi bi-clipboard-data-fill fs-5 me-4'></i>
                     <span >Patient List</span>
                 </Link>
-                {/* <a className='list-group-item py-2'>
+                <Link to='/docschedule' className='list-group-item py-2'>
                     <i className='bi bi-receipt fs-5 me-4'></i>
-                    <span >Modify Schedule</span>
-                </a>
-                <a className='list-group-item py-2'>
+                    <span >Doctor Schedule</span>
+                </Link>
+                {/* <a className='list-group-item py-2'>
                     <i className='bi bi-gear fs-5 me-4'></i>
                     <span >Setting</span>
                 </a> */}

@@ -2,7 +2,8 @@ import React,{useState} from 'react'
 import Sidebar3 from '../Sidebar3'
 import Navbar3 from '../Navbar3'
 import DataGridDemo from './ShowList';
-
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function PatientList() {
@@ -10,6 +11,15 @@ export default function PatientList() {
     const Toggle = () =>{
         setToggle(!toggle);
     }
+    // const navigate = useNavigate();
+    // const isLoggedIn=localStorage.getItem('isLoggedIn');
+    // useEffect(()=>{
+     
+    //   if(isLoggedIn==='false')
+    //   {
+    //   navigate('/login');
+    //   }
+    // },[])
   return (
     <div>
       <div>

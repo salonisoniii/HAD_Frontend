@@ -59,6 +59,9 @@ export default function Home() {
       Hospital Information System
     </Link>
     <form class="d-flex" role="search">
+      {/* <Link to="/login" className="nav-link">
+        Login
+      </Link> */}
       <Link to="/login" className="nav-link">
         Login
       </Link>

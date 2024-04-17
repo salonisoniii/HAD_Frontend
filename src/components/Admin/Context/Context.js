@@ -9,10 +9,23 @@ const ContextProvider = (props) => {
     useEffect(() => {
         fetchData();
     }, []);
+    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
 
+const headers = {
+  userId: userId,
+  Authorization: token,
+  "ngrok-skip-browser-warning": "true",
+//   "Content-Type": "multipart/form-data",
+};
     const fetchData = async () => {
         try {
-            const response = await axios.get('https://summary-gnu-equally.ngrok-free.app/his/admin/viewUsers'); // Replace 'YOUR_BACKEND_ENDPOINT' with the actual endpoint
+            const response = await axios.get(
+                `https://present-neat-mako.ngrok-free.app/his/admin/viewUsers?userId=${userId}`,
+                {
+                headers: headers
+              }
+              );
             setAllDetails(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);

@@ -34,17 +34,17 @@ import Deactivate from "./components/Admin/Deactivate/Deactivate";
 import Navbar4 from "./components/Receptionist/Navbar4";
 import Rdashboard from "./components/Receptionist/Rdashboard/Rdashboard";
 // import { Button } from 'react-bootstrap';
-
 import AddPatient from "./Nurse/AddPatient/AddPatient";
 import PatientList from "./Nurse/PatientList/PatientList";
 import NurseSchedule from "./Nurse/Nurse Schedule/NurseSchedule";
 import Nurse from "./Nurse/Nurse";
-
+import WardAllotment from './Nurse/Ward_Allotment/WardAllotment';
 //DOCTOR
 import DocPatientList from "./components/doctor/docPatientList/DocPatientList";
 import RecpPatientList from "./components/Receptionist/RecpPatientList/RecpPatientList";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import EditProfile from "./components/Admin/EditProfile/EditProfile";
+import DocSchedule from './components/doctor/DocSchedule/DocSchedule';
 
 
 function AdminRoute({ children }) {
@@ -183,7 +183,7 @@ function App() {
           <Route path="/AddPatient" element={<NurseRoute><AddPatient /></NurseRoute>} />
           <Route path="/PatientList" element={<NurseRoute><PatientList /></NurseRoute>} />
           <Route path="/NurseSchedule" element={<NurseRoute><NurseSchedule /></NurseRoute>} />
-
+          <Route path ='/WardAllotment' element={<WardAllotment />} />
           {/* DOCTOR */}
           <Route path="/AddDiag" element={<DoctorRoute><AddDiagnosis /></DoctorRoute>}></Route>
           <Route path="/PInfo" element={<DoctorRoute><PInfo /></DoctorRoute>}></Route>
@@ -191,6 +191,7 @@ function App() {
           <Route path="/doctor" element={<DoctorRoute><Doctor /></DoctorRoute>}></Route>
           <Route path="/DocPatientList" element={<DoctorRoute><DocPatientList /></DoctorRoute>} />
           <Route path="/Navbar1" element={<DoctorRoute><Navbar1 /></DoctorRoute>}></Route>
+          <Route path="/docSchedule" element={<DocSchedule />} />
 
 
           {/* Receptionist */}

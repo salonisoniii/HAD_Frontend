@@ -34,7 +34,7 @@ function Sidebar3({ Toggle }) {
                     <i className='bi bi-clipboard-data-fill fs-5 me-4'></i>
                     <span >Patient List</span>
                 </Link>
-                <Link className='list-group-item py-2'>
+                <Link to='/WardAllotment' className='list-group-item py-2'>
                     <i className='bi bi-receipt fs-5 me-4'></i>
                     <span >Ward Allotment</span>
                 </Link>

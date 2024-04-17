@@ -2,7 +2,7 @@
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Sidebar2 from './Sidebar2';
 import Home1 from './Dashboard/Home1';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import AddDoctor from './adddoctor/AddDoctor';
 // import AddStaff from './AddStaff/AddStaff';
 // import AddNurse from './AddNurse/AddNurse';
@@ -15,9 +15,20 @@ import { useState } from 'react';
 // import Navbar2 from './Navbar2';
 
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Admin() {
   const [toggle, setToggle] = useState(true);
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+   
+    if(isLoggedIn===null)
+    {
+    navigate('/login');
+    }
+  },[])
 
   const Toggle = () => {
     setToggle(!toggle);

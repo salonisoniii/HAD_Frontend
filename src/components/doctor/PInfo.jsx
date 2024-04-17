@@ -3,14 +3,76 @@ import Sidebar from './Sidebar';
 import './doctor.css';
 import Navbar from './Navbar1';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import {toast} from "react-toastify"
 
 export default function PInfo() {
     const [toggle, setToggle] = useState(true);
+    const location = useLocation();
+    const admitId = location.state.admitId;
+    const aadhaar = location.state.aadhaar;
+    console.log(admitId,aadhaar);
+    console.log("hello")
 
   const Toggle = () => {
     setToggle(!toggle);
   };
+
+  const [patient, setPatient] = useState([]);
+  React.useEffect(()=>
+  {
+    fetchUsers();
+  },[]
+);
+// React.useEffect(()=>
+// {
+  
+// },[patient]
+// );
+  const fetchUsers = async() =>{
+    try{
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+      
+      const headers = {
+        'userId': userId,
+        'Authorization': token,
+        'ngrok-skip-browser-warning': "true",
+        // 'Content-Type': 'multipart/form-data'
+      }
+      const response = await axios.get(
+          `https://present-neat-mako.ngrok-free.app/his/patient/viewLivePatients?admitId=${admitId}&aadhaar=${aadhaar}`,
+          {
+          headers: headers
+        }
+        );
+       
+      
+        
+            console.log("API response of patient list : "+JSON.stringify(response.data))
+
+            // const ans = response.response.map((curUsers) => ({
+            
+              // id:curUsers.id,
+              // firstName:curUsers.firstName,
+              // lastName:curUsers.lastName,
+              // gender: curUsers.gender,
+              // DOB: curUsers.birthDate
+                          //  setUsers(resp.response);
+            // }));
+            //console.log(ans);
+            setPatient(response.data.response);
+            // setUsers(ans);
+          
+
+       
+    }catch (error) {
+      console.log("Error", error);
+      // toast.error("Error from Pinfo. Please try again.");
+    } 
+  };
+
   return (
     <div>
       <div>
@@ -30,7 +92,11 @@ export default function PInfo() {
                 <h3>Patient Information</h3>
                 <div style={{display: 'flex', flexDirection: 'column'}}> 
                   <div style={{display: 'flex'}}> 
-                      <p style={{minWidth: '100px',marginRight:'50px'}}>Name:</p> 
+                      <p style={{minWidth: '100px',marginRight:'50px'}}>First Name:</p> 
+                      <p>Saloni </p>
+                  </div>
+                  <div style={{display: 'flex'}}> 
+                      <p style={{minWidth: '100px',marginRight:'50px'}}>Last Name:</p> 
                       <p>Saloni</p>
                   </div>
                   <div style={{display: 'flex'}}> 

@@ -7,8 +7,8 @@ function Navbar4({ Toggle,handleSignOut }) {
 
   return (
     <>
-        <nav className="navbar navbar-expand-lg navbar-dark bg-transparent" style={{padding:0}}>
-        <div className="container-fluid">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-transparent" >
+        <div className="container-fluid" >
           {/* Move the toggle button to the sidebar */}
           <i className="bi bi-justify-left fs-4 sidebar-toggle" onClick={Toggle}></i>
           <div className='m-3'>

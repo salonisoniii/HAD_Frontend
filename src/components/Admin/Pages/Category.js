@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Pages/CSS/Category.css";
 
@@ -16,30 +17,53 @@ function Category({ Toggle = false, ...props }) {
     setToggle1(!toggle1);
   };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
 
+  const headers = {
+    userId: userId,
+    Authorization: token,
+    "ngrok-skip-browser-warning": "true",
+    // "Content-Type": "multipart/form-data",
+  };
   const fetchData = async () => {
     try {
-      let response = await axios.get("https://summary-gnu-equally.ngrok-free.app/his/admin/viewUsers",{headers: {
-        'ngrok-skip-browser-warning': 'true' 
-      }});
+      let response = await axios.get(
+        `https://present-neat-mako.ngrok-free.app/his/admin/viewUsers?userId=${userId}`,
+        {
+          headers: headers,
+        }
+      );
+      console.log("API Response: " + JSON.stringify(response.data));
       response = response.data;
-      setData(response["response"]);
+      setData(response);
       setLoading(false); // Set loading to false after data is fetched
-      console.log("-->"+ data);
+      console.log("-->" + data);
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(error); // Set error state
       setLoading(false); // Set loading to false
     }
   };
-  fetchData();
+  // const navigate = useNavigate();
+  // const isLoggedIn=localStorage.getItem('isLoggedIn');
+  // useEffect(()=>{
+
+  //   if(isLoggedIn===null)
+  //   {
+  //   navigate('/login');
+  //   }
+  // },[])
 
   return (
     <div>
-      <div className="container-fluid  min-vh-100" style={{backgroundColor:'#ECE3F0' }}>
+      <div
+        className="container-fluid  min-vh-100"
+        style={{ backgroundColor: "#ECE3F0" }}
+      >
         <div className="row">
           {toggle1 && (
             <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
@@ -49,46 +73,32 @@ function Category({ Toggle = false, ...props }) {
           {toggle1 && <div className="col-4 col-md-2"></div>}
           <div className="col">
             <Navbar2 Toggle={Toggle1} />
-            {/* <h1 className="viewh">Details of Doctors</h1> */}
-            {/* <thead>
-              <tr>
-                <th scope="col">Index</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">no</th>
-              </tr>
-            </thead> */}
-            
+           
+            {/* console.log('Api response in category.js '+JSON.stringify(data)); */}
             {loading ? (
-              <p>Loading...</p> // Show loading indicator while fetching data
+              <p>Loading...</p>
             ) : error ? (
-              <p>Error: {error.message}</p> // Show error message if request fails
+              <p>Error: {error.message}</p>
             ) : (
               <div className="item-category">
                 <div className="category-details">
-                {Array.isArray(data) && data.length > 0 ? (
-                  data.map((item, i) => {if (props.role === item.role){ 
-                    return (
+                  {Array.isArray(data[props.role.toLowerCase()]) &&
+                  data[props.role.toLowerCase()].length > 0 ? (
+                    data[props.role.toLowerCase()].map((item, i) => (
                       <div className="role-card" key={i}>
                         <Roles
                           id={item.id}
                           firstName={item.firstName}
-                        // image={item.image}
-                        // specialization={item.specialization}
-                          gender = {item.gender}
+                          gender={item.gender}
                           email={item.email}
                           phone={item.phone}
                         />
                       </div>
-                    );
-                  }else{
-                    return null;
-                  }
-                 } )
-                ) : (
-                  <p>No data available</p>
-                )}
-                {/* console.log('Api response in category.js '+JSON.stringify(data)); */}
+                    ))
+                  ) : (
+                    <p>No data available</p>
+                    
+                  )}
                 </div>
               </div>
             )}

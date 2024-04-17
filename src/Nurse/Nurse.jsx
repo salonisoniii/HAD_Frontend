@@ -3,7 +3,9 @@ import Navbar3 from "./Navbar3";
 import Sidebar3 from "./Sidebar3";
 import UserData from "./UserData";
 import './userData.css';
-const API = 'https://summary-gnu-equally.ngrok-free.app/doc/viewPastPatients';
+
+import axios from "axios";
+import {toast} from "react-toastify";
 
 export default function Nurse() {
   const [toggle, setToggle] = useState(true);
@@ -15,23 +17,49 @@ export default function Nurse() {
   const [users,setUsers] = useState([]);
   const fetchUsers = async() =>{
     try{
-        await fetch('https://summary-gnu-equally.ngrok-free.app/his/doc/viewPastPatients', {
-            headers : {
-                'ngrok-skip-browser-warning':'true'
-            }
-        })
-        .then(resp => resp.json())
-        .then(resp => { 
-           
-            console.log("API response : "+JSON.stringify(resp))
-                           setUsers(resp.response);
-         
-        });
+      const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
+      const isOP=0;
+      const role=localStorage.getItem('role');
+      const headers = {
+        // 'userId': userId,
+        'Authorization': token,
+        'ngrok-skip-browser-warning': "true",
+        // 'Content-Type': 'multipart/form-data'
+      }
+      const response = await axios.get(
+          `https://present-neat-mako.ngrok-free.app/his/patient/viewLivePatients?role=${role}&isOP=${isOP}&userId=${userId}`,
+          {
+          headers: headers
+        }
+        );
+       
+      
+        
+            console.log("API response of patient list : "+JSON.stringify(response.data))
+
+            // const ans = response.response.map((curUsers) => ({
+            
+              // id:curUsers.id,
+              // firstName:curUsers.firstName,
+              // lastName:curUsers.lastName,
+              // gender: curUsers.gender,
+              // DOB: curUsers.birthDate
+                          //  setUsers(resp.response);
+            // }));
+            //console.log(ans);
+            setUsers(response.data.response);
+            // setUsers(ans);
+          
 
        
-    }catch(e){
-        console.error(e); 
-    }
+    }catch (error) {
+      console.log("Error", error);
+      toast.error("Error from docInPatient. Please try again.");
+    } 
+
+       
+   
   };
 
   useEffect(()=>{

@@ -28,9 +28,9 @@ const ChangePassword = () => {
             return;
         }
 
-        const userId = window.localStorage.getItem("userId");
-        const role = window.localStorage.getItem("role");
-        const token = window.localStorage.getItem("token");
+        const userId = localStorage.getItem("userId");
+        const role = localStorage.getItem("role");
+        const token = localStorage.getItem("token");
 
         try {
             // Send a POST request to your backend endpoint to change the password
@@ -42,7 +42,7 @@ const ChangePassword = () => {
         },{
                 headers: {
                     'ngrok-skip-browser-warning': 'true',
-                    "Authorization":"Bearer "+token
+                    "Authorization":token
                 },
                 // body: JSON.stringify({
                 //     currentPassword,
