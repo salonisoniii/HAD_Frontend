@@ -32,7 +32,7 @@ function EditProfile() {
                 phone: phone,
                 address: address
             };
-            const response = await axios.post(`https://present-neat-mako.ngrok-free.app/his/updateProfile`, body, { headers: headers });
+            const response = await axios.post(`${process.env.REACT_APP_SECRET_KEY}/updateProfile`, body, { headers: headers });
             console.log(response.data);
             setFormError('');
             setSuccessMessage('Changes saved successfully.');

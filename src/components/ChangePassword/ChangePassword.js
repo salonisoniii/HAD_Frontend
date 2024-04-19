@@ -34,7 +34,7 @@ const ChangePassword = () => {
 
         try {
             // Send a POST request to your backend endpoint to change the password
-            const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/changePassword', {
+            const response = await axios.post('${process.env.REACT_APP_SECRET_KEY}/changePassword', {
                 userId: userId,
                 oldPassword:currentPassword,
                 newPassword: newPassword,

@@ -19,7 +19,7 @@ const ForgotPassword = () => {
     if (validate()) {
       try {
         const response = await axios.get(
-          "https://present-neat-mako.ngrok-free.app/his/forgotPassword?email=" +
+          `${process.env.REACT_APP_SECRET_KEY}/forgotPassword?email=` +
             email,
           {
             headers: {

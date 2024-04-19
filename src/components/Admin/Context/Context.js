@@ -21,7 +21,7 @@ const headers = {
     const fetchData = async () => {
         try {
             const response = await axios.get(
-                `https://present-neat-mako.ngrok-free.app/his/admin/viewUsers?userId=${userId}`,
+                `${process.env.REACT_APP_SECRET_KEY}/admin/viewUsers?userId=${userId}`,
                 {
                 headers: headers
               }

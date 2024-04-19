@@ -21,7 +21,7 @@ function Rdashboard() {
       const token = localStorage.getItem("token");
       console.log("API Body: " + JSON.stringify(body));
       const response = await axios.post(
-        `https://summary-gnu-equally.ngrok-free.app/his/reception/isPatientPresent`,
+        `${process.env.REACT_APP_SECRET_KEY}/reception/isPatientPresent`,
         body,
         {
           headers: {

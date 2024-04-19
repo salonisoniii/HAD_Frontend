@@ -52,7 +52,7 @@ function AddDoctorForm() {
     console.log(req);
     // req["personal"] = userobj;
 
-    const response = await axios.post('https://present-neat-mako.ngrok-free.app/his/admin/addUser',req);
+    const response = await axios.post(`${process.env.REACT_APP_SECRET_KEY}/admin/addUser`,req);
     console.log("API Response"+JSON.stringify(response.data));
 
     // You can handle form submission here, e.g., send data to backend

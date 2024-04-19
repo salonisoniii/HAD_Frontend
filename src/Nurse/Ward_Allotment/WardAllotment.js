@@ -18,7 +18,7 @@ const token = localStorage.getItem('token');
   const fetchWardDetails = async () => {
     try {
       setFetchingData(true); // Set fetchingData to true when fetching starts
-      const response = await axios.get('https://summary-gnu-equally.ngrok-free.app/his/nurse/getWard?id='+nurseId, {
+      const response = await axios.get(`${process.env.REACT_APP_SECRET_KEY}/nurse/getWard?id=`+nurseId, {
         headers: {
           'ngrok-skip-browser-warning': 'true',
           'Authorization': token,

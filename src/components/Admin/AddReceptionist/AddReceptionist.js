@@ -77,7 +77,7 @@ function AddReceptionist() {
       console.log(newuserObj);
 
       const response = await axios.post(
-        "https://present-neat-mako.ngrok-free.app/his/admin/addUser",
+        `${process.env.REACT_APP_SECRET_KEY}/admin/addUser`,
         newuserObj, {
         headers: headers
       }

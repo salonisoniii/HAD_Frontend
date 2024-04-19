@@ -42,7 +42,7 @@ export default function PInfo() {
         // 'Content-Type': 'multipart/form-data'
       }
       const response = await axios.get(
-          `https://present-neat-mako.ngrok-free.app/his/patient/viewLivePatients?admitId=${admitId}&aadhaar=${aadhaar}`,
+          `${process.env.REACT_APP_SECRET_KEY}/patient/viewLivePatients?admitId=${admitId}&aadhaar=${aadhaar}`,
           {
           headers: headers
         }

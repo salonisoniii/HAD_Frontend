@@ -12,7 +12,7 @@ const fetchAllDetails = async () => {
     // "Content-Type": "multipart/form-data",
   };
   try {
-    const response = await axios.get(`https://present-neat-mako.ngrok-free.app/his/admin/viewUsers?userId=${userId}`,
+    const response = await axios.get(`${process.env.REACT_APP_SECRET_KEY}/admin/viewUsers?userId=${userId}`,
     {
     headers: headers
   }

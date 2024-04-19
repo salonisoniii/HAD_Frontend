@@ -54,7 +54,7 @@ export default function DataGridDemo() {
 );
   const fetchUsers = async() =>{
     try{
-        await fetch('https://summary-gnu-equally.ngrok-free.app/his/doc/viewPastPatients', {
+        await fetch(`${process.env.REACT_APP_SECRET_KEY}/doc/viewPastPatients`, {
             headers : {
                 'ngrok-skip-browser-warning':'true'
             }

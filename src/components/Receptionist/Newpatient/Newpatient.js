@@ -80,7 +80,7 @@ function Newpatient() {
 
       console.log("Form Data: " + JSON.stringify(formData));
       const response = await axios.post(
-        "https://summary-gnu-equally.ngrok-free.app/his/reception/registerPatient",
+        `${process.env.REACT_APP_SECRET_KEY}/reception/registerPatient`,
         formData,
         {
           headers: headers,

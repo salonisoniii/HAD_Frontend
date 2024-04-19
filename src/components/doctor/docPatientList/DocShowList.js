@@ -70,7 +70,7 @@ export default function DataGridDemo1() {
         // 'Content-Type': 'multipart/form-data'
       }
       const response = await axios.get(
-          `https://present-neat-mako.ngrok-free.app/his/patient/viewLivePatients?role=${role}&isOP=${isOP}&userId=${userId}`,
+          `${process.env.REACT_APP_SECRET_KEY}/patient/viewLivePatients?role=${role}&isOP=${isOP}&userId=${userId}`,
           {
           headers: headers
         }

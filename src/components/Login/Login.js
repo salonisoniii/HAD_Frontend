@@ -29,9 +29,10 @@ const Login = () => {
 
     try {
       if (validate()) {
+        const base = `${process.env.REACT_APP_SECRET_KEY}`;
+        console.log("URL: "+base+"/authenticate");
         const responsee = await axios.post(
-          "https://present-neat-mako.ngrok-free.app/his/authenticate",
-       
+          `${process.env.REACT_APP_SECRET_KEY}/authenticate`,
           {
             username: username,
             password: password,
@@ -42,7 +43,7 @@ const Login = () => {
         setUsername("");
         setPassword("");
         setRole("");
-        const { userId, token, response } = responsee.data;
+        const { userId, token } = responsee.data;
         console.log(responsee);
 
         localStorage.setItem("userId", userId);

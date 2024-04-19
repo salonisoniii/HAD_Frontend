@@ -38,7 +38,7 @@ const Deactivate = () => {
         console.log("Body: " + JSON.stringify(body));
         // Send a POST request to the backend to fetch user information
         const response = await axios.post(
-          `https://present-neat-mako.ngrok-free.app/his/admin/checkUser`,
+          `{process.env.REACT_APP_SECRET_KEY}/admin/checkUser`,
           body,
           { headers: headers }
         );
