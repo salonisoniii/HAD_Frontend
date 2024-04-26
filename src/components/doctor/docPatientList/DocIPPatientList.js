@@ -1,14 +1,13 @@
 import React,{useState} from 'react'
-// import Sidebar3 from '../Sidebar3'
-// import Navbar3 from '../Navbar3'
 
-import DataGridDemo1 from './DocShowList';
+
 import Navbar1 from '../Navbar1';
 import Sidebar from '../Sidebar';
+import DocShowList from './DocShowList';
 
 
 
-export default function DocPatientList() {
+export default function DocIPPatientList() {
     const [toggle,setToggle] = useState(true);
     const Toggle = () =>{
         setToggle(!toggle);
@@ -26,7 +25,7 @@ export default function DocPatientList() {
           {toggle && <div className="col-4 col-md-2"></div>}
           <div className="col">
             <Navbar1 Toggle={Toggle} />
-            <DataGridDemo1/>
+            <DocShowList/>
 </div>
 </div>
 </div>

@@ -32,7 +32,7 @@ function Navbar1({ Toggle}) {
     }
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-transparent" style={{marginTop:'-30px'}}> 
+      <nav className="navbar navbar-expand-lg navbar-dark bg-transparent" style={{marginTop:'-20px'}}> 
         <div className="container-fluid">
           {/* Move the toggle button to the sidebar */}
           <i className="bi bi-justify-left fs-4 sidebar-toggle" onClick={Toggle}></i>

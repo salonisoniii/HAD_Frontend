@@ -13,8 +13,8 @@ import Navbar1 from "./components/doctor/Navbar1";
 // import Navbar from './components/Navbar';
 // import calendar from './components/doctor/Cal';
 import Cal1 from "./components/doctor/Cal1";
-import PInfo from "./components/doctor/PInfo";
-import AddDiagnosis from "./components/doctor/AddDiagnosis";
+import PInfo from "./components/doctor/patientInformation/PInfo";
+import AddDiagnosis from "./components/doctor/AddDiagnosis/AddDiagnosis";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Newpatient from "./components/Receptionist/Newpatient/Newpatient";
@@ -40,11 +40,12 @@ import NurseSchedule from "./Nurse/Nurse Schedule/NurseSchedule";
 import Nurse from "./Nurse/Nurse";
 import WardAllotment from './Nurse/Ward_Allotment/WardAllotment';
 //DOCTOR
-import DocPatientList from "./components/doctor/docPatientList/DocPatientList";
+import DocIPPatientList from "./components/doctor/docPatientList/DocIPPatientList";
 import RecpPatientList from "./components/Receptionist/RecpPatientList/RecpPatientList";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import EditProfile from "./components/Admin/EditProfile/EditProfile";
 import DocSchedule from './components/doctor/DocSchedule/DocSchedule';
+import PastHistory from "./components/doctor/docPatientList/PastHistory";
 
 
 function AdminRoute({ children }) {
@@ -129,7 +130,7 @@ function App() {
 
   return (
     <div className="App">
-      <ToastContainer></ToastContainer>
+      <ToastContainer/>
 
       <BrowserRouter>
         <Routes>
@@ -189,9 +190,10 @@ function App() {
           <Route path="/PInfo" element={<DoctorRoute><PInfo /></DoctorRoute>}></Route>
           <Route path="/cal1" element={<DoctorRoute><Cal1 /></DoctorRoute>}></Route>
           <Route path="/doctor" element={<DoctorRoute><Doctor /></DoctorRoute>}></Route>
-          <Route path="/DocPatientList" element={<DoctorRoute><DocPatientList /></DoctorRoute>} />
+          <Route path="/DocIPPatientList" element={<DoctorRoute><DocIPPatientList /></DoctorRoute>} />
           <Route path="/Navbar1" element={<DoctorRoute><Navbar1 /></DoctorRoute>}></Route>
           <Route path="/docSchedule" element={<DocSchedule />} />
+          <Route path="/PastHistory" element= {<DoctorRoute><PastHistory /></DoctorRoute>} />
 
 
           {/* Receptionist */}

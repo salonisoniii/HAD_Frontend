@@ -1,0 +1,177 @@
+ /* .calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.calendar-top {
+  height: 100px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.color-box {
+  width: 200px;
+  height: 30px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-box span {
+  margin-left: 4px;
+}
+
+.calendar {
+  width: 350px;
+  height: 350px;
+  margin-top: 20px;
+  border-radius: 30px;
+  overflow: hidden;
+}
+
+.react-calendar__navigation {
+  background-color: #7986cb; 
+  border-top-left-radius: 10px; 
+  border-top-right-radius: 10px; 
+} */
+
+
+
+
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.shift-info-container {
+  margin-top: 20px;
+  padding: 10px;
+  width: 19%;
+  background-color: #ecd0ea;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.shift-info-container p {
+  color: #333;
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+
+
+
+
+/* .shift-0 {
+  background-color: #ffcccc !important; 
+}
+
+.shift-1 {
+  background-color: #ccffcc !important; 
+}
+
+.shift-2 {
+  background-color: #ccccff !important; 
+}
+
+.shift-3 {
+  background-color: #ffffcc !important; 
+} */
+
+
+/*
+.rbc-toolbar {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.rbc-btn-group button {
+  color: #007bff; 
+  background-color: transparent;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+.rbc-btn-group button:disabled {
+  color: #5f3b3b;
+}
+
+.rbc-btn-group button:not(:disabled):hover {
+  background-color: #0056b3;
+  color: white;
+}
+
+.rbc-today {
+  background-color: #eaf6ff; 
+}
+
+.rbc-event {
+  box-shadow: 0 2px 5px rgba(187, 99, 177, 0.3);
+  padding: 2px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.rbc-event-label {
+  padding: 5px;
+}
+
+.rbc-off-range-bg {
+  background-color: #f8f9fa;
+} 
+*/
+
+/*
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(91, 46, 46, 0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .modal-content {
+    background: rgb(136, 57, 57);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 400px; 
+    animation: scaleIn 0.3s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+*/

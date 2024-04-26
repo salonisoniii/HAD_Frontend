@@ -1,5 +1,5 @@
 import React from "react";
-import PInfo from "./PInfo";
+import PInfo from "./patientInformation/PInfo";
 import { Link } from "react-router-dom";
 
 const Patients = ({ patients }) => {
