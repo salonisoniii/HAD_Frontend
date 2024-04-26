@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import Sidebar from '../Sidebar';
 import '../doctor.css';
-import Navbar from '../Navbar1';
+import Navbar1 from '../Navbar1';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -79,7 +79,7 @@ const handleView = async(admitId) =>{
       
       if(isLive){
       response = await axios.get(
-        `${process.env.REACT_APP_SECRET_KEY}/patient/viewLivePatients?admitId=${admitId}&aadhaar=${aadhaar}`,
+        `${process.env.REACT_APP_SECRET_KEY}/patient/viewOneLivePatient?role=${role}&admitId=${admitId}&userId=${userId}`,
           // `https://present-neat-mako.ngrok-free.app/his/patient/viewOneLivePatient?role=${role}&admitId=${admitId}&userId=${userId}`,
           // `https://summary-gnu-equally.ngrok-free.app/his/patient/viewOneLivePatient?role=${role}&admitId=${admitId}&userId=${userId}`,
           {
@@ -137,7 +137,7 @@ const handleView = async(admitId) =>{
           )}
           {toggle && <div className='col-4 col-md-2 '></div>}
           <div className='col'>
-            <Navbar Toggle={Toggle} />
+            <Navbar1 Toggle={Toggle} />
             <div style={{position:'relative', display:'inline-flex',alignItems:'center', marginLeft:'100px'}}>
               <div>
             <img src={process.env.PUBLIC_URL+'/images/14.jpg'} alt='profile' style={{width:'150px', height:'150px', borderRadius:'50%', marginLeft:'100px'}}/>
