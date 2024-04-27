@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import "./addDiagnosis.css"
 import axios from "axios";
 import { toast } from "react-toastify";
-import Sidebar from "../Sidebar";
-import Navbar1 from "../Navbar1";
+import Sidebar from "../DocSidebar/Sidebar";
+
 
 
 function AddDiagnosis() {
@@ -160,19 +160,13 @@ function AddDiagnosis() {
 
   
   return (
-    <div
-      className="container-fluid  min-vh-100"
-      style={{ backgroundColor: "#ECE3F0" }}
-    >
+    <>
+    <Sidebar />
       <div className="row">
-        {toggle && (
-          <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-            <Sidebar Toggle={Toggle} />
-          </div>
-        )}
+        
         {toggle && <div className="col-4 col-md-2"></div>}
         <div className="col">
-          <Navbar1 Toggle={Toggle} />
+          {/* <Navbar1 Toggle={Toggle} /> */}
 
           <div className="card1">
             <div className="card1-body">
@@ -323,7 +317,7 @@ function AddDiagnosis() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

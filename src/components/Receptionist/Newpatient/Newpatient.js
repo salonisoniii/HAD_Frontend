@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar4 from "../Sidebar4";
+import Sidebar4 from "../RecSidebar/Sidebar4";
 import Navbar4 from "../Navbar4";
 import "../Newpatient/Newpatient.css";
 import { toast } from "react-toastify";

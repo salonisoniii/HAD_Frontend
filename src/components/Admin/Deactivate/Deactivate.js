@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar2 from "../Navbar2";
 import "../Deactivate/Deactivate.css";
-import Sidebar2 from "../Sidebar2";
+import Sidebar2 from "../AdminSidebar/Sidebar2";
 import { Link } from "react-router-dom";
 import axios from "axios"; // Import Axios library
 
@@ -38,7 +38,7 @@ const Deactivate = () => {
         console.log("Body: " + JSON.stringify(body));
         // Send a POST request to the backend to fetch user information
         const response = await axios.post(
-          `{process.env.REACT_APP_SECRET_KEY}/admin/checkUser`,
+          `${process.env.REACT_APP_SECRET_KEY}/admin/checkUser`,
           body,
           { headers: headers }
         );
@@ -74,7 +74,7 @@ const Deactivate = () => {
     try {
       // Send a POST request to the backend endpoint for deactivation
       const response = await axios.post(
-        "https://present-neat-mako.ngrok-free.app/his/admin/updateAccountStatus",
+        `${process.env.REACT_APP_SECRET_KEY}/admin/updateAccountStatus`,
         { action: "D", role: selectedRole, adminId: adminId, userId: userId },
         { headers: headers }
       );
@@ -98,20 +98,13 @@ const Deactivate = () => {
   };
 
   return (
-    <div>
-      <div
-        className="container-fluid min-vh-100"
-        style={{ backgroundColor: "#ECE3F0" }}
-      >
+    <>
+      <Sidebar2 />
         <div className="row">
-          {toggle && (
-            <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-              <Sidebar2 Toggle={Toggle} />
-            </div>
-          )}
+          
           {toggle && <div className="col-4 col-md-2"></div>}
           <div className="col">
-            <Navbar2 Toggle={Toggle} />
+            {/* <Navbar2 Toggle={Toggle} /> */}
             <div className="info-card mt-3 p-3">
               <h5 className="card-title">Check User Information</h5>
               <label htmlFor="exampleInputRole" className="m-3">
@@ -242,8 +235,7 @@ const Deactivate = () => {
             )}
           </div>
         </div>
-      </div>
-    </div>
+    </>
   );
 };
 

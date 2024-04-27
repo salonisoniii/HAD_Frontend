@@ -6,9 +6,9 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import ReactCalendar from "./Cal";
 import Patients from "./Patients";
 import Navbar1 from "./Navbar1";
+import DataGridDemo2 from "./docPatientList/docInPatientList";
 import axios from "axios";
 import { toast } from "react-toastify";
-import DocOPPatientList from "./docPatientList/docOPPatientList";
 
 // import Test from './Test'
 
@@ -60,14 +60,11 @@ export default function Doctor() {
           headers: headers,
         }
       );
-      console.log("data of the user",response.data);
 
       // Check if response status is successful before setting state
       if (response.status === 200) {
-        if(response.data){
         setOpCount(response.data.opPatient);
         setIpCount(response.data.ipPatient);
-        }
       } else {
         throw new Error("Failed to fetch data");
       }
@@ -83,7 +80,7 @@ export default function Doctor() {
   }, []);
 
   return (
-    <div>
+    <>
       <Sidebar />
         <div className="row">
           
@@ -113,11 +110,66 @@ export default function Doctor() {
                 </div>
               </div>
             </div>
-            <DocOPPatientList />
+            <DataGridDemo2 />
 
-           
+            {/* {isOpen && (
+              <div
+                className="dropdown-menu"
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100vw",
+                  height: "100vh",
+                  background: "rgba(0, 0, 0, 0.5)",
+                  zIndex: 9999,
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100%",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "200px",
+                      background: "#fff",
+                      padding: "20px",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <p>This is a dropdown content</p>
+                    <p>It opens on clicking the profile picture</p>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div>
+              <Patients patients={patients} />
+            </div> */}
+            {/* <div
+              className="calendar-container"
+              style={{
+                position: "absolute",
+                top: "0",
+                right: "0",
+                marginTop: "20px",
+                marginRight: "15px",
+              }}
+            >
+              <ReactCalendar />
+            </div> */}
           </div>
         </div>
-      </div>
+
+      {/* <div className="calendar-container" style={{position: 'absolute',top: '0',right: '0',marginTop: '20px',marginRight: '0px'}}>
+        <ReactCalendar/> 
+        
+        
+        </div> */}
+    </>
   );
 }

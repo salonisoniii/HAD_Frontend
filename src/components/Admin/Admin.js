@@ -1,6 +1,6 @@
 // import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import Sidebar2 from './Sidebar2';
+import Sidebar2 from './AdminSidebar/Sidebar2';
 import Home1 from './Dashboard/Home1';
 import { useEffect, useState } from 'react';
 // import AddDoctor from './adddoctor/AddDoctor';
@@ -35,22 +35,23 @@ export default function Admin() {
   };
   return (
     <div>
-      <div className='container-fluid  min-vh-100' style={{backgroundColor:'#ECE3F0' }} >
+      <Sidebar2 />
+      {/* <div className='container-fluid  min-vh-100' style={{backgroundColor:'#ECE3F0' }} > */}
         <div className='row'>
-          {toggle && (
+          {/* {toggle && (
             <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>
               <Sidebar2 Toggle={Toggle} />
             </div>
-          )}
+          )} */}
 
-          {toggle && <div className='col-4 col-md-2'></div>}
+          {/* {toggle && <div className='col-4 col-md-2'></div>} */}
           <div className='col'>
 
             <Home1 Toggle={Toggle} />
 
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   )
 }

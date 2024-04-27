@@ -130,7 +130,7 @@ const token = localStorage.getItem('token');
       if (result.isConfirmed) {
 
         console.log('Discharge request:', requestBody);
-        axios.post(`https://summary-gnu-equally.ngrok-free.app/his/nurse/updateWard/${nurseId}`, requestBody, {
+        axios.post(`${process.env.REACT_APP_SECRET_KEY}/nurse/updateWard/${nurseId}`, requestBody, {
       headers: {
         'ngrok-skip-browser-warning': 'true',
         'Authorization': token,

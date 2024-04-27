@@ -1,22 +1,59 @@
-import React from 'react'
-import Navbar2 from '../Navbar2'
+import React,{useState,useEffect} from 'react'
+
 import './Home1.css'
 import Areacharts from '../Charts/Areacharts'
 import Piechart from '../Charts/Piechart'
+import axios from 'axios'
+import { toast } from "react-toastify";
 
 
 
 function Home1({ Toggle }) {
+  const [OpCount, setOpCount] = useState(0);
+    const fetchcount = async () => {
+        try {
+            const userId = localStorage.getItem("userId");
+            const token = localStorage.getItem("token");
+      
+            const headers = {
+              Authorization: token,
+              "ngrok-skip-browser-warning": "true",
+            };
+      
+            const response = await axios.get(
+              `${process.env.REACT_APP_SECRET_KEY}/admin/home?userId=` +
+                userId,
+              {
+                headers: headers,
+              }
+            );  
+    //   this api is for testing purpose, now comment it
+            // Check if response status is successful before setting state
+            if (response.status === 200) {
+              setOpCount(response.data.OpCount);
+              
+            } else {
+              throw new Error("Failed to fetch data");
+            }
+          } catch (error) {
+            
+            console.log("Error here", error);
+            toast.error("Error from admin. Please try again.");
+          }
+        };
+        useEffect(() => {
+            fetchcount();
+          }, []);
     return (
         <div className='px-2'>
-            <Navbar2 Toggle={Toggle} />
+            {/* <Navbar2 Toggle={Toggle} /> */}
             <div className='container-fluid'>
                 <div className='row g-3 my-2'>
                     <div className='col-md-3 p-1'>
                         <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
                             <div>
                                 <h3 className='fs-2'>10</h3>
-                                <p className='fs-5'>Doctors</p>
+                                <p className='fs-5'>Doctor</p>
                             </div>
                             <i className='bi bi-person-circle p-3 fs-1'></i>
 
@@ -26,19 +63,8 @@ function Home1({ Toggle }) {
                     <div className='col-md-3 p-1'>
                         <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
                             <div>
-                                <h3 className='fs-2'>100</h3>
-                                <p className='fs-5'>Nurses</p>
-                            </div>
-                            <i className='bi bi-person-fill p-3 fs-1'></i>
-
-                        </div>
-
-                    </div>
-                    <div className='col-md-3 p-1'>
-                        <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
-                            <div>
                                 <h3 className='fs-2'>20</h3>
-                                <p className='fs-5'>Patient</p>
+                                <p className='fs-5'>Nurse</p>
                             </div>
                             <i className='bi bi-person-fill p-3 fs-1'></i>
 
@@ -48,8 +74,19 @@ function Home1({ Toggle }) {
                     <div className='col-md-3 p-1'>
                         <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
                             <div>
-                                <h3 className='fs-2'>20%</h3>
-                                <p className='fs-5'>Increase</p>
+                                <h3 className='fs-2'>3</h3>
+                                <p className='fs-5'>Receptionist</p>
+                            </div>
+                            <i className='bi bi-person-fill p-3 fs-1'></i>
+
+                        </div>
+
+                    </div>
+                    <div className='col-md-3 p-1'>
+                        <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
+                            <div>
+                                <h3 className='fs-2'>4</h3>
+                                <p className='fs-5'>Pharmacist</p>
                             </div>
                             <i className='bi bi-graph-up-arrow p-3 fs-1'></i>
 

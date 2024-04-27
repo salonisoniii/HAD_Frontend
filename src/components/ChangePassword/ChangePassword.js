@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './ChangePassword.css'; // Import the CSS file
-import Navbar2 from '../Admin/Navbar2';
-import Sidebar2 from '../Admin/Sidebar2';
+import Sidebar from '../doctor/DocSidebar/Sidebar';
+import Sidebar2 from '../Admin/AdminSidebar/Sidebar2';
+import Sidebar3 from '../../Nurse/NurseSidebar/Sidebar3';
+import Sidebar4 from '../Receptionist/RecSidebar/Sidebar4';
 import axios from 'axios';
 
 
@@ -13,6 +15,8 @@ const ChangePassword = () => {
     // State variable to store success or error message
     const [message, setMessage] = useState('');
     const [toggle, setToggle] = useState(true);
+    const role = localStorage.getItem("role");
+
 
     const Toggle = () => {
         setToggle(!toggle);
@@ -29,7 +33,6 @@ const ChangePassword = () => {
         }
 
         const userId = localStorage.getItem("userId");
-        const role = localStorage.getItem("role");
         const token = localStorage.getItem("token");
 
         try {
@@ -72,17 +75,17 @@ const ChangePassword = () => {
     };
 
     return (
-        <div>
-            <div className="container-fluid min-vh-100" style={{ backgroundColor: '#ECE3F0' }}>
+        <>
+            {role === "ADMIN" && <Sidebar2 />}
+            {role === "DOCTOR" && <Sidebar />}
+            {role === "NURSE" && <Sidebar3 />}
+            {role === "RECEPTIONIST" && <Sidebar4 />}
+            
                 <div className="row">
-                    {toggle && (
-                        <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-                            <Sidebar2 Toggle={Toggle} />
-                        </div>
-                    )}
+                    
                     {toggle && <div className="col-4 col-md-2"></div>}
                     <div className="col">
-                        <Navbar2 Toggle={Toggle} />
+                        {/* <Navbar2 Toggle={Toggle} /> */}
                         <div className="container-changepassword"> {/* Add the container class here */}
                             <h2 className="change-password-heading">Change Password</h2>
                             {message && <p className="message">{message}</p>}
@@ -128,8 +131,7 @@ const ChangePassword = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+        </>
     );
 };
 

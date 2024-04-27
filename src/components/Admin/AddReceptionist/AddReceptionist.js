@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar2 from "../Navbar2";
 import "../AddReceptionist/AddReceptionist.css";
-import Sidebar2 from "../Sidebar2";
+import Sidebar2 from "../AdminSidebar/Sidebar2";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -110,20 +110,13 @@ function AddReceptionist() {
     }
   }, []);
   return (
-    <div>
-      <div
-        className="container-fluid  min-vh-100"
-        style={{ backgroundColor: "#ECE3F0" }}
-      >
+    <>
+      <Sidebar2 />
         <div className="row">
-          {toggle && (
-            <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-              <Sidebar2 Toggle={Toggle} />
-            </div>
-          )}
+          
           {toggle && <div className="col-4 col-md-2"></div>}
           <div className="col">
-            <Navbar2 Toggle={Toggle} />
+            {/* <Navbar2 Toggle={Toggle} /> */}
 
             <div className="card1">
               <div className="card1-body">
@@ -283,8 +276,7 @@ function AddReceptionist() {
             </div>
           </div>
         </div>
-      </div>
-    </div>
+    </>
   );
 }
 

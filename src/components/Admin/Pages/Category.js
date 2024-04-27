@@ -5,21 +5,23 @@ import "../Pages/CSS/Category.css";
 
 import Roles from "../Roles/Roles";
 import Navbar2 from "../Navbar2";
-import Sidebar2 from "../Sidebar2";
+import Sidebar2 from "../AdminSidebar/Sidebar2";
 
 function Category({ Toggle = false, ...props }) {
   const [toggle1, setToggle1] = useState(true);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true); // State to track loading status
   const [error, setError] = useState(null); // State to track errors
-
+  const [fetched, setFetched] = useState(false);
   const Toggle1 = () => {
     setToggle1(!toggle1);
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    // if (!fetched) {
+      fetchData();
+  // }
+}, []);
   const userId = localStorage.getItem("userId");
   const token = localStorage.getItem("token");
 
@@ -42,6 +44,8 @@ function Category({ Toggle = false, ...props }) {
       setData(response);
       setLoading(false); // Set loading to false after data is fetched
       console.log("-->" + data);
+      setFetched(true); 
+
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(error); // Set error state
@@ -59,20 +63,13 @@ function Category({ Toggle = false, ...props }) {
   // },[])
 
   return (
-    <div>
-      <div
-        className="container-fluid  min-vh-100"
-        style={{ backgroundColor: "#ECE3F0" }}
-      >
+    <>
+      <Sidebar2 />
         <div className="row">
-          {toggle1 && (
-            <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-              <Sidebar2 Toggle={Toggle1} />
-            </div>
-          )}
+          
           {toggle1 && <div className="col-4 col-md-2"></div>}
           <div className="col">
-            <Navbar2 Toggle={Toggle1} />
+            {/* <Navbar2 Toggle={Toggle1} />  */}
            
             {/* console.log('Api response in category.js '+JSON.stringify(data)); */}
             {loading ? (
@@ -104,8 +101,7 @@ function Category({ Toggle = false, ...props }) {
             )}
           </div>
         </div>
-      </div>
-    </div>
+    </>
   );
 }
 

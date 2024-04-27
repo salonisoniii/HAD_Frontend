@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import Navbar2 from '../Navbar2'
-import Sidebar2 from '../Sidebar2'
 import axios from 'axios';
 import '../EditProfile/EditProfile.css'
-
+import Sidebar2 from '../AdminSidebar/Sidebar2';
+import Sidebar from '../../doctor/DocSidebar/Sidebar';
+import Sidebar3 from '../../../Nurse/NurseSidebar/Sidebar3';
+import Sidebar4 from '../../Receptionist/RecSidebar/Sidebar4';
 function EditProfile() {
     const [toggle, setToggle] = useState(true);
     const [firstName, setFirstName] = useState('');
@@ -14,6 +15,8 @@ function EditProfile() {
     const [successMessage, setSuccessMessage] = useState('');
     const userId = window.localStorage.getItem("userId");
     const token = window.localStorage.getItem("token");
+    const role = localStorage.getItem("role");
+    
     const Toggle = () => {
         setToggle(!toggle);
     };
@@ -25,7 +28,7 @@ function EditProfile() {
                 'ngrok-skip-browser-warning': "true"
             };
             const body = {
-                role: "ADMIN",
+                role: role,
                 userId: userId,
                 firstName: firstName,
                 lastName: lastName,
@@ -48,69 +51,67 @@ function EditProfile() {
         }
     };
     return (
-        <div>
-            <div className="container-fluid min-vh-100" style={{ backgroundColor: '#ECE3F0' }}>
-                <div className="row">
-                    {toggle && (
-                        <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-                            <Sidebar2 Toggle={Toggle} />
-                        </div>
-                    )}
-                    {toggle && <div className="col-4 col-md-2"></div>}
-                    <div className="col">
-                        <Navbar2 Toggle={Toggle} />
-                        <div className="edit-card mt-3 p-3">
-                            <h5 className="card-title">Edit Profile</h5>
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-3 edit-profile-input">
-                                    <label htmlFor="firstName" className="edit-label">First Name</label>
-                                    <input
-                                        type="text"
-                                        className="form-control edit-profile-textarea"
-                                        id="firstName"
-                                        value={firstName}
-                                        onChange={(e) => setFirstName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-3 edit-profile-input">
-                                    <label htmlFor="lastName" className="edit-label">Last Name</label>
-                                    <input
-                                        type="text"
-                                        className="form-control edit-profile-textarea"
-                                        id="lastName"
-                                        value={lastName}
-                                        onChange={(e) => setLastName(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-3 edit-profile-input">
-                                    <label htmlFor="Phone" className="edit-label">Phone</label>
-                                    <input
-                                        type="text"
-                                        className="form-control edit-profile-textarea"
-                                        id="contactNumber"
-                                        value={phone}
-                                        onChange={(e) => setContactNumber(e.target.value)}
-                                    />
-                                </div>
-                                <div className="mb-3 edit-profile-input">
-                                    <label htmlFor="address" className="edit-label">Address</label>
-                                    <textarea
-                                        className="form-control"
-                                        id="address"
-                                        rows="3"
-                                        value={address}
-                                        onChange={(e) => setAddress(e.target.value)}
-                                    ></textarea>
-                                </div>
-                                <button type="submit" className="btn edit-btn ">Save Changes</button>
-                            </form>
-                            {formError && <div className="alert alert-danger mt-3" role="alert">{formError}</div>}
-                            {successMessage && <div className="alert alert-success mt-3" role="alert">{successMessage}</div>}
-                        </div>
+        <>
+            {role === "ADMIN" && <Sidebar2 />}
+            {role === "DOCTOR" && <Sidebar />}
+            {role === "NURSE" && <Sidebar3 />}
+            {role === "RECEPTIONIST" && <Sidebar4 />}
+            <div className="row">
+
+                {toggle && <div className="col-4 col-md-2"></div>}
+                <div className="col">
+                    {/* <Navbar2 Toggle={Toggle} /> */}
+                    <div className="edit-card mt-3 p-3">
+                        <h5 className="card-title">Edit Profile</h5>
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-3 edit-profile-input">
+                                <label htmlFor="firstName" className="edit-label">First Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control edit-profile-textarea"
+                                    id="firstName"
+                                    value={firstName}
+                                    onChange={(e) => setFirstName(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3 edit-profile-input">
+                                <label htmlFor="lastName" className="edit-label">Last Name</label>
+                                <input
+                                    type="text"
+                                    className="form-control edit-profile-textarea"
+                                    id="lastName"
+                                    value={lastName}
+                                    onChange={(e) => setLastName(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3 edit-profile-input">
+                                <label htmlFor="Phone" className="edit-label">Phone</label>
+                                <input
+                                    type="text"
+                                    className="form-control edit-profile-textarea"
+                                    id="contactNumber"
+                                    value={phone}
+                                    onChange={(e) => setContactNumber(e.target.value)}
+                                />
+                            </div>
+                            <div className="mb-3 edit-profile-input">
+                                <label htmlFor="address" className="edit-label">Address</label>
+                                <textarea
+                                    className="form-control"
+                                    id="address"
+                                    rows="3"
+                                    value={address}
+                                    onChange={(e) => setAddress(e.target.value)}
+                                ></textarea>
+                            </div>
+                            <button type="submit" className="btn edit-btn ">Save Changes</button>
+                        </form>
+                        {formError && <div className="alert alert-danger mt-3" role="alert">{formError}</div>}
+                        {successMessage && <div className="alert alert-success mt-3" role="alert">{successMessage}</div>}
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

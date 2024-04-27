@@ -52,6 +52,56 @@
     padding: 20px;
     margin-top: 20px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 70%;
-    margin-left: 150px;
+    width: 80%;
+    margin-left: 100px;
 }
+
+.ms-dropdown {
+    display: inline-block;
+    margin-left: 1.5rem;
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  .dropdown-menu-ms {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .schedule {
+    margin-top: 1rem;
+  }
+  
+  .btn-group-ms {
+    margin-top: 1rem;
+  }
+  
+  .btn-primary {
+    margin-top: 1rem;
+  }
+  
+  .list-group {
+    margin-top: 1rem;
+  }
+  
+  .list-group-item {
+    display: flex;
+    align-items: center;
+  }
+  
+  .list-group-item strong {
+    margin-right: 1rem;
+  }
+  .ms-button-container {
+    display: flex;
+    gap: 10px; /* Adjust the space between buttons as needed */
+  }
+  .btn.selected {
+    background-color: green; /* Change this to the color you want for selected shifts */
+    color: white; /* Change this to the text color you want for selected shifts */
+    border-color: #28a745;
+  }
+  
+  
+  
+  

@@ -5,10 +5,13 @@ export const Context = createContext(null);
 
 const ContextProvider = (props) => {
     const [allDetails, setAllDetails] = useState([]);
-
+    const [fetched, setFetched] = useState(false);
     useEffect(() => {
-        fetchData();
-    }, []);
+        if (!fetched) {
+            //fetchData();
+            setFetched(true); 
+        }
+    }, [fetched]);
     const userId = localStorage.getItem("userId");
     const token = localStorage.getItem("token");
 

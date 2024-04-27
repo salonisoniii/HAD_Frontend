@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import Sidebar3 from '../Sidebar3'
+import Sidebar3 from '../NurseSidebar/Sidebar3'
 import Navbar3 from '../Navbar3'
 import DataGridDemo from './ShowList';
 import { useEffect } from 'react';

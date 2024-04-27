@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Navbar2 from "../Navbar2";
 import "../AddStaff/AddStaff.css";
-import Sidebar2 from "../Sidebar2";
+import Sidebar2 from "../AdminSidebar/Sidebar2";
 
 function AddStaff() {
   const [toggle, setToggle] = useState(true);
@@ -23,16 +23,17 @@ function AddStaff() {
   },[])
   return (
     <div>
-      <div className="container-fluid min-vh-100" style={{backgroundColor:'#ECE3F0' }}>
+      <Sidebar2 />
+      {/* <div className="container-fluid min-vh-100" style={{backgroundColor:'#ECE3F0' }}> */}
         <div className="row">
-          {toggle && (
+          {/* {toggle && (
             <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
               <Sidebar2 Toggle={Toggle} />
             </div>
-          )}
+          )} */}
           {toggle && <div className="col-4 col-md-2"></div>}
           <div className="col">
-            <Navbar2 Toggle={Toggle} />
+            {/* <Navbar2 Toggle={Toggle} /> */}
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Add Staff</h5>
@@ -59,7 +60,7 @@ function AddStaff() {
             </div>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

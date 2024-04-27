@@ -2,7 +2,7 @@ import React, { useState,useEffect,useNavigate } from "react";
 // import { Form, Button } from 'react-bootstrap';
 import Navbar3 from "../Navbar3";
 import './addPatient.css';
-import Sidebar3 from "../Sidebar3";
+import Sidebar3 from "../NurseSidebar/Sidebar3";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -88,16 +88,13 @@ function AddDoctorForm() {
   // },[])
 
   return (
-    <div className="container-fluid  min-vh-100" style={{backgroundColor:'#ECE3F0' }}>
+    <>
+    <Sidebar3 />
       <div className="row">
-        {toggle && (
-          <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-            <Sidebar3 Toggle={Toggle} />
-          </div>
-        )}
+        
         {toggle && <div className="col-4 col-md-2"></div>}
         <div className="col">
-          <Navbar3 Toggle={Toggle} />
+          {/* <Navbar3 Toggle={Toggle} /> */}
 
           <div className="card1">
             <div className="card1-body">
@@ -295,7 +292,7 @@ function AddDoctorForm() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
