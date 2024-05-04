@@ -109,7 +109,7 @@ navigate('/PInfo',{state:{admitId:rowData.admitId,aadhaar:rowData.aadhaar,isLive
         // 'Content-Type': 'multipart/form-data'
       }
       const response = await axios.get(
-          `https://present-neat-mako.ngrok-free.app/his/patient/viewLivePatients?role=${role}&isOP=${isOP}&userId=${userId}`,
+          `${process.env.REACT_APP_SECRET_KEY}/patient/viewLivePatients?role=${role}&isOP=${isOP}&userId=${userId}`,
           // `http://localhost:8090/his/patient/viewLivePatients?role=${role}&isOP=${isOP}&userId=${userId}`,
           // `https://summary-gnu-equally.ngrok-free.app/his/patient/viewLivePatients?role=${role}&isOP=${isOP}&userId=${userId}`,
           {

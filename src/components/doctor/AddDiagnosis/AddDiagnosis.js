@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./addDiagnosis.css"
 import axios from "axios";
@@ -8,17 +8,12 @@ import Sidebar from "../DocSidebar/Sidebar";
 
 
 function AddDiagnosis() {
-  const [toggle, setToggle] = useState(true);
-
-  const Toggle = () => {
-    setToggle(!toggle);
-  };
-  const [diagImage,setDiagImage] = useState(null);
+  const [diagImage, setDiagImage] = useState(null);
 
   const location = useLocation();
   const admitId = location.state.admitId;
-    const aadhaar = location.state.aadhaar;
-    console.log("aadhar received from pinfo",aadhaar)
+  const aadhaar = location.state.aadhaar;
+  console.log("aadhar received from pinfo", aadhaar)
 
   const [formData, setFormData] = useState({
     remarks: "",
@@ -31,6 +26,7 @@ function AddDiagnosis() {
   const [medData, setMedData] = useState({});
   const [newKey, setNewKey] = useState('');
   const [count, setCount] = useState(1);
+
 
   // Function to handle adding a new key-value pair
   const handleAdd = () => {
@@ -67,49 +63,49 @@ function AddDiagnosis() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
-     // If the target field belongs to the medicine object
-  // if (name.startsWith('medicine.')) {
-  //   const medicineField = name.split('.')[1]; // Get the field name within medicine
 
-  //   // Update the medicine object within formData
-  //   setFormData({
-  //     ...formData,
-  //     medicine: {
-  //       ...formData.medicine,
-  //       [medicineField]: value,
-  //     },
-  //   });
-  // }
-   if (name === "profileImage") {
-    setDiagImage(e.target.files[0]);
-  }
-  else if (name === "discharge") {
-    setFormData({
-      ...formData,
-    [name]: parseInt(value, 10),
-    })
-    
-  } else {
-    // If it's not a nested field, update directly
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  }
-    
+    // If the target field belongs to the medicine object
+    // if (name.startsWith('medicine.')) {
+    //   const medicineField = name.split('.')[1]; // Get the field name within medicine
+
+    //   // Update the medicine object within formData
+    //   setFormData({
+    //     ...formData,
+    //     medicine: {
+    //       ...formData.medicine,
+    //       [medicineField]: value,
+    //     },
+    //   });
+    // }
+    if (name === "profileImage") {
+      setDiagImage(e.target.files[0]);
+    }
+    else if (name === "discharge") {
+      setFormData({
+        ...formData,
+        [name]: parseInt(value, 10),
+      })
+
+    } else {
+      // If it's not a nested field, update directly
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+
   };
-  formData["admitId"]=admitId;
-  formData["patientId"]=aadhaar;
-  formData["medicine"]=medData;
-  
-  console.log("see data",JSON.stringify(formData));
+  formData["admitId"] = admitId;
+  formData["patientId"] = aadhaar;
+  formData["medicine"] = medData;
+
+  console.log("see data", JSON.stringify(formData));
 
   const newObject = {
-    file:diagImage,
-    request : JSON.stringify(formData)
+    file: diagImage,
+    request: JSON.stringify(formData)
   }
-  console.log("seee data:",JSON.stringify(newObject));
+  console.log("seee data:", JSON.stringify(newObject));
   // console.log(newObject);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -117,20 +113,20 @@ function AddDiagnosis() {
     try {
       const userId = localStorage.getItem("userId");
       const token = localStorage.getItem("token");
-      const role=localStorage.getItem("role");
-      
+      const role = localStorage.getItem("role");
 
-     
+
+
 
       const headers = {
         Authorization: token,
         "ngrok-skip-browser-warning": "true",
         "Content-Type": "multipart/form-data",
       };
-     
+
 
       const response = await axios.post(
-        `https://present-neat-mako.ngrok-free.app/his/patient/addDiagnosis?role=${role}&userId=${userId}`,
+        `${process.env.REACT_APP_SECRET_KEY}/patient/addDiagnosis?role=${role}&userId=${userId}`,
         // `https://https://summary-gnu-equally.ngrok-free.app/his/patient/addDiagnosis?role=${role}&userId=${userId}`,
         newObject, {
         headers: headers
@@ -141,7 +137,7 @@ function AddDiagnosis() {
       setFormData({
         remarks: "",
         discharge: "",
-   
+
       });
       toast.success("Diagnosis added successfully");
       navigate("/doctor")
@@ -150,7 +146,7 @@ function AddDiagnosis() {
       toast.error("Error adding diagnosis. Please try again.");
     }
   };
- 
+
   const isLoggedIn = localStorage.getItem("isLoggedIn");
   useEffect(() => {
     if (isLoggedIn === null) {
@@ -158,13 +154,13 @@ function AddDiagnosis() {
     }
   }, []);
 
-  
+
   return (
     <>
-    <Sidebar />
+      <Sidebar />
       <div className="row">
-        
-        {toggle && <div className="col-4 col-md-2"></div>}
+
+
         <div className="col">
           {/* <Navbar1 Toggle={Toggle} /> */}
 
@@ -173,7 +169,7 @@ function AddDiagnosis() {
               <h5 className="card1-title">Add New Diagnosis</h5>
               <form onSubmit={handleSubmit}>
                 <div className="row">
-                
+
                   <div className="col mb-3">
                     <label htmlFor="remarks" className="form-label">
                       Remarks
@@ -189,52 +185,52 @@ function AddDiagnosis() {
                   </div>
 
                   <div>
-      <div style={{marginBottom:'10px'}}>
-      <label htmlFor="medicineName" style={{marginRight:'5px'}}>
-          Medicine Name
-        </label>
-        <input
-        id="medicineName"
-          type="text"
-          value={newKey}
-          onChange={(e) => setNewKey(e.target.value)}
-          placeholder="Medicine Name"
-          style={{marginRight:'5px'}}
-        />
-        <label htmlFor="number" style={{marginRight:'5px'}}>
-          Count
-        </label>
-        <input
-        id="number"
-          type="number"
-          value={count}
-          onChange={(e) => setCount(parseInt(e.target.value))}
-          min="1"
-          style={{marginRight:'10px'}}
-        />
-          
-        <button onClick={handleAdd}>+</button>
-      </div>
-      <ul>
-        {Object.entries(medData).map(([key, value]) => (
-          <li key={key} style={{marginBottom:'10px'}}>
-            {key}: {value}
-            <button onClick={() => handleRemove(key)} style={{marginLeft:'10px'}}>-</button>
-            <button onClick={() => handleIncreaseCount(key)} style={{marginLeft:'10px'}}>Increase Count</button>
-          </li>
-        ))}
-      </ul>
-      <div>
-        <h4>Added Medicines:</h4>
-        <ul>
-          {Object.entries(medData).map(([key, value]) => (
-            <li key={key}>
-              {key}: {value}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
+                    <div style={{ marginBottom: '10px' }}>
+                      <label htmlFor="medicineName" style={{ marginRight: '5px' }}>
+                        Medicine Name
+                      </label>
+                      <input
+                        id="medicineName"
+                        type="text"
+                        value={newKey}
+                        onChange={(e) => setNewKey(e.target.value)}
+                        placeholder="Medicine Name"
+                        style={{ marginRight: '5px' }}
+                      />
+                      <label htmlFor="number" style={{ marginRight: '5px' }}>
+                        Count
+                      </label>
+                      <input
+                        id="number"
+                        type="number"
+                        value={count}
+                        onChange={(e) => setCount(parseInt(e.target.value))}
+                        min="1"
+                        style={{ marginRight: '10px' }}
+                      />
+
+                      <button onClick={handleAdd}>+</button>
+                    </div>
+                    <ul>
+                      {Object.entries(medData).map(([key, value]) => (
+                        <li key={key} style={{ marginBottom: '10px' }}>
+                          {key}: {value}
+                          <button onClick={() => handleRemove(key)} style={{ marginLeft: '10px' }}>-</button>
+                          <button onClick={() => handleIncreaseCount(key)} style={{ marginLeft: '10px' }}>Increase Count</button>
+                        </li>
+                      ))}
+                    </ul>
+                    <div>
+                      <h4>Added Medicines:</h4>
+                      <ul>
+                        {Object.entries(medData).map(([key, value]) => (
+                          <li key={key}>
+                            {key}: {value}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
 
                   {/* <div className="row">
                   <label htmlFor="Medicine" className="form-label">
@@ -298,11 +294,11 @@ function AddDiagnosis() {
                       value={formData.profileImage}
                       accept="image/*"
                       onChange={handleChange}
-                      
+
                     />
                   </div>
 
-                  
+
 
                   <button
                     type="submit"

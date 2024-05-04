@@ -13,6 +13,13 @@ export const RecSidebarData = [
         iconClosed: <RiIcons.RiArrowDownSFill />,
         iconOpened: <RiIcons.RiArrowUpSFill />,
     },
+    {
+        title: 'Emergency',
+        path: '/emergency',
+        icon: <AiIcons.AiTwotonePlusSquare  />,
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+    },
     
     {
         title: 'Setting',

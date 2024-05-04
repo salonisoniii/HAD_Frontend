@@ -1,0 +1,30 @@
+.emergency-textarea {
+    width: 50%;
+    height: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 30px;
+    margin-left: 200px;
+  }
+  
+  .emergency-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .emergency-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .error-message {
+    color: red;
+  }
+  .button-container {
+    margin-top: 0px; /* Adjust as needed */
+    margin-left: 300px;
+  }

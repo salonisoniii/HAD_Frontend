@@ -1,23 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-// import Navbar4 from '../Navbar4'
+import React, { useState } from "react";
 import "../Rdashboard/Rdashboard.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Rdashboard() {
   const [patients, setPatients] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [aadharID, setAadharID] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSearch = async (e) => {
-    const query = e.target.value.toLowerCase();
-
-    // setSearchQuery(e.target.value);
+  const handleSearch = async () => {
     let body = {};
-    body["aadhaar"] = searchQuery;
+
+    if (searchQuery.length === 12 && !isNaN(searchQuery)) {
+      body["aadhaar"] = searchQuery;
+    } else {
+      body["firstName"] = firstName;
+      body["lastName"] = lastName;
+    }
 
     try {
-      // const userId = localStorage.getItem('userId');
       const token = localStorage.getItem("token");
       console.log("API Body: " + JSON.stringify(body));
       const response = await axios.post(
@@ -31,33 +36,23 @@ function Rdashboard() {
         }
       );
 
-      // Assuming the response data contains an array of patients matching the search query
       const patientDetails = response.data.response;
       console.log("Resp: " + JSON.stringify(patientDetails));
-      setPatients(patientDetails);
-
-      // if (Array.isArray(patientDetails)) {
-      // } else {
-      //     console.error('Fetched data is not an array:', patientDetails);
-      // }
-      setSearchQuery("");
-
-      // Update the patients state with the fetched patient details
+      setPatients(patientDetails.concat(patients));
+      
     } catch (error) {
-      console.error("Error fetching patient details:", error);
-      // Handle error (e.g., display an error message)
+      console.error("Error fetching patient details:",error );
+      setError("Error fetching patient details. Please try again.");
+      toast.error("Patient details wrong");
     }
+    clearSearchFields();
   };
-  const handleChange = (e) => {
-    setSearchQuery(e.target.value);
+
+  const clearSearchFields = () => {
+    setFirstName("");
+    setLastName("");
+    setAadharID("");
   };
-//   const navigate = useNavigate();
-//   const isLoggedIn = localStorage.getItem("isLoggedIn");
-//   useEffect(() => {
-//     if (isLoggedIn === null) {
-//       navigate("/login");
-//     }
-//   }, []);
 
   return (
     <div className="px-2">
@@ -106,45 +101,54 @@ function Rdashboard() {
             </Link>
           </div>
           <div className="col-md-12 p-1">
+            <div className="search-bar">
+              <input
+                type="text"
+                className="form-control mr-2"
+                placeholder="Search by First Name..."
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+              <input
+                type="text"
+                className="form-control mr-2"
+                placeholder="Search by Last Name..."
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+              <input
+                type="text"
+                className="form-control mr-2"
+                placeholder="Search by Aadhar ID..."
+                pattern="[0-9]*"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="search-btn" onClick={handleSearch}>
+                Search
+              </button>
+            </div>
+          </div>
+          <div className="col-md-12 p-1">
             <table className="table">
               <thead>
                 <tr className="table-primary">
-                  <th colSpan="3">
-                    {" "}
-                    {/* Span across all columns */}
-                    <div className="search-bar">
-                      <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Search by Aadhar ID..."
-                        value={searchQuery}
-                        onChange={handleChange}
-                      />
-                      <button className="search-btn" onClick={handleSearch}>
-                        Search
-                      </button>
-                    </div>
-                  </th>
-                </tr>
-                <tr>
                   <th>#</th>
                   <th>FirstName</th>
                   <th>LastName</th>
                   <th>Aadhar ID</th>
-                  {/* Add other table headers as needed */}
                 </tr>
               </thead>
               <tbody>
-                {/* Loop through the patients array and display each patient */}
-                {patients.map((patient, index) => (
+              {patients.map((patient, index) => (
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{patient.firstName}</td>
                     <td>{patient.lastName}</td>
                     <td>{patient.aadhaar}</td>
-                    {/* Add other table data as needed */}
                   </tr>
                 ))}
+                
               </tbody>
             </table>
           </div>

@@ -491,8 +491,8 @@ import axios from 'axios';
 import 'react-calendar/dist/Calendar.css';
 import './docSchedule.css'; // Ensure CSS is properly linked
 import { toast } from 'react-toastify';
-import Navbar1 from '../Navbar1';
-import Sidebar from '../Sidebar';
+
+import Sidebar from '../DocSidebar/Sidebar';
 
 export default function CalendarEvent() {
   const [toggle, setToggle] = useState(true);
@@ -508,34 +508,34 @@ export default function CalendarEvent() {
   }, []);
 
   const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
 
   const fetchShiftData = async () => {
     try {
       const headers = {
-       
+
         'Authorization': token,
         'ngrok-skip-browser-warning': "true",
-       
+
       }
       const response = await axios.get(
         `${process.env.REACT_APP_SECRET_KEY}/doc/home?userId=` +
-          userId,
+        userId,
         {
           headers: headers,
         }
       );
-      console.log("data of the user",response.data);
+      console.log("data of the user", response.data);
 
       setShiftData(response.data.shift);
-      console.log("shift data is",shiftData);
+      console.log("shift data is", shiftData);
     } catch (error) {
       console.error('Error fetching shift data:', error);
       toast.error("Error fetching shift data")
     }
   };
-  
+
   const getShiftDescription = (shiftValue) => {
     switch (shiftValue) {
       case 0:
@@ -560,31 +560,24 @@ export default function CalendarEvent() {
 
   return (
     <div>
-      <div>
-      <div className='container-fluid min-vh-100'  style={{ backgroundColor: "#ECE3F0" }} >
-        <div className='row'>
-          {toggle && (
-            <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>
-              <Sidebar Toggle={Toggle} />
+      <Sidebar />
+      <div className='row'>
+
+        {toggle && <div className='col-4 col-md-2 '></div>}
+        <div className='col'>
+          {/* <Navbar1 Toggle={Toggle} /> */}
+          <div className="calendar-container">
+            <Calendar
+              onChange={handleDayClick}
+              value={selectedDate}
+            />
+            <div className="shift-info-container">
+              <p><strong>Shift Details for {selectedDate.toLocaleDateString()}:</strong></p>
+              <p>{selectedShiftInfo}</p>
             </div>
-          )}
-          {toggle && <div className='col-4 col-md-2 '></div>}
-          <div className='col'>
-            <Navbar1 Toggle={Toggle} />
-    <div className="calendar-container">
-      <Calendar
-        onChange={handleDayClick}
-        value={selectedDate}
-      />
-      <div className="shift-info-container">
-        <p><strong>Shift Details for {selectedDate.toLocaleDateString()}:</strong></p>
-        <p>{selectedShiftInfo}</p>
-      </div>
-    </div>
-    </div>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

@@ -159,7 +159,7 @@ function AddDoctorForm() {
     blood: "",
     specialization: "",
     experience: "",
-    profileImage: null, // Updated to null
+    profileImage: "", // Updated to null
     address: "",
     role: "",
     birthDate: "",
@@ -194,7 +194,6 @@ function AddDoctorForm() {
       };
 
       const headers = {
-        userId: userId,
         Authorization: token,
         "ngrok-skip-browser-warning": "true",
         "Content-Type": "multipart/form-data",
@@ -202,7 +201,7 @@ function AddDoctorForm() {
       console.log(newuserObj);
 
       const response = await axios.post(
-        `${process.env.REACT_APP_SECRET_KEY}/admin/addUser`,
+        `${process.env.REACT_APP_SECRET_KEY}/admin/addUser?userId=${userId}`,
         newuserObj, {
         headers: headers
       }
@@ -218,7 +217,7 @@ function AddDoctorForm() {
         blood: "",
         specialization: "",
         experience: "",
-        profileImage: null, // Reset the file input
+        profileImage: "", // Reset the file input
         address: "",
         role: "",
         birthDate: "",
@@ -331,7 +330,7 @@ function AddDoctorForm() {
                       Blood Group
                     </label>
                     <select
-                      className="form-control"
+                      className="form-select"
                       id="bloodGroup"
                       name="blood"
                       value={formData.blood}
@@ -401,7 +400,7 @@ function AddDoctorForm() {
                       className="form-control"
                       id="photo"
                       name="profileImage"
-                      value={formData.profileImage}
+                      // value={formData.profileImage}
                       accept="image/*"
                       onChange={handleChange}
                       required

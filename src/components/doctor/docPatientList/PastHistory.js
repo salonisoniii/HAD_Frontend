@@ -40,7 +40,7 @@ export default function PastHistory() {
         'ngrok-skip-browser-warning': "true",
       }
       const response = await axios.get(
-        `https://present-neat-mako.ngrok-free.app/his/patient/pastHistory?role=${role}&userId=${userId}&patientId=${patientId}`,
+        `${process.env.REACT_APP_SECRET_KEY}/patient/pastHistory?role=${role}&userId=${userId}&patientId=${patientId}`,
         {
           headers: headers
         }

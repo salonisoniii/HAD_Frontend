@@ -15,7 +15,7 @@ export const DocSidebarData = [
     },
     {
       title: 'Patient List',
-      path: '/DocPatientList',
+      path: '/DocIPPatientList',
       icon: <IoIcons.IoIosPaper />,
       iconClosed: <RiIcons.RiArrowDownSFill />,
       iconOpened: <RiIcons.RiArrowUpSFill />,

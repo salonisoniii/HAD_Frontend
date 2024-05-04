@@ -38,7 +38,7 @@ function AddNurseForm() {
     bloodGroup: "",
     specialization: "",
     experience: "",
-    photo: "",
+    profileImage: "",
     address: "",
     role: "",
     birthDate: "",
@@ -268,14 +268,14 @@ function AddNurseForm() {
                       />
                     </div>
                     <div className="col-md-6 mb-3">
-                      <label htmlFor="photo" className="form-label">
+                      <label htmlFor="image" className="form-label">
                         Photo
                       </label>
                       <input
                         type="file"
                         className="form-control"
-                        id="photo"
-                        name="photo"
+                        id="image"
+                        name="profileImage"
                         accept="image/*"
                         onChange={handleChange}
                         required

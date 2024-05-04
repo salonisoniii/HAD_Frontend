@@ -22,7 +22,7 @@ function Receptionist() {
       <Sidebar4 />
         <div className='row'>
           
-          {toggle && <div className='col-4 col-md-2'></div>}
+          {/* {toggle && <div className='col-4 col-md-2'></div>} */}
           <div className='col'>
             {/* <Navbar4 Toggle={Toggle}  /> */}
 

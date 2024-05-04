@@ -46,6 +46,7 @@ import ChangePassword from "./components/ChangePassword/ChangePassword";
 import EditProfile from "./components/Admin/EditProfile/EditProfile";
 import DocSchedule from './components/doctor/DocSchedule/DocSchedule';
 import PastHistory from "./components/doctor/docPatientList/PastHistory";
+import Emergency from "./components/Receptionist/Emergency/Emergency";
 
 
 function AdminRoute({ children }) {
@@ -152,23 +153,24 @@ function App() {
           <Route path="/add-receptionist" element={<AdminRoute><AddReceptionist /></AdminRoute>} />
           <Route path="/stafflist" element={<AdminRoute><StaffList Toggle={Toggle} /></AdminRoute>} />
 
-          <Route
-            path="/avail_doctors"
-            element={<AdminRoute><Category role="DOCTOR" Toggle={Toggle} /></AdminRoute>}
+          {/* <Route
+            path="/stafflist/:role"
+            element={<AdminRoute><Category /></AdminRoute>}
           />
+           */}
 
-          <Route
-            path="/avail_nurses"
+          {/* <Route
+            path="/stafflist/:role"
             element={<AdminRoute><Category role="NURSE" Toggle={Toggle} /></AdminRoute>}
           />
           <Route
-            path="/avail_receptionist"
+            path="/stafflist/:role"
             element={<AdminRoute><Category role="RECEPTIONIST" Toggle={Toggle} /></AdminRoute>}
           />
           <Route
-            path="/avail_pharmacist"
+            path="/stafflist/:role"
             element={<AdminRoute><Category role="PHARMACIST" Toggle={Toggle} /></AdminRoute>}
-          />
+          /> */}
 
           <Route path="/deactivate" element={<AdminRoute><Deactivate /></AdminRoute>} />
           <Route path="/ms" element={<AdminRoute><ModifySchedule /></AdminRoute>} />
@@ -184,7 +186,7 @@ function App() {
           <Route path="/AddPatient" element={<NurseRoute><AddPatient /></NurseRoute>} />
           <Route path="/PatientList" element={<NurseRoute><PatientList /></NurseRoute>} />
           <Route path="/NurseSchedule" element={<NurseRoute><NurseSchedule /></NurseRoute>} />
-          <Route path ='/WardAllotment' element={<WardAllotment />} />
+          <Route path ='/WardAllotment' element={<WardAllotment /> } />
           {/* DOCTOR */}
           <Route path="/AddDiag" element={<DoctorRoute><AddDiagnosis /></DoctorRoute>}></Route>
           <Route path="/PInfo" element={<DoctorRoute><PInfo /></DoctorRoute>}></Route>
@@ -199,6 +201,7 @@ function App() {
           {/* Receptionist */}
           <Route path="/newpatient" element={<Newpatient />} />
           <Route path="/RecpPatientList" element={<RecpPatientList />} />
+          <Route path = '/emergency' element={<Emergency/>} />
 
           {/* Change Password */}
           <Route path="/change-password" element={<ChangePassword/>} />

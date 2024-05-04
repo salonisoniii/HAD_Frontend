@@ -40,7 +40,7 @@
     background-color: #0056b3;
 }
 
-.container-fluid-rdashboard {
+/* .container-fluid-rdashboard {
     max-width: 1200px;
     margin: 0 auto;
     margin-left: 10px;
@@ -69,5 +69,84 @@
 
 .table tbody tr:hover {
     background-color: #f2f2f2;
-}
+} */
+
+.container-fluid-rdashboard {
+    margin-top: 10px;
+  }
+  
+  .add-patient-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 0;
+  }
+  
+  .add-patient-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .search-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* .table {
+    width: 90%;
+  }
+  
+  .table thead th {
+    text-align: left;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #e2e2e2;
+  } */
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th, .table td {
+    padding: 8px;
+    border: 1px solid #ddd;
+  }
+  
+  .table thead th {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #ddd;
+  }
+
+  
+  
+  
 
