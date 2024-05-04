@@ -1,105 +1,103 @@
-import format from "date-fns/format";
-import getDay from "date-fns/getDay";
-import parse from "date-fns/parse";
-import startOfWeek from "date-fns/startOfWeek";
-import React, { useState } from "react";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import Calendar from 'react-calendar';
+import axios from 'axios';
+import 'react-calendar/dist/Calendar.css';
+import './nurseSchedule.css'; // Ensure CSS is properly linked
+import { toast } from 'react-toastify';
+import Sidebar3 from '../NurseSidebar/Sidebar3';
+import Navbar3 from '../Navbar3';
+
+export default function NurseSchedule() {
+  const [toggle, setToggle] = useState(true);
+  const Toggle = () => {
+    setToggle(!toggle);
+  };
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [shiftData, setShiftData] = useState(null);
+  const [selectedShiftInfo, setSelectedShiftInfo] = useState("");
+
+  useEffect(() => {
+    fetchShiftData();
+  }, []);
+
+  const userId = localStorage.getItem('userId');
+      const token = localStorage.getItem('token');
 
 
-
-const locales = {
-    "en-US": require("date-fns/locale/en-US"),
-};
-const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales,
-});
-
-const events = [
-    {
-        title: "Big Meeting",
-        allDay: true,
-        start: new Date(2024, 2, 27),
-        end: new Date(2024, 2, 28),
-    },
-    {
-        title: "Vacation",
-        start: new Date(2021, 2, 28),
-        end: new Date(2021, 2, 30),
-    },
-    {
-        title: "Conference",
-        start: new Date(2021, 2, 12),
-        end: new Date(2021, 2, 23),
-    },
-];
-
-function NurseSchedule() {
-    const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
-    const [allEvents, setAllEvents] = useState(events);
-
-    function handleAddEvent() {
-        
-        for (let i=0; i<allEvents.length; i++){
-
-            const d1 = new Date (allEvents[i].start);
-            const d2 = new Date(newEvent.start);
-            const d3 = new Date(allEvents[i].end);
-            const d4 = new Date(newEvent.end);
-      /*
-          console.log(d1 <= d2);
-          console.log(d2 <= d3);
-          console.log(d1 <= d4);
-          console.log(d4 <= d3);
-            */
-
-             if (
-              ( (d1  <= d2) && (d2 <= d3) ) || ( (d1  <= d4) &&
-                (d4 <= d3) )
-              )
-            {   
-                alert("CLASH"); 
-                break;
-             }
-    
-        }
-        
-        
-        setAllEvents([...allEvents, newEvent]);
-    }
-    const navigate = useNavigate();
-    const isLoggedIn=localStorage.getItem('isLoggedIn');
-    useEffect(()=>{
-     
-      if(isLoggedIn===null)
-      {
-      navigate('/login');
+  const fetchShiftData = async () => {
+    try {
+      const headers = {
+       
+        'Authorization': token,
+        'ngrok-skip-browser-warning': "true",
+       
       }
-    },[])
+      const response = await axios.get(
+        `${process.env.REACT_APP_SECRET_KEY}/nurse/home?userId=` +
+          userId,
+        {
+          headers: headers,
+        }
+      );
+      console.log("data of the user",response.data);
 
-    return (
-        <div className="App">
-            {/* <h1>Calendar</h1>
-            <h2>Add New Event</h2> */}
-            {/* <div>
-                <input type="text" placeholder="Add Title" style={{ width: "20%", marginRight: "10px" }} value={newEvent.title} onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })} />
-                <DatePicker placeholderText="Start Date" style={{ marginRight: "10px" }} selected={newEvent.start} onChange={(start) => setNewEvent({ ...newEvent, start })} />
-                <DatePicker placeholderText="End Date" selected={newEvent.end} onChange={(end) => setNewEvent({ ...newEvent, end })} />
-                <button stlye={{ marginTop: "10px" }} onClick={handleAddEvent}>
-                    Add Event
-                </button>
-            </div> */}
-            <Calendar localizer={localizer} events={allEvents} startAccessor="start" endAccessor="end" style={{ height: 500, margin: "50px" }} />
+      setShiftData(response.data.shift);
+      console.log("shift data is",shiftData);
+    } catch (error) {
+      console.error('Error fetching shift data:', error);
+      toast.error("Error fetching shift data")
+    }
+  };
+  
+  const getShiftDescription = (shiftValue) => {
+    switch (shiftValue) {
+      case 0:
+        return "Nurse not available";
+      case 1:
+        return "Available 10 AM - 1 PM";
+      case 2:
+        return "Available 3 PM - 6 PM";
+      case 3:
+        return "Available 6 PM - 9 PM";
+      default:
+        return "No shift data available";
+    }
+  };
+
+  const handleDayClick = (value) => {
+    setSelectedDate(value);
+    const dayOfWeek = value.toLocaleDateString('en-US', { weekday: 'short' }).toLowerCase();
+    const shiftValue = shiftData ? shiftData[dayOfWeek] : null;
+    setSelectedShiftInfo(getShiftDescription(shiftValue));
+  };
+
+  return (
+    <div>
+      <div>
+      <div className='container-fluid min-vh-100'  style={{ backgroundColor: "#ECE3F0" }} >
+        <div className='row'>
+          {toggle && (
+            <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>
+              <Sidebar3 Toggle={Toggle} />
+            </div>
+          )}
+          {toggle && <div className='col-4 col-md-2 '></div>}
+          <div className='col'>
+            <Navbar3 Toggle={Toggle} />
+    <div className="calendar-container">
+      <Calendar
+        onChange={handleDayClick}
+        value={selectedDate}
+      />
+      <div className="shift-info-container">
+        <p><strong>Shift Details for {selectedDate.toLocaleDateString()}:</strong></p>
+        <p>{selectedShiftInfo}</p>
+      </div>
+    </div>
+    </div>
         </div>
-    );
+      </div>
+    </div>
+    </div>
+  );
 }
-
-export default NurseSchedule;

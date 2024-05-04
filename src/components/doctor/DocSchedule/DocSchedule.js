@@ -494,7 +494,7 @@ import { toast } from 'react-toastify';
 
 import Sidebar from '../DocSidebar/Sidebar';
 
-export default function CalendarEvent() {
+export default function DocSchedule() {
   const [toggle, setToggle] = useState(true);
   const Toggle = () => {
     setToggle(!toggle);

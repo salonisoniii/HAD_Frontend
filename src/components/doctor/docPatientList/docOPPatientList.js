@@ -8,7 +8,7 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function DocOPPatientList() {
+export default function DocOPPatientList({emer}) {
 const columns = [
   // {
   //   field: 'id',
@@ -31,12 +31,6 @@ const columns = [
   {
     field: 'aadhaar',
     headerName: 'Aadhaar',
-    width: 150,
-
-  },
-  {
-    field: 'gender',
-    headerName: 'Gender',
     width: 150,
 
   },
@@ -142,7 +136,37 @@ navigate('/PInfo',{state:{admitId:rowData.admitId,aadhaar:rowData.aadhaar,isLive
     } 
   };
    
+ //for emergency case 
+ const [selectedRow, setSelectedRow] = React.useState(null);
+ const [buttonsVisible, setButtonsVisible] = React.useState(true);
 
+ const handleRowClick = (index) => {
+   setSelectedRow(index === selectedRow ? null : index);
+   setButtonsVisible(true);
+ };
+ const handleCancel = (index) =>{
+   setButtonsVisible(false);
+ }
+ const handleOk = async(index,emerId) =>{
+   const userId = localStorage.getItem("userId");
+     const token = localStorage.getItem("token");
+     const role=localStorage.getItem("role");
+     
+     const headers = {
+       Authorization: token,
+       "ngrok-skip-browser-warning": "true",
+       "Content-Type": "multipart/form-data",
+     };
+     const response = await axios.get(
+       `${process.env.REACT_APP_SECRET_KEY}/doc/handleEmergency?userId=${userId}&emerId=${emerId}`,
+      {
+       headers: headers
+     }
+   );
+   window.location.reload();
+ }
+
+//ends here
 
 
 const rows = [
@@ -160,22 +184,83 @@ const rows = [
 const getRowId = (row) => row.aadhaar;
 
   return (
-    <Box sx={{ height: 400, width: '100%' }}>
+    <Box sx={{ display: 'flex', alignItems: 'flex-start', width: '100%', marginTop: '10px',overflowX: 'auto'}}>
+    <Box sx={{ flex: '0 0 80%', width: '100%' }}>
       <DataGrid
         rows={users}
         columns={columns}
         getRowId={getRowId}
+        pageSize={5}
         initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 5,
-            },
-          },
-        }}
-        pageSizeOptions={[5]}
-        // checkboxSelection
-        disableRowSelectionOnClick
+                pagination: {
+                  paginationModel: {
+                    pageSize: 5,
+                  },
+                },
+              }}
+              pageSizeOptions={[5]}
+              // checkboxSelection
+              disableRowSelectionOnClick
       />
     </Box>
+    <Box sx={{ flex: '1', padding: '0 10px', position: 'relative'}}>
+    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%',height:'57px', borderTopLeftRadius:'7px',borderTopRightRadius:'7px', borderBottom: '1px solid #ccc',background:'white' ,display:'flex',alignItems:'center',justifyContent:'center'}}>
+        <p style={{  margin: 0 ,textAlign:'center'}}>Emergency</p>
+      </div>
+      <div style={{ marginTop: '60px' }}> {/* Adjust margin-top as needed */}
+        {emer.map((user, index) => (
+          <div
+            key={index}
+            style={{
+              marginBottom: '10px',
+              borderBottom: '1px solid #ccc',
+              paddingBottom: '10px',
+              position: 'relative',
+              cursor: 'pointer', // To indicate clickable
+            
+            }}
+            onClick={() => handleRowClick(index)}
+          >
+            <p style={{ fontWeight: 'bold', marginBottom: '5px' }}>{user.emerId}</p>
+            <p>{user.remark}</p>
+            {selectedRow === index && buttonsVisible && ( // Render buttons only for the selected row
+              <div style={{ position: 'absolute', bottom: '5px', right: '5px' }}>
+                <button onClick={() => handleCancel(index)}>Cancel</button>
+                <button onClick={() => handleOk(index,user.emerId)}>OK</button>
+              </div>
+            )}
+          </div>
+        ))}
+        </div>
+      </Box>
+  </Box>
+      // <Box sx={{ display: 'flex', alignItems: 'flex-start', width: '100%' ,marginTop:'10px'}}>
+      // <Box sx={{ flex: '0 0 80%', paddingRight: '20px' , width: '100' }}>
+      //   <DataGrid
+      //     rows={users}
+      //     columns={columns}
+      //     getRowId={getRowId}
+      //     initialState={{
+      //       pagination: {
+      //         paginationModel: {
+      //           pageSize: 5,
+      //         },
+      //       },
+      //     }}
+      //     pageSizeOptions={[5]}
+      //     // checkboxSelection
+      //     disableRowSelectionOnClick
+      //   />
+      // </Box>
+      // <Box sx={{ flex: '1' }}>
+      //     {/* Display your array content here */}
+      //     {emer.map((user, index) => (
+      //       <div key={index}>
+      //         <p>{user.emerId}</p>
+      //         <p>{user.remark}</p>
+      //         </div>
+      //     ))}
+      //   </Box>
+      // </Box>
   );
 }

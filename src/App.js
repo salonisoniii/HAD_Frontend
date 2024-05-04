@@ -35,10 +35,12 @@ import Navbar4 from "./components/Receptionist/Navbar4";
 import Rdashboard from "./components/Receptionist/Rdashboard/Rdashboard";
 // import { Button } from 'react-bootstrap';
 import AddPatient from "./Nurse/AddPatient/AddPatient";
-import PatientList from "./Nurse/PatientList/PatientList";
+
 import NurseSchedule from "./Nurse/Nurse Schedule/NurseSchedule";
 import Nurse from "./Nurse/Nurse";
 import WardAllotment from './Nurse/Ward_Allotment/WardAllotment';
+import P_PInfo from "./Nurse/patientInformation/P_PInfo";
+import OnShiftNurse from "./Nurse/PatientList/OnShiftNurse";
 //DOCTOR
 import DocIPPatientList from "./components/doctor/docPatientList/DocIPPatientList";
 import RecpPatientList from "./components/Receptionist/RecpPatientList/RecpPatientList";
@@ -47,6 +49,7 @@ import EditProfile from "./components/Admin/EditProfile/EditProfile";
 import DocSchedule from './components/doctor/DocSchedule/DocSchedule';
 import PastHistory from "./components/doctor/docPatientList/PastHistory";
 import Emergency from "./components/Receptionist/Emergency/Emergency";
+import Help from "./components/Help/Help";
 
 
 function AdminRoute({ children }) {
@@ -136,6 +139,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/help" element={<Help/>}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
           <Route path="/receptionist" element={<Receptionist />}></Route>
@@ -184,9 +188,11 @@ function App() {
           {/* Routes for Nurse */}
           <Route path="/nurse" element={<NurseRoute><Nurse /></NurseRoute>} />
           <Route path="/AddPatient" element={<NurseRoute><AddPatient /></NurseRoute>} />
-          <Route path="/PatientList" element={<NurseRoute><PatientList /></NurseRoute>} />
+          <Route path="/P_PInfo" element={<NurseRoute><P_PInfo></P_PInfo></NurseRoute>} />
+
           <Route path="/NurseSchedule" element={<NurseRoute><NurseSchedule /></NurseRoute>} />
           <Route path ='/WardAllotment' element={<WardAllotment /> } />
+          <Route path="/onShiftNurse" element={<NurseRoute><OnShiftNurse/></NurseRoute>} />
           {/* DOCTOR */}
           <Route path="/AddDiag" element={<DoctorRoute><AddDiagnosis /></DoctorRoute>}></Route>
           <Route path="/PInfo" element={<DoctorRoute><PInfo /></DoctorRoute>}></Route>

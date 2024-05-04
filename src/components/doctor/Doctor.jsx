@@ -20,20 +20,6 @@ export default function Doctor() {
   };
   console.log("isOpen", isOpen);
 
-  // const patients = [
-  //   {
-  //     id: 1,
-  //     name: "John Doe",
-  //     profilePhoto: process.env.PUBLIC_URL + "images/product_100.png",
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Jane Smith",
-  //     profilePhoto: process.env.PUBLIC_URL + "images/product_100.png",
-  //   },
-  //   // Add more patient objects as needed
-  // ];
-
   const [toggle, setToggle] = useState(true);
 
   const Toggle = () => {
@@ -42,6 +28,8 @@ export default function Doctor() {
 
   const [IpCount, setIpCount] = useState(0);
   const [OpCount, setOpCount] = useState(0);
+  const [emer,setEmer] = useState([]);
+
 
   const fetchdoc = async () => {
     try {
@@ -67,6 +55,7 @@ export default function Doctor() {
         if(response.data){
         setOpCount(response.data.opPatient);
         setIpCount(response.data.ipPatient);
+        setEmer(response.data.emergencies);
         }
       } else {
         throw new Error("Failed to fetch data");
@@ -113,7 +102,7 @@ export default function Doctor() {
                 </div>
               </div>
             </div>
-            <DocOPPatientList />
+            <DocOPPatientList emer={emer} />
 
            
           </div>

@@ -42,6 +42,10 @@ function Sidebar({ Toggle }) {
                     <i className='bi bi-receipt fs-5 me-4'></i>
                     <span >Doctor Schedule</span>
                 </Link>
+                <Link to='/help' className='list-group-item py-2'>
+                    <i className='bi bi-receipt fs-5 me-4'></i>
+                    <span >Help & Support</span>
+                </Link>
                 {/* <a className='list-group-item py-2'>
                     <i className='bi bi-gear fs-5 me-4'></i>
                     <span >Setting</span>

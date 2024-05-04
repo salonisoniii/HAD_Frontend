@@ -114,7 +114,7 @@ const DropdownItem = styled.li`
 //     </>
 //   );
 // }
-const Navbar3 = ({ toggleSidebar, handleSignOut }) => {
+const Navbar3 = ({ toggleSidebar, handleSignOut}) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
   const [error, setError] = React.useState(null);

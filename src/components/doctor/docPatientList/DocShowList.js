@@ -37,6 +37,12 @@ const columns = [
     width: 150,
     editable: true,
   },
+  {
+    field: 'wardNo',
+    headerName: 'Ward No.',
+    width: 150,
+    editable: true,
+  },
   
   {
     field: 'view', // Add a field for the button

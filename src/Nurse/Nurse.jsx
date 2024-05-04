@@ -1,119 +1,108 @@
 import React, { useEffect, useState } from "react";
 import Navbar3 from "./Navbar3";
 import Sidebar3 from "./NurseSidebar/Sidebar3";
-import UserData from "./UserData";
-import './userData.css';
-
 import axios from "axios";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
+import NurseIPPatientList from "./PatientList/NurseIPPatientList";
 
 export default function Nurse() {
   const [toggle, setToggle] = useState(true);
+ 
 
   const Toggle = () => {
     setToggle(!toggle);
   };
 
-  const [users, setUsers] = useState([]);
-  const fetchUsers = async () => {
+  const [IpCount, setIpCount] = useState(0);
+  const [OpCount, setOpCount] = useState(0);
+  const [user,setUser] = useState([]);
+
+  const fetchdoc = async () => {
     try {
-      const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
-      const isOP = 0;
-      const role = localStorage.getItem('role');
+      const userId = localStorage.getItem("userId");
+      const token = localStorage.getItem("token");
+
       const headers = {
-        // 'userId': userId,
-        'Authorization': token,
-        'ngrok-skip-browser-warning': "true",
-        // 'Content-Type': 'multipart/form-data'
-      }
+        Authorization: token,
+        "ngrok-skip-browser-warning": "true",
+      };
+
       const response = await axios.get(
-        `${process.env.REACT_APP_SECRET_KEY}/patient/viewLivePatients?role=${role}&isOP=${isOP}&userId=${userId}`,
+        `${process.env.REACT_APP_SECRET_KEY}/nurse/home?userId=${userId}`,
         {
-          headers: headers
+          headers: headers,
         }
       );
+      console.log("data of the user",response.data);
 
-
-
-      console.log("API response of patient list : " + JSON.stringify(response.data))
-
-      // const ans = response.response.map((curUsers) => ({
-
-      // id:curUsers.id,
-      // firstName:curUsers.firstName,
-      // lastName:curUsers.lastName,
-      // gender: curUsers.gender,
-      // DOB: curUsers.birthDate
-      //  setUsers(resp.response);
-      // }));
-      //console.log(ans);
-      setUsers(response.data.response);
-      // setUsers(ans);
-
-
-
+      // Check if response status is successful before setting state
+      if (response.status === 200) {
+        if(response.data){
+          setOpCount(response.data.opPatient);
+          setIpCount(response.data.ipPatient); 
+          setUser(response.data); 
+        }
+        
+      } 
+      else {
+        throw new Error("Failed to fetch data");
+      }
     } catch (error) {
-      console.log("Error", error);
-      toast.error("Error from docInPatient. Please try again.");
+      console.log("Error here", error);
+      toast.error("Error from Doctor. Please try again.");
     }
-
-
-
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, [])
+    fetchdoc();
+  }, []);
+
   return (
-    <> 
-    <Sidebar3 />
-        <div className="row">
+    <div className="container-fluid  min-vh-100" style={{backgroundColor:'#ECE3F0' }}>
+      <div className="row">
+        {toggle && (
+          <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
+            <Sidebar3 Toggle={Toggle}/>
+          </div>
+        )}
+        {toggle && <div className="col-4 col-md-2"></div>}
+        <div className="col">
+          <Navbar3 Toggle={Toggle} firstName={user.detail.firstName} lastName={user.detail.lastName} phone={user.detail.phone}/>
 
-          {toggle && <div className="col-4 col-md-2"></div>}
-          <div className="col">
-            {/* <Navbar3 Toggle={Toggle} /> */}
-
-            <div class='container'>
-              <div class='row'>
-                <div class='col-md my-.5'>
-                  <div class='p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
+            <div class="container" style={{marginBottom:'15px'}}>
+              <div class="row">
+                <div class="col-md my-.5">
+                  <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                     <div>
-                      <h3 class='fs-2'>10</h3>
-                      <p class='fs-5'>Nurse</p>
+                      <h3 class="fs-2">{IpCount}</h3>
+                      <p class="fs-5">In Patient</p>
                     </div>
-                    <i class='bi bi-person-circle p-3 fs-1'></i>
+                    <i class="bi bi-person-circle p-3 fs-1"></i>
                   </div>
                 </div>
-                <div class='col-md my-.5'>
-                  <div class='p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
+                <div class="col-md my-.5">
+                  <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                     <div>
-                      <h3 class='fs-2'>150</h3>
-                      <p class='fs-5'>Patients</p>
+                      <h3 class="fs-2">{OpCount}</h3>
+                      <p class="fs-5">Out Patient</p>
                     </div>
-                    <i class='bi bi-person-circle p-3 fs-1'></i>
+                    <i class="bi bi-person-circle p-3 fs-1"></i>
                   </div>
                 </div>
               </div>
             </div>
+            
+            <NurseIPPatientList />
+           
 
-            <div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>firstName</th>
-                    <th>lastName</th>
-                    {/* <th>Address</th> */}
-                  </tr>
-                </thead>
-
-                <UserData users={users} />
-
-              </table>
-            </div>
+            
           </div>
         </div>
-      </>
+      </div>
+
+      
+        
+        
+    
   );
 }

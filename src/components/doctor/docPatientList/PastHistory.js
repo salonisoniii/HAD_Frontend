@@ -21,7 +21,7 @@ export default function PastHistory() {
     event.preventDefault();
     setSearchValue(searchValue.trim());
     // Call fetchUsers with searchValue as patientId
-    console.log("now the seachVAlue is ", searchValue);
+    console.log("now the searchValue is ",searchValue);
     fetchUsers(searchValue);
 
   };
