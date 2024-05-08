@@ -76,3 +76,72 @@ margin-bottom: 10px;
   flex: 1;
   padding-left: 20px;
 }
+
+/* Category.css */
+
+/* Dialog Container */
+
+
+/* Dialog Title */
+.dialog-title {
+  background-color: #49a2b0;
+  color: #fff;
+  padding: 16px;
+  font-weight: bold;
+}
+
+/* Dialog Content */
+.dialog-content {
+  padding: 24px;
+  width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Dialog Image */
+.dialog-image {
+  width: 120px !important;
+  height: 120px !important;
+  border-radius: 50% !important;
+  margin-left: 20px;
+
+}
+.dialog-content-wrapper {
+  display: flex;
+}
+.dialog-image-container {
+  margin-right: 20px ; /* Adjust the margin as needed */
+  margin-left: -80px;
+  margin-top: 50px;
+  flex: 0 0 auto;
+}
+
+/* Dialog Text */
+.dialog-text {
+  margin-bottom: 10px;
+  font-size: 20px;
+  line-height: 1.5;
+  margin-left: -40px;
+}
+
+/* Dialog Text - Bold */
+.dialog-text-bold {
+  font-weight: bold;
+}
+
+/* Dialog Text - Last */
+.dialog-text-last {
+  margin-bottom: 10px;
+}
+.dialog-text-container {
+  flex: 1;
+  margin-right: 10px;
+  margin-left: 100px;
+  margin-top: 30px;
+}
+/* Dialog Actions */
+.dialog-actions {
+  padding: 16px;
+  display: flex;
+  justify-content: flex-end;
+}

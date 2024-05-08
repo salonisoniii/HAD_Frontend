@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Navbar3 from "./Navbar3";
 import Sidebar3 from "./NurseSidebar/Sidebar3";
 import axios from "axios";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import NurseIPPatientList from "./PatientList/NurseIPPatientList";
 
 export default function Nurse() {
   const [toggle, setToggle] = useState(true);
- 
+
 
   const Toggle = () => {
     setToggle(!toggle);
@@ -15,7 +15,7 @@ export default function Nurse() {
 
   const [IpCount, setIpCount] = useState(0);
   const [OpCount, setOpCount] = useState(0);
-  const [user,setUser] = useState([]);
+  const [user, setUser] = useState([]);
 
   const fetchdoc = async () => {
     try {
@@ -33,17 +33,17 @@ export default function Nurse() {
           headers: headers,
         }
       );
-      console.log("data of the user",response.data);
+      console.log("data of the user", response.data);
 
       // Check if response status is successful before setting state
       if (response.status === 200) {
-        if(response.data){
+        if (response.data) {
           setOpCount(response.data.opPatient);
-          setIpCount(response.data.ipPatient); 
-          setUser(response.data); 
+          setIpCount(response.data.ipPatient);
+          setUser(response.data);
         }
-        
-      } 
+
+      }
       else {
         throw new Error("Failed to fetch data");
       }
@@ -58,51 +58,38 @@ export default function Nurse() {
   }, []);
 
   return (
-    <div className="container-fluid  min-vh-100" style={{backgroundColor:'#ECE3F0' }}>
+    <>
+      <Sidebar3 />
       <div className="row">
-        {toggle && (
-          <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-            <Sidebar3 Toggle={Toggle}/>
-          </div>
-        )}
         {toggle && <div className="col-4 col-md-2"></div>}
         <div className="col">
-          <Navbar3 Toggle={Toggle} firstName={user.detail.firstName} lastName={user.detail.lastName} phone={user.detail.phone}/>
+          {/* <Navbar3 Toggle={Toggle} firstName={user.detail.firstName} lastName={user.detail.lastName} phone={user.detail.phone}/> */}
 
-            <div class="container" style={{marginBottom:'15px'}}>
-              <div class="row">
-                <div class="col-md my-.5">
-                  <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                      <h3 class="fs-2">{IpCount}</h3>
-                      <p class="fs-5">In Patient</p>
-                    </div>
-                    <i class="bi bi-person-circle p-3 fs-1"></i>
+          <div class="container" style={{ marginBottom: '15px' }}>
+            <div class="row">
+              <div class="col-md my-.5">
+                <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                  <div>
+                    <h3 class="fs-2">{IpCount}</h3>
+                    <p class="fs-5">In Patient</p>
                   </div>
+                  <i class="bi bi-person-circle p-3 fs-1"></i>
                 </div>
-                <div class="col-md my-.5">
-                  <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
-                    <div>
-                      <h3 class="fs-2">{OpCount}</h3>
-                      <p class="fs-5">Out Patient</p>
-                    </div>
-                    <i class="bi bi-person-circle p-3 fs-1"></i>
+              </div>
+              <div class="col-md my-.5">
+                <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
+                  <div>
+                    <h3 class="fs-2">{OpCount}</h3>
+                    <p class="fs-5">Out Patient</p>
                   </div>
+                  <i class="bi bi-person-circle p-3 fs-1"></i>
                 </div>
               </div>
             </div>
-            
-            <NurseIPPatientList />
-           
-
-            
           </div>
+          <NurseIPPatientList />
         </div>
       </div>
-
-      
-        
-        
-    
+    </>
   );
 }

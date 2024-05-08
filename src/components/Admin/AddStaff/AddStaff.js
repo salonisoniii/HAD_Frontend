@@ -37,7 +37,7 @@ function AddStaff() {
             <div className="card">
               <div className="card-body">
                 <h5 className="card-title">Add Staff</h5>
-                <div className="button-container">
+                <div className="button-container1">
                   <div className="button-row">
                     <Link to="/add-doctor" className="button">
                       Add Doctor

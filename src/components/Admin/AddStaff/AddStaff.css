@@ -14,7 +14,7 @@
     font-weight: bold;
   }
   
-  .button-container {
+  .button-container1 {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@
     margin-right: 10px; /* Add margin for spacing between buttons */
     text-align: center; /* Align button text in the center */
   }
-  .button-container .button:first-child {
+  .button-container1 .button:first-child {
     margin-right: 50px;
   }
   

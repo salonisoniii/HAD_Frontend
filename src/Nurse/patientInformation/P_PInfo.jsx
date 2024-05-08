@@ -1,18 +1,19 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import {toast} from "react-toastify"
+import { toast } from "react-toastify"
 import Sidebar3 from '../NurseSidebar/Sidebar3';
-import Navbar3 from '../Navbar3';
+
 
 export default function P_PInfo() {
-    const [toggle, setToggle] = useState(true);
-    const location = useLocation();
-    const admitId = location.state.admitId;
-    const aadhaar = location.state.aadhaar;
-    console.log(admitId,aadhaar);
-    
+  const [toggle, setToggle] = useState(true);
+  const location = useLocation();
+  const admitId = location?.state?.admitId;
+  const aadhaar = location?.state?.aadhaar;
+  console.log(admitId, aadhaar);
+  const navigate = useNavigate();
+
 
   const Toggle = () => {
     setToggle(!toggle);
@@ -20,132 +21,120 @@ export default function P_PInfo() {
 
   const [patient, setPatient] = useState({});
   const [diag, setDiag] = useState([]);
-  React.useEffect(()=>
-  {
+  React.useEffect(() => {
     fetchUsers();
-  },[]
-);
+  }, []);
 
 
 
-const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
-      const role = localStorage.getItem('role');
+  const userId = localStorage.getItem('userId');
+  const token = localStorage.getItem('token');
+  const role = localStorage.getItem('role');
 
 
-  const fetchUsers = async() =>{
-    try{
-      
-      const headers = {
-        'Authorization': token,
-        'ngrok-skip-browser-warning': "true",
-      }
-    
-      
-   
+  const fetchUsers = async () => {
+    const headers = {
+      'Authorization': token,
+      'ngrok-skip-browser-warning': "true",
+    }
+    try {
+
       const response = await axios.get(
         `${process.env.REACT_APP_SECRET_KEY}/patient/viewOneLivePatient?role=${role}&admitId=${admitId}&userId=${userId}`,
-           {
+        {
           headers: headers
         }
-        );  
-            console.log("API response of one patient list : "+JSON.stringify(response.data))
+      );
+      console.log("API response of one patient list : " + JSON.stringify(response.data))
 
-           
-            console.log("this is output of oneView Patient",response.data);
-            setPatient(response.data.detail);
-            setDiag(response.data.list);
-            console.log(response.data.list);
-            // setUsers(ans);
-          
 
-       
-    }catch (error) {
+      console.log("this is output of oneView Patient", response.data);
+      setPatient(response.data.detail);
+      setDiag(response.data.list);
+      console.log(response.data.list);
+      // setUsers(ans);
+
+
+
+    } catch (error) {
       console.log("Error", error);
       toast.error("Error from P_Pinfo. Please try again.");
-    } 
+    }
   };
 
   return (
     <div>
-      <div>
-      <div className='container-fluid min-vh-100'  style={{ backgroundColor: "#ECE3F0" }} >
-        <div className='row'>
-          {toggle && (
-            <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>
-              <Sidebar3 Toggle={Toggle} />
+      <Sidebar3 />
+      <div className='row'>
+        <div className='col'>
+          
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '100px' }}>
+            <div>
+              <img src={process.env.PUBLIC_URL + '/images/14.jpg'} alt='profile' style={{ width: '150px', height: '150px', borderRadius: '50%', marginLeft: '100px' }} />
             </div>
-          )}
-          {toggle && <div className='col-4 col-md-2 '></div>}
-          <div className='col'>
-            <Navbar3 Toggle={Toggle} />
-            <div style={{ display: 'flex', alignItems: 'center', marginLeft: '100px' }}>
-  <div>
-    <img src={process.env.PUBLIC_URL + '/images/14.jpg'} alt='profile' style={{ width: '150px', height: '150px', borderRadius: '50%', marginLeft: '100px' }} />
-  </div>
-  <div style={{ marginLeft: '50px' }}>
-    <h3>Patient Information</h3>
-    <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '20px' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
-        <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>First Name:</p>
-        <p>{patient.firstName}</p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
-        <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Last Name:</p>
-        <p>{patient.lastName}</p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
-        <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Address:</p>
-        <p>{patient.address}</p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
-        <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Email:</p>
-        <p>{patient.email}</p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
-        <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Phone:</p>
-        <p>{patient.phone}</p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
-        <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Gender:</p>
-        <p>{patient.gender}</p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
-        <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Date of Birth:</p>
-        <p>{patient.birthDate}</p>
-      </div>
-      <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
-        <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Blood group:</p>
-        <p>{patient.blood}</p>
-      </div>
-    </div>
-  </div>
-</div>
+            <div style={{ marginLeft: '50px' }}>
+              <h3>Patient Information</h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
+                  <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>First Name:</p>
+                  <p>{patient.firstName}</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
+                  <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Last Name:</p>
+                  <p>{patient.lastName}</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
+                  <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Address:</p>
+                  <p>{patient.address}</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
+                  <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Email:</p>
+                  <p>{patient.email}</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
+                  <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Phone:</p>
+                  <p>{patient.phone}</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
+                  <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Gender:</p>
+                  <p>{patient.gender}</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
+                  <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Date of Birth:</p>
+                  <p>{patient.birthDate}</p>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', marginRight: '50px', marginBottom: '10px' }}>
+                  <p style={{ minWidth: '100px', marginBottom: '5px', fontWeight: 'bold' }}>Blood group:</p>
+                  <p>{patient.blood}</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-<div style={{ textAlign: 'center', marginTop: '20px' }}>
-  <h5 style={{ marginBottom: '10px', fontSize: '20px', fontWeight: 'bold' }}>Diagnosis Information</h5>
-  <table style={{ fontSize: '16px', margin: 'auto', borderCollapse: 'collapse', width: '80%', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '8px' }}>
-    <thead style={{ backgroundColor: '#f2f2f2', borderTop: '2px solid #ddd', borderBottom: '2px solid #ddd' }}>
-      <tr style={{ fontSize: '20px', fontWeight: 'bold' }}>
-        <th style={{ padding: '15px', borderRight: '1px solid #ddd' }}>Diagnosis Id</th>
-        <th style={{ padding: '15px' }}>Remarks</th>
-      </tr>
-    </thead>
-    <tbody>
-      {diag.map((diagnosis, index) => (
-        <tr key={diagnosis.diagnosisId} style={{ borderBottom: '1px solid #ddd', backgroundColor: index % 2 === 0 ? '#f9f9f9' : 'transparent' }}>
-          <td style={{ padding: '15px', borderRight: '1px solid #ddd' }}>{diagnosis.diagnosisId}</td>
-          <td style={{ padding: '15px' }}>{diagnosis.remarks}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-</div>
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <h5 style={{ marginBottom: '10px', fontSize: '20px', fontWeight: 'bold' }}>Diagnosis Information</h5>
+            <table style={{ fontSize: '16px', margin: 'auto', borderCollapse: 'collapse', width: '80%', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '8px' }}>
+              <thead style={{ backgroundColor: '#f2f2f2', borderTop: '2px solid #ddd', borderBottom: '2px solid #ddd' }}>
+                <tr style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                  <th style={{ padding: '15px', borderRight: '1px solid #ddd' }}>Diagnosis Id</th>
+                  <th style={{ padding: '15px' }}>Remarks</th>
+                </tr>
+              </thead>
+              <tbody>
+                {diag.map((diagnosis, index) => (
+                  <tr key={diagnosis.diagnosisId} style={{ borderBottom: '1px solid #ddd', backgroundColor: index % 2 === 0 ? '#f9f9f9' : 'transparent' }}>
+                    <td style={{ padding: '15px', borderRight: '1px solid #ddd' }}>{diagnosis.diagnosisId}</td>
+                    <td style={{ padding: '15px' }}>{diagnosis.remarks}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
 
 
 
-            {/* <div style={{position:'relative', display:'inline-flex',alignItems:'center', marginLeft:'100px'}}>
+          {/* <div style={{position:'relative', display:'inline-flex',alignItems:'center', marginLeft:'100px'}}>
               <div>
             <img src={process.env.PUBLIC_URL+'/images/14.jpg'} alt='profile' style={{width:'150px', height:'150px', borderRadius:'50%', marginLeft:'100px'}}/>
             </div>
@@ -213,12 +202,10 @@ const userId = localStorage.getItem('userId');
   </table>
 </div> */}
 
-            
-          </div>
 
         </div>
-        </div>     
-    </div>
+
+      </div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState , useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import p1 from '../Admin/Assets/product_1.jpg'
 import styled from 'styled-components';
@@ -101,10 +101,9 @@ const Navbar4 = ({ toggleSidebar, handleSignOut }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [user, setUser] = React.useState(null);
   const [error, setError] = React.useState(null);
-  
+  const [profileImage,setImageData] = useState(null);
 
   const handleDropdown = async () => {
-    setIsOpen(!isOpen);
     if (!user) {
       try {
         const token = localStorage.getItem('token');
@@ -116,6 +115,7 @@ const Navbar4 = ({ toggleSidebar, handleSignOut }) => {
         };
         const response = await axios.get(`${process.env.REACT_APP_SECRET_KEY}/personalDetails?id=${userId}&role=${role}`, { headers });
         setUser(response.data.response);
+        setImageData(response.data.response.profileImage);
       } catch (error) {
         if (error.response && error.response.status === 403) {
           setError("403 Forbidden: You don't have permission to access this resource.");
@@ -125,9 +125,13 @@ const Navbar4 = ({ toggleSidebar, handleSignOut }) => {
       }
     }
   };
-  // if (!user) {
-  //   return null; // Render nothing or a loading indicator
-  // }
+  const handleProfileClick = () => {
+    setIsOpen(prevState => !prevState);
+  };
+  useEffect(() => {
+    handleDropdown();
+  }, []);
+  
 
   return (
     <Container>
@@ -135,10 +139,14 @@ const Navbar4 = ({ toggleSidebar, handleSignOut }) => {
         <FaIcons.FaBars onClick={toggleSidebar} />
       </NavIcon>
       <div style={{ position: 'relative' }}>
-        <a href="#" onClick={handleDropdown}>
-          <ProfileImage src={p1} alt='profile image' className='profile-image' />
-        </a>
-        {isOpen && (
+      {profileImage && (
+          <ProfileImage
+            src={`data:image/jpeg;base64,${profileImage}`}
+            alt="Profile"
+            onClick={handleProfileClick}
+            className="profile-image"
+          />
+        )} 
           <DropdownMenu isOpen={isOpen}>
             {user && (
               <>
@@ -154,7 +162,6 @@ const Navbar4 = ({ toggleSidebar, handleSignOut }) => {
               <DropdownItem>{error}</DropdownItem>
             )}
           </DropdownMenu>
-        )}
       </div>
     </Container>
   );

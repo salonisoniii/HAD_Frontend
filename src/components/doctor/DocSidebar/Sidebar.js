@@ -102,7 +102,7 @@ const Sidebar = () => {
                  {/* Render the Navbar */}
                 <SidebarNav sidebar2={sidebar}>
                     <SidebarWrap>
-                        <NavIcon to='#'>
+                        <NavIcon>
                             <AiIcons.AiOutlineClose onClick={showSidebar} />
                         </NavIcon>
                         {DocSidebarData.map((item, index) => {

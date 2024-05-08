@@ -5,31 +5,26 @@ import "../Pages/CSS/Category.css";
 import Roles from "../Roles/Roles";
 import Avatar from "@mui/material/Avatar"; // Import Material-UI Avatar
 import Stack from "@mui/material/Stack";
-import doctorFemaleImg from "../Assets/product_2.jpg";
-import doctorMaleImg from "../Assets/product_3.jpg";
-import nurseFemaleImg from '../Assets/product_5.jpg';
-import nurseMaleImg from '../Assets/product_6.jpg'
-import receptionistFemaleImg from '../Assets/product_10.jpg';
-import receptionistmaleImg from '../Assets/product_16.jpg';
-import pmaleImg from '../Assets/product_16.jpg';
-import pFemaleImg from '../Assets/product_16.jpg';
-import Dialog from '../Dialoge/Dialoge'
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import doctorFemaleImg from "../Assets/docf_2.png";
+import doctorMaleImg from "../Assets/doc_1.png";
+import nurseFemaleImg from '../Assets/nur_2.jpg';
+import nurseMaleImg from '../Assets/nur_1.jpg'
+import receptionistFemaleImg from '../Assets/Rec_2.png';
+import receptionistmaleImg from '../Assets/Rec_1.png';
+import pmaleImg from '../Assets/pharm_1.png';
+import pFemaleImg from '../Assets/phar_2.png';
+
 
 function Category({ Toggle = false, role }) {
-  // const { role } = useParams();
-  // const {role} = props;
   const [toggle1, setToggle1] = useState(true);
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true); // State to track loading status
   const [error, setError] = useState(null); // State to track errors
   const [fetched, setFetched] = useState(false);
   const [selectedRole, setSelectedRole] = useState(null);
-  const [showDialog, setShowDialog] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-  const Toggle1 = () => {
-    setToggle1(!toggle1);
-  };
-
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [personalDetails, setPersonalDetails] = useState(null);
+  const [profileImage, setImageData] = useState('');
   useEffect(() => {
     // if (!fetched) {
     fetchData();
@@ -41,7 +36,6 @@ function Category({ Toggle = false, role }) {
   const headers = {
     Authorization: token,
     "ngrok-skip-browser-warning": "true",
-    // "Content-Type": "multipart/form-data",
   };
   const fetchData = async () => {
     try {
@@ -54,19 +48,39 @@ function Category({ Toggle = false, role }) {
       console.log("API Response: " + JSON.stringify(response.data));
       response = response.data;
       setData(response);
-      setLoading(false); // Set loading to false after data is fetched
       console.log("-->" + data);
       setFetched(true);
 
     } catch (error) {
       console.error("Error fetching data:", error);
       setError(error); // Set error state
-      setLoading(false); // Set loading to false
     }
   };
-  const handleRoleClick = (role) => {
+
+  const handleRoleClick = async (role) => {
     setSelectedRole(role);
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_SECRET_KEY}/personalDetails?id=${role.userId}&role=${role.role}`,
+        {
+          headers: headers,
+
+        });
+      // setImageData(response.profileImage);
+      console.log("Personal Details Response: ", response.data);
+      setPersonalDetails(response.data);
+      setImageData(response.data.response.profileImage);
+      setDialogOpen(true);
+    } catch (error) {
+      console.error("Error fetching personal details:", error);
+    }
   };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    // Reset personal details
+    setPersonalDetails(null);
+  };
+
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   useEffect(() => {
@@ -75,9 +89,7 @@ function Category({ Toggle = false, role }) {
       navigate('/login');
     }
   }, [])
-  const closeDialog = () => {
-    setShowDialog(false);
-  };
+
   const roleImages = {
     DOCTOR: {
       MALE: doctorMaleImg,
@@ -91,7 +103,7 @@ function Category({ Toggle = false, role }) {
       MALE: receptionistmaleImg,
       FEMALE: receptionistFemaleImg,
     },
-    PHARMACIST:{
+    PHARMACIST: {
       MALE: pmaleImg,
       FEMALE: pFemaleImg,
     }
@@ -101,16 +113,9 @@ function Category({ Toggle = false, role }) {
     <>
       {/* <Sidebar2 /> */}
       <div className="row">
-
         {toggle1 && <div className="col-4 col-md-2"></div>}
-        {/* <div className="col"> */}
-        {/* <Navbar2 Toggle={Toggle1} />  */}
-
-        {/* console.log('Api response in category.js '+JSON.stringify(data)); */}
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>Error: {error.message}</p>
+        {(error || !fetched) ? (
+          <p>Error: {error?.message || 'Loading...'}</p>
         ) : (
           <div className="item-category">
             <div className="category-details">
@@ -119,19 +124,19 @@ function Category({ Toggle = false, role }) {
                 data[role.toLowerCase()].map((item, i) => (
                   <div className="role-card" key={i}
                     onClick={() => handleRoleClick(item)}>
-                    
+
                     <Stack direction="row" spacing={2} alignItems='center'>
-                    <Avatar
-                          className="avatar"
-                          alt={item.firstName}
-                          src={item.gender === "MALE"
+                      <Avatar
+                        className="avatar"
+                        alt={item.firstName}
+                        src={item.gender === "MALE"
                           ? roleImages[item.role].MALE
                           : roleImages[item.role].FEMALE}
-                          sx={{
-                            width: getAvatarSize(item.role),
-                            height: getAvatarSize(item.role),
-                          }}
-                        />
+                        sx={{
+                          width: getAvatarSize(item.role),
+                          height: getAvatarSize(item.role),
+                        }}
+                      />
                       <div className="text-container">
                         <Roles
                           id={item.id}
@@ -141,8 +146,8 @@ function Category({ Toggle = false, role }) {
                           phone={item.phone}
                         />
                       </div>
-                      </Stack>
-                    </div>
+                    </Stack>
+                  </div>
                 ))
               ) : (
                 <p>No data available</p>
@@ -152,11 +157,34 @@ function Category({ Toggle = false, role }) {
           </div>
         )}
       </div>
-      <Dialog
-        user={selectedUser}
-        onClose={closeDialog}
-        open={showDialog}
-      />
+      <Dialog open={dialogOpen} onClose={handleCloseDialog} className="dialog-container">
+        <DialogTitle className="dialog-title">{selectedRole?.firstName}'s Details</DialogTitle>
+        <DialogContent className="dialog-content">
+          {selectedRole && (
+
+            <div className="dialog-content-wrapper">
+              <div className="dialog-image-container">
+                {profileImage && (
+                  <img
+                    src={`data:image/jpeg;base64,${profileImage}`} alt="Profile" className="dialog-image" style={{ width: '100px', height: '100px', borderRadius: '50%' }} />)}
+              </div>
+              <div className="dialog-text-container">
+                <p className="dialog-text">First Name: {selectedRole.firstName}</p>
+                <p className="dialog-text">Last Name: {selectedRole.lastName}</p>
+                <p className="dialog-text">Email: {selectedRole.email}</p>
+                <p className="dialog-text">Phone: {selectedRole.phone}</p>
+                <p className="dialog-text">Gender: {selectedRole.gender}</p>
+                <p className="dialog-text">Birth Date: {selectedRole.birthDate}</p>
+                <p className="dialog-text">Blood Type: {selectedRole.blood}</p>
+                <p className="dialog-text">Address: {selectedRole.address}</p>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+        <DialogActions className="dialog-actions">
+          <Button onClick={handleCloseDialog}>Close</Button>
+        </DialogActions>
+      </Dialog>
 
     </>
   );

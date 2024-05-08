@@ -187,16 +187,13 @@ const token = localStorage.getItem('token');
   };
 
   return (
-    <div className='container-fluid min-vh-100'  style={{ backgroundColor: "#ECE3F0" }} >
+    <>
+    <Sidebar3 />
         <div className='row'>
-          {toggle && (
-            <div className='col-4 col-md-2 bg-white vh-100 position-fixed'>
-              <Sidebar3 Toggle={Toggle} />
-            </div>
-          )}
-          {toggle && <div className='col-4 col-md-2 '></div>}
+          
+          {/* {toggle && <div className='col-4 col-md-2 '></div>} */}
           <div className='col'>
-            <Navbar3 Toggle={Toggle} />
+            {/* <Navbar3 Toggle={Toggle} /> */}
 
             <div className="container mt-4" style={{width:'60%'}}>
   <h2 className="text-center mb-4">Available Wards</h2>
@@ -308,6 +305,6 @@ const token = localStorage.getItem('token');
     </div>*/}
     </div>
     </div>
-    </div>   
+    </> 
   );
 }

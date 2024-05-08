@@ -1,5 +1,4 @@
 import React,{useState,useEffect} from 'react'
-
 import './Home1.css'
 import Areacharts from '../Charts/Areacharts'
 import Piechart from '../Charts/Piechart'
@@ -9,7 +8,11 @@ import { toast } from "react-toastify";
 
 
 function Home1({ Toggle }) {
-  const [OpCount, setOpCount] = useState(0);
+  const[doctorCount,setDocCount] = useState(0);
+  const[nurseCount,setNurCount] = useState(0);
+  const[recCount,setRecCount] = useState(0);
+  const[pharmaCount,setpharmaCount] = useState(0);
+
     const fetchcount = async () => {
         try {
             const userId = localStorage.getItem("userId");
@@ -21,8 +24,7 @@ function Home1({ Toggle }) {
             };
       
             const response = await axios.get(
-              `${process.env.REACT_APP_SECRET_KEY}/admin/home?userId=` +
-                userId,
+              `${process.env.REACT_APP_SECRET_KEY}/admin/home?userId=${userId}`, 
               {
                 headers: headers,
               }
@@ -30,7 +32,12 @@ function Home1({ Toggle }) {
     //   this api is for testing purpose, now comment it
             // Check if response status is successful before setting state
             if (response.status === 200) {
-              setOpCount(response.data.OpCount);
+                if(response.data){
+                    setDocCount(response.data.count.DOCTOR);
+                    setNurCount(response.data.count.NURSE);
+                    setRecCount(response.data.count.RECEPTIONIST)
+                    setpharmaCount(response.data.count.PHARMACIST);
+                }
               
             } else {
               throw new Error("Failed to fetch data");
@@ -52,7 +59,7 @@ function Home1({ Toggle }) {
                     <div className='col-md-3 p-1'>
                         <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
                             <div>
-                                <h3 className='fs-2'>10</h3>
+                                <h3 className='fs-2'>{doctorCount}</h3>
                                 <p className='fs-5'>Doctor</p>
                             </div>
                             <i className='bi bi-person-circle p-3 fs-1'></i>
@@ -63,7 +70,7 @@ function Home1({ Toggle }) {
                     <div className='col-md-3 p-1'>
                         <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
                             <div>
-                                <h3 className='fs-2'>20</h3>
+                                <h3 className='fs-2'>{nurseCount}</h3>
                                 <p className='fs-5'>Nurse</p>
                             </div>
                             <i className='bi bi-person-fill p-3 fs-1'></i>
@@ -74,7 +81,7 @@ function Home1({ Toggle }) {
                     <div className='col-md-3 p-1'>
                         <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
                             <div>
-                                <h3 className='fs-2'>3</h3>
+                                <h3 className='fs-2'>{recCount}</h3>
                                 <p className='fs-5'>Receptionist</p>
                             </div>
                             <i className='bi bi-person-fill p-3 fs-1'></i>
@@ -85,7 +92,7 @@ function Home1({ Toggle }) {
                     <div className='col-md-3 p-1'>
                         <div className='p-3 bg-white shadow-sm d-flex justify-content-around align-items-center rounded'>
                             <div>
-                                <h3 className='fs-2'>4</h3>
+                                <h3 className='fs-2'>{pharmaCount}</h3>
                                 <p className='fs-5'>Pharmacist</p>
                             </div>
                             <i className='bi bi-graph-up-arrow p-3 fs-1'></i>

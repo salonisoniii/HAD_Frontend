@@ -107,7 +107,7 @@ const Sidebar3 = () => {
                  {/* Render the Navbar */}
                 <SidebarNav sidebar2={sidebar}>
                     <SidebarWrap>
-                        <NavIcon to='#'>
+                        <NavIcon >
                             <AiIcons.AiOutlineClose onClick={showSidebar} />
                         </NavIcon>
                         {NrSidebarData.map((item, index) => {

@@ -7,7 +7,7 @@ import * as RiIcons from 'react-icons/ri';
 export const AdSidebarDeatils = [
   {
     title: 'Home',
-    path: '/',
+    path: '/Admin',
     icon: <AiIcons.AiFillHome />,
     iconClosed: <RiIcons.RiArrowDownSFill />,
     iconOpened: <RiIcons.RiArrowUpSFill />,

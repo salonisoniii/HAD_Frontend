@@ -24,3 +24,16 @@
     font-weight: 500; /* Make the label text bold */
     margin-top: 2px;
   }
+
+  .patient-check {
+    display: flex;
+    align-items: center;
+  }
+  
+  .patient-check .form-check-input {
+    margin-right: 5px; /* Adjust as needed */
+  }
+  
+  .patient-check .form-check-label {
+    margin: 0; /* Remove default margin */
+  }

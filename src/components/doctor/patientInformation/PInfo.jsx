@@ -10,9 +10,9 @@ import { toast } from "react-toastify";
 export default function PInfo() {
   const [toggle, setToggle] = useState(true);
   const location = useLocation();
-  const admitId = location.state.admitId;
-  const aadhaar = location.state.aadhaar;
-  const isLive = location.state.isLive;
+  const admitId = location?.state?.admitId;
+  const aadhaar = location?.state?.aadhaar;
+  const isLive = location?.state?.isLive;
   console.log(admitId, aadhaar);
 
   const Toggle = () => {

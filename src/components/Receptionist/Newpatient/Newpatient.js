@@ -27,6 +27,7 @@ function Newpatient() {
     aadhaar: "",
     address: "",
     remark: "",
+    emerid: "",
   });
 
   function handleBlur(event) {
@@ -104,6 +105,7 @@ function Newpatient() {
         image: "",
         address: "",
         remark: "",
+        emerid: "",
       });
       toast.success("Patient added successfully");
     } catch (error) {
@@ -161,6 +163,20 @@ function Newpatient() {
                     />
                   </div>
                   <div className="col-md-6 mb-3">
+                    <label htmlFor="aadhaar" className="form-label">
+                      Aadhar ID
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="aadhaar"
+                      name="aadhaar"
+                      value={formData.aadhaar}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3">
                     <label htmlFor="email" className="form-label">
                       Email
                     </label>
@@ -190,23 +206,10 @@ function Newpatient() {
                   </div>
                   {/* add classname of birthDate */}
 
-                  <div className="col-md-6 mb-3">
-                    <label htmlFor="aadhaar" className="form-label">
-                      Aadhar ID
-                    </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="aadhaar"
-                      name="aadhaar"
-                      value={formData.aadhaar}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
+                  
                   <div className="col-md-6 mb-3">
                     <label htmlFor="birthDate" className="form-label">
-                      birthDate
+                      BirthDate
                     </label>
                     <input
                       type="date"
@@ -240,15 +243,24 @@ function Newpatient() {
                     <label htmlFor="blood" className="form-label">
                       Blood Group
                     </label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="blood"
+                    <select
+                      className="form-select"
+                      id="bloodGroup"
                       name="blood"
                       value={formData.blood}
                       onChange={handleChange}
                       required
-                    />
+                    >
+                      <option value="">Select BloodGroup</option>
+                      <option value="B+">A+</option>
+                      <option value="B-">A-</option>
+                      <option value="A-">B+</option>
+                      <option value="A+">B-</option>
+                      <option value="AB-">AB-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="O-">O-</option>
+                      <option value="O+">O+</option>
+                    </select>
                   </div>
                   <div className="col-md-6 mb-3">
                     <label htmlFor="remark" className="form-label">
@@ -292,6 +304,19 @@ function Newpatient() {
                     ></textarea>
                   </div>
                   <div className="col-md-6 mb-3">
+                    <label htmlFor="remark" className="form-label">
+                      EmerId(If any)
+                    </label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="remark"
+                      name="remark"
+                      value={formData.remark}
+                      onChange={handleChange}
+                    />
+                  </div>
+                  <div className="col-md-6 mb-3 patient-check">
                     <input
                       type="checkbox"
                       className="form-check-input"
@@ -306,7 +331,6 @@ function Newpatient() {
                       Is New Patient?
                     </label>
                   </div>
-
                   <button type="submit" className="submit-btn">
                     Submit
                   </button>
