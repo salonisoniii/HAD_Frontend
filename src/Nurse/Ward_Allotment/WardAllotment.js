@@ -5,7 +5,7 @@ import './table.css';
 import './ward.css'; 
 import Swal from 'sweetalert2';
 import Sidebar3 from '../NurseSidebar/Sidebar3';
-import Navbar3 from '../Navbar3';
+
 
 export default function Home() {
   const [toggle, setToggle] = useState(true);

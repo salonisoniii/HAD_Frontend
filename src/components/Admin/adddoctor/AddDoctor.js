@@ -200,13 +200,13 @@ function AddDoctorForm() {
       };
       console.log(newuserObj);
 
-      // const response = await axios.post(
-      //   `${process.env.REACT_APP_SECRET_KEY}/admin/addUser?userId=${userId}`,
-      //   newuserObj, {
-      //   headers: headers
-      // }
-      // );
-      // console.log("API Response: " + JSON.stringify(response.data));
+      const response = await axios.post(
+        `${process.env.REACT_APP_SECRET_KEY}/admin/addUser?userId=${userId}`,
+        newuserObj, {
+        headers: headers
+      }
+      );
+      console.log("API Response: " + JSON.stringify(response.data));
 
       setFormData({
         firstName: "",

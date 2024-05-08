@@ -37,7 +37,7 @@ const ChangePassword = () => {
 
         try {
             // Send a POST request to your backend endpoint to change the password
-            const response = await axios.post('${process.env.REACT_APP_SECRET_KEY}/changePassword', {
+            const response = await axios.post(`${process.env.REACT_APP_SECRET_KEY}/changePassword`, {
                 userId: userId,
                 oldPassword:currentPassword,
                 newPassword: newPassword,
@@ -70,6 +70,7 @@ const ChangePassword = () => {
             }
         } catch (error) {
             console.error('Error:', error);
+            setMessage(error.response.data.message);
             setMessage('An error occurred while changing the password.');
         }
     };
