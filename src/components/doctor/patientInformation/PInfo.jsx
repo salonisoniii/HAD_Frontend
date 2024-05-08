@@ -10,11 +10,12 @@ import { toast } from "react-toastify";
 export default function PInfo() {
   const [toggle, setToggle] = useState(true);
   const location = useLocation();
-  const admitId = location?.state?.admitId;
-  const aadhaar = location?.state?.aadhaar;
-  const isLive = location?.state?.isLive;
+  const admitId = location.state ? location.state.admitId : null;
+const aadhaar = location.state ? location.state.aadhaar : null;
+const isLive = location.state ? location.state.isLive : null;
+if (admitId !== null && aadhaar !== null) {
   console.log(admitId, aadhaar);
-
+}
   const Toggle = () => {
     setToggle(!toggle);
   };
@@ -42,6 +43,7 @@ export default function PInfo() {
         // 'Content-Type': 'multipart/form-data'
       };
 
+      if(admitId){
       const response = await axios.get(
         `${process.env.REACT_APP_SECRET_KEY}/patient/getDiagnosisWithAdmitId?role=${role}&admitId=${admitId}&userId=${userId}`,
         // `https://present-neat-mako.ngrok-free.app/his/patient/getDiagnosisWithAdmitId?role=${role}&admitId=${admitId}&userId=${userId}`,
@@ -55,9 +57,16 @@ export default function PInfo() {
 
       console.log("output of this url", response.data.response);
       console.log("output of gdwai", gdwai);
+    } else {
+      console.log("Admit ID is null or undefined. Cannot make the request.");
+    }
     } catch (error) {
-      console.log("Error", error);
-      toast.error("Error from Pinfo. Please try again.");
+      if (admitId) {
+        console.log("Error", error);
+        toast.error("Error from Pinfo. Please try again.");
+      } else {
+        console.log("Admit ID is null or undefined. Cannot make the request.");
+      }
     }
   };
   const fetchUsers = async () => {

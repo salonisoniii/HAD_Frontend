@@ -14,8 +14,15 @@ export const DocSidebarData = [
       iconOpened: <RiIcons.RiArrowUpSFill />,
     },
     {
-      title: 'Patient List',
+      title: 'IP Patient List',
       path: '/DocIPPatientList',
+      icon: <IoIcons.IoIosPaper />,
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
+    },
+    {
+      title: 'PastHistory',
+      path: '/PastHistory',
       icon: <IoIcons.IoIosPaper />,
       iconClosed: <RiIcons.RiArrowDownSFill />,
       iconOpened: <RiIcons.RiArrowUpSFill />,
@@ -26,7 +33,7 @@ export const DocSidebarData = [
       icon: <IoIcons.IoMdPeople />
     },
     {
-      title: 'Setting',
+      title: 'Settings',
       // path: '/setting',
       icon: <FaIcons.FaEnvelopeOpenText />,
   
@@ -44,6 +51,13 @@ export const DocSidebarData = [
             icon: <IoIcons.IoIosPaper />
           }
         ]
+    },
+    {
+      title: 'Help & Support',
+      path: '/help',
+      icon: <IoIcons.IoIosPaper />,
+      iconClosed: <RiIcons.RiArrowDownSFill />,
+      iconOpened: <RiIcons.RiArrowUpSFill />,
     },
     
   ];

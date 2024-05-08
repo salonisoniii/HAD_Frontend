@@ -11,8 +11,8 @@ function AddDiagnosis() {
   const [diagImage, setDiagImage] = useState(null);
 
   const location = useLocation();
-  const admitId = location.state.admitId;
-  const aadhaar = location.state.aadhaar;
+  const admitId = location.state ? location.state.admitId : null;
+const aadhaar = location.state ? location.state.aadhaar : null;
   console.log("aadhar received from pinfo", aadhaar)
 
   const [formData, setFormData] = useState({
@@ -137,6 +137,7 @@ function AddDiagnosis() {
       setFormData({
         remarks: "",
         discharge: "",
+        
 
       });
       toast.success("Diagnosis added successfully");

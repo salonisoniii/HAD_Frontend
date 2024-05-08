@@ -99,6 +99,7 @@ const Navbar1 = ({ toggleSidebar }) => {
   useEffect(() => {
     handleDropdown();
   }, []);
+  const username = localStorage.getItem('username')
 
   return (
     <Container>
@@ -118,10 +119,9 @@ const Navbar1 = ({ toggleSidebar }) => {
           {user && (
             <>
               <DropdownItem><Link to="/profile">{user.firstName}</Link></DropdownItem>
-              <DropdownItem><Link to="/profile">john.doe@example.com</Link></DropdownItem>
+              <DropdownItem><Link to="/profile">{username}</Link></DropdownItem>
               <DropdownItem><Link to="/profile">{user.phone}</Link></DropdownItem>
               <DropdownItem><Link to="/change-password">Change Password</Link></DropdownItem>
-              <DropdownItem><Link to="/settings">Settings</Link></DropdownItem>
               <DropdownItem><Link to="/edit-profile">Edit Profile</Link></DropdownItem>
               <DropdownItem><Link to="/" onClick={handleSignOut}>Sign Out</Link></DropdownItem>
             </>

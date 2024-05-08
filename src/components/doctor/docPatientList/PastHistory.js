@@ -79,13 +79,44 @@ export default function PastHistory() {
 
         {toggle && <div className="col-4 col-md-2"></div>}
         <div className="col">
-          {/* <Navbar1 Toggle={Toggle} /> */}
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '15px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '15px', marginTop:'15px' }}>
+  <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'center' }}>
+    <input 
+      type="text" 
+      placeholder="Search By Aadhaar" 
+      value={searchValue} 
+      onChange={(e) => setSearchValue(e.target.value)} 
+      style={{ 
+        marginRight: '10px', 
+        padding: '8px', 
+        borderRadius: '5px', 
+        border: '1px solid #ccc', 
+        minWidth: '200px' // Adjust width as needed 
+      }} 
+    />
+    <button 
+      type="submit" 
+      style={{ 
+        padding: '8px 15px', 
+        borderRadius: '5px', 
+        backgroundColor: '#007bff', 
+        color: '#fff', 
+        border: 'none', 
+        cursor: 'pointer' 
+      }}
+    >
+      Search
+    </button>
+  </form>
+</div>
+
+
+          {/* <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '15px' }}>
             <form onSubmit={handleSubmit}>
               <input type="text" placeholder="Search By Aadhaar" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
               <button type="submit">Search</button>
             </form>
-          </div>
+          </div> */}
 
 
           <PastHistoryList users={users} forceUpdate={forceUpdate} />

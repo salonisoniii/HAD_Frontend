@@ -541,11 +541,11 @@ export default function DocSchedule() {
       case 0:
         return "Doctor not available";
       case 1:
-        return "Available 10 AM - 1 PM";
+        return "Available 12 AM - 8:59 AM";
       case 2:
-        return "Available 3 PM - 6 PM";
+        return "Available 9 AM - 4:59 PM";
       case 3:
-        return "Available 6 PM - 9 PM";
+        return "Available 5 PM - 11:59 PM";
       default:
         return "No shift data available";
     }
@@ -564,7 +564,7 @@ export default function DocSchedule() {
       <div className='row'>
 
         {toggle && <div className='col-4 col-md-2 '></div>}
-        <div className='col'>
+        <div className='col' style={{marginTop:'15px'}}>
           {/* <Navbar1 Toggle={Toggle} /> */}
           <div className="calendar-container">
             <Calendar

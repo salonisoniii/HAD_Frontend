@@ -1,28 +1,38 @@
-import React, { useState } from 'react';
-import { FaQuestionCircle, FaBook } from 'react-icons/fa';
-import Sidebar from '../doctor/Sidebar';
-import Navbar1 from '../doctor/Navbar1';
+import React, { useState } from "react";
+import { FaQuestionCircle, FaBook } from "react-icons/fa";
+import Sidebar from "../doctor/DocSidebar/Sidebar";
 
 const Help = () => {
-
   const [toggle, setToggle] = useState(true);
 
   const Toggle = () => {
     setToggle(!toggle);
   };
 
-  const [displayContent, setDisplayContent] = useState('');
-  const [query, setQuery] = useState('');
+  const [displayContent, setDisplayContent] = useState("");
+  const [query, setQuery] = useState("");
 
   const faqs = [
-    { question: "How do I reset my password?", answer: "Go to Settings > Account > Reset Password." },
-    { question: "Who do I contact in case of a technical issue?", answer: "Please contact our support team via email histeam40@gmail.com." },
-    { question: "Can I access my patient history online?", answer: "Yes, all patient histories are available under the 'History' section of your profile." }
+    {
+      question: "How do I reset my password?",
+      answer: "Go to Settings > Account > Reset Password.",
+    },
+    {
+      question: "Who do I contact in case of a technical issue?",
+      answer: "Please contact our support team via email histeam40@gmail.com.",
+    },
+    {
+      question: "Can I access my patient history online?",
+      answer:
+        "Yes, all patient histories are available under the 'History' section of your profile.",
+    },
   ];
 
   const userGuidance = {
-    nurse: "As a nurse, ensure to update patient status regularly and check daily schedules through the app.",
-    doctor: "Doctors should verify patient prescriptions in the 'Prescriptions' tab and utilize the consult feature for second opinions."
+    nurse:
+      "As a nurse, ensure to update patient status regularly and check daily schedules through the app.",
+    doctor:
+      "Doctors should verify patient prescriptions in the 'Prescriptions' tab and utilize the consult feature for second opinions.",
   };
 
   const handleFAQClick = () => {
@@ -46,8 +56,16 @@ const Help = () => {
     const guidanceContent = (
       <div className="content-box">
         <h2>User Guidance</h2>
-        <p><strong>Nurse Guidance:</strong><br />{userGuidance.nurse}</p>
-        <p><strong>Doctor Guidance:</strong><br />{userGuidance.doctor}</p>
+        <p>
+          <strong>Nurse Guidance:</strong>
+          <br />
+          {userGuidance.nurse}
+        </p>
+        <p>
+          <strong>Doctor Guidance:</strong>
+          <br />
+          {userGuidance.doctor}
+        </p>
       </div>
     );
     setDisplayContent(guidanceContent);
@@ -58,55 +76,43 @@ const Help = () => {
   };
 
   const handleSubmit = async () => {
-    const userId = localStorage.getItem('userId');
-    const role = localStorage.getItem('role');
+    const userId = localStorage.getItem("userId");
+    const role = localStorage.getItem("role");
     const url = `${process.env.REACT_APP_SECRET_KEY}/helpEmail?userId=${userId}&role=${role}`;
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     try {
       const response = await fetch(url, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
-          'ngrok-skip-browser-warning': 'true',
-          'Authorization': token,
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true",
+          Authorization: token,
         },
-        body: JSON.stringify({ response: query })
+        body: JSON.stringify({ response: query }),
       });
       console.log(query);
 
-      
       if (!response.ok) {
-        throw new Error('Something went wrong with sending the email.');
+        throw new Error("Something went wrong with sending the email.");
       }
-      
+
       const data = await response.json();
-      console.log('Email successfully sent!', data);
-      alert('Email successfully sent!');
+      console.log("Email successfully sent!", data);
+      alert("Email successfully sent!");
     } catch (error) {
-      console.error('Failed to send email:', error);
-      alert('Failed to send email. Please try again later.');
+      console.error("Failed to send email:", error);
+      alert("Failed to send email. Please try again later.");
     }
   };
 
   return (
-    <div
-      className="container-fluid  min-vh-100"
-      style={{ backgroundColor: "#ECE3F0" }}
-    >
+    <>
+      <Sidebar />
       <div className="row">
-        {toggle && (
-          <div className="col-4 col-md-2 bg-white vh-100 position-fixed">
-            <Sidebar Toggle={Toggle} />
-          </div>
-        )}
-        {toggle && <div className="col-4 col-md-2"></div>}
-        <div className="col">
-          <Navbar1 Toggle={Toggle} />
-
-    <div className="background">
-      <style>
-        {`
+        <div className="background">
+          <style>
+            {`
           .background {
             // background: url(https://s7d1.scene7.com/is/image/wbcollab/Health_Background_Nov21) no-repeat center center fixed;
             // background-size: cover;
@@ -163,40 +169,33 @@ const Help = () => {
             margin-top:'10px';
           }
         `}
-      </style>
-      <h1>HELP AND SUPPORT</h1>
-      <div className="container">
-        <input
-          type="text"
-          placeholder="Search in app..."
-        />
-        <div>
-          <button className="button-large" onClick={handleFAQClick}>
-            <FaQuestionCircle /> FAQs
-          </button>
-          <button className="button-large" onClick={handleGuidanceClick}>
-            <FaBook /> User Guidance
-          </button>
+          </style>
+          <h1>HELP AND SUPPORT</h1>
+          <div className="container">
+            <input type="text" placeholder="Search in app..." />
+            <div>
+              <button className="button-large" onClick={handleFAQClick}>
+                <FaQuestionCircle /> FAQs
+              </button>
+              <button className="button-large" onClick={handleGuidanceClick}>
+                <FaBook /> User Guidance
+              </button>
+            </div>
+            <div>{displayContent}</div>
+            <textarea
+              value={query}
+              onChange={handleQueryChange}
+              rows="4"
+              placeholder="Write your query here..."
+            />
+            <button className="button-large" onClick={handleSubmit}>
+              Send Email
+            </button>
+          </div>
         </div>
-        <div>
-          {displayContent}
-        </div>
-        <textarea
-          value={query}
-          onChange={handleQueryChange}
-          rows="4"
-          placeholder="Write your query here..."
-        />
-        <button className="button-large" onClick={handleSubmit}>
-          Send Email
-        </button>
       </div>
-    </div>
-    </div>
-    </div>
-    </div>
+    </>
   );
 };
 
 export default Help;
-

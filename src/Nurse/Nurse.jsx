@@ -58,10 +58,9 @@ export default function Nurse() {
   }, []);
 
   return (
-    <>
+    <div style={{ maxWidth: '100vw',overflow:'hidden' }}>
       <Sidebar3 />
       <div className="row">
-        {toggle && <div className="col-4 col-md-2"></div>}
         <div className="col">
           {/* <Navbar3 Toggle={Toggle} firstName={user.detail.firstName} lastName={user.detail.lastName} phone={user.detail.phone}/> */}
 
@@ -90,6 +89,6 @@ export default function Nurse() {
           <NurseIPPatientList />
         </div>
       </div>
-    </>
+    </div>
   );
 }

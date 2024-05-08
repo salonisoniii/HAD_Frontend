@@ -18,6 +18,7 @@ const Login = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("isLoggedIn");
   localStorage.removeItem("role");
+  localStorage.removeItem("username");
 
 
   // let a="saloni";
@@ -38,6 +39,7 @@ const Login = () => {
             password: password,
           }
         );
+        localStorage.setItem("username",username);
   
         setUsername("");
         setPassword("");
@@ -102,6 +104,11 @@ const Login = () => {
       className="saloni"
       style={{
         backgroundImage: `url(${process.env.PUBLIC_URL}/images/his1.jpg)`,
+        backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+  width: '100%', // Set the width to 100% to fill the entire screen horizontally
+  height: '100vh',
       }}
     >
       <div

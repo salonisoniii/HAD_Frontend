@@ -29,6 +29,7 @@ export default function Doctor() {
   const [IpCount, setIpCount] = useState(0);
   const [OpCount, setOpCount] = useState(0);
   const [emer,setEmer] = useState([]);
+  const [data,setData] = useState({});
 
 
   const fetchdoc = async () => {
@@ -56,6 +57,7 @@ export default function Doctor() {
         setOpCount(response.data.opPatient);
         setIpCount(response.data.ipPatient);
         setEmer(response.data.emergencies);
+        setData(response.data.detail);
         }
       } else {
         throw new Error("Failed to fetch data");
@@ -71,17 +73,26 @@ export default function Doctor() {
     fetchdoc();
   }, []);
 
+  const username = localStorage.getItem('username');
   return (
     <div>
       <Sidebar />
         <div className="row">
-          
+         
           {/* {toggle && <div className="col-4 col-md-2"></div>} */}
-          <div className="col">
+          <div className="col" style={{marginLeft:'230px'}}>
             {/* <Navbar1 Toggle={Toggle} /> */}
 
             <div class="container">
               <div class="row">
+              <div class="col-md my-.5">
+                  <div class="">
+                    <div>
+                      <h3 class="fs-2" style={{display:'flex',justifyContent:'center',marginTop:'20px'}}>Hello {data.firstName}</h3>
+                      {/* <p class="fs-5">{data.firstName}</p> */}
+                    </div>
+                  </div>
+                </div>
                 <div class="col-md my-.5">
                   <div class="p-1 bg-white shadow-sm d-flex justify-content-around align-items-center rounded">
                     <div>
@@ -102,7 +113,9 @@ export default function Doctor() {
                 </div>
               </div>
             </div>
+            <div class="container">
             <DocOPPatientList emer={emer} />
+            </div>
 
            
           </div>

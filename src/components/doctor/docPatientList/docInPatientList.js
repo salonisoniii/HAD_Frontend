@@ -12,31 +12,31 @@ export default function DataGridDemo2() {
 const columns = [
   {
     field: 'id',
-    headerName: 'id',
+    headerName:  <span style={{fontWeight: 'bold'}}>ID</span>,
     width: 150,
 
   },
   {
     field: 'firstName',
-    headerName: 'First name',
+    headerName:  <span style={{fontWeight: 'bold'}}>FIRST NAME</span>,
     width: 150,
 
   },
   {
     field: 'lastName',
-    headerName: 'Last name',
+    headerName:  <span style={{fontWeight: 'bold'}}>LAST NAME</span>,
     width: 150,
 
   },
   {
     field: 'aadhaar',
-    headerName: 'Aadhaar',
+    headerName:  <span style={{fontWeight: 'bold'}}>AADHAAR</span>,
     width: 150,
 
   },
   {
     field: 'gender',
-    headerName: 'Gender',
+    headerName:  <span style={{fontWeight: 'bold'}}>GENDER</span>,
     width: 150,
 
   },
@@ -53,7 +53,7 @@ const columns = [
   // },
   {
     field: 'view', // Add a field for the button
-    headerName: 'view', // Header name for the column
+    headerName: <span style={{fontWeight: 'bold'}}>VIEW</span>, // Header name for the column
     width: 150,
     renderCell: (params) => (
       <Button onClick={() => handleClick(params.row)} variant="contained" color="primary">

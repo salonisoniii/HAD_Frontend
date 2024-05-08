@@ -104,7 +104,7 @@ function EditProfile() {
                                     onChange={(e) => setAddress(e.target.value)}
                                 ></textarea>
                             </div>
-                            <button type="submit" className="btn edit-btn ">Save Changes</button>
+                            <button type="submit" className="btn edit-btn " style={{ backgroundColor: 'green', color: 'white', border: 'none' }}>Save Changes</button>
                         </form>
                         {formError && <div className="alert alert-danger mt-3" role="alert">{formError}</div>}
                         {successMessage && <div className="alert alert-success mt-3" role="alert">{successMessage}</div>}
